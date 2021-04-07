@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:layout_height="wrap_content">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/txttitulonombre"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:fontFamily="@font/poppins_medium"
+            android:text="Nombres Completos"
+            android:textStyle="bold"
+            android:textAlignment="center"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/txttituloacciones"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0" />
+
+
+        <TextView
+            android:id="@+id/txttituloacciones"
+            android:layout_width="70dp"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/poppins_medium"
+            android:text="Acciones"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@+id/txttitulonombre"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/txttitulonombre"
+            app:layout_constraintTop_toTopOf="@+id/txttitulonombre" />
+
+        <TextView
+            android:id="@+id/txtItemNombres"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:textAlignment="center"
+            android:fontFamily="@font/poppins_regular"
+            android:text="Juan Jose Ramirez Lopez"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/txttitulonombre"
+            app:layout_constraintStart_toStartOf="@+id/txttitulonombre"
+            app:layout_constraintTop_toBottomOf="@+id/txttitulonombre"/>
+
+
+        <ImageView
+            android:id="@+id/btnEliminaritem"
+            android:layout_width="30dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="16dp"
+            app:iconTint="#FA0000"
+            android:src="@drawable/trash"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/txttituloacciones"
+            app:layout_constraintStart_toStartOf="@+id/txttituloacciones"
+            app:layout_constraintTop_toBottomOf="@+id/txttituloacciones" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</ScrollView>

@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="Widget.Shrine.Toolbar" parent="TextAppearance.AppCompat">
+        <item name="backgroundColor">#104a38</item>
+    </style>
+</resources>

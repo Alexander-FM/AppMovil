@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/more"
+        android:title="Contáctanos"
+        android:icon="@drawable/shr_more"
+        android:iconTint="@color/white"
+        app:showAsAction="never"/>
+    <item
+        android:id="@+id/contacto"
+        android:title="Acerca de Nostros"
+        app:showAsAction="never"/>
+    <item
+        android:id="@+id/logout"
+        android:title="Cerrar Sesión"
+        app:showAsAction="never"/>
+</menu>

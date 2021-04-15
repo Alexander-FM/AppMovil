@@ -1,6 +1,6 @@
 package com.example.comisariaapp.entity.service;
 
-public class VinculoParteDenunciada {
+public final class VinculoParteDenunciada {
     private int id;
     private String nombre;
 
@@ -11,6 +11,7 @@ public class VinculoParteDenunciada {
     public void setId(int id) {
         this.id = id;
     }
+
 
     public String getNombre() {
         return nombre;

@@ -6,7 +6,7 @@ import android.os.Bundle;
 
 import com.example.comisariaapp.R;
 
-public class ConsultarTramite extends AppCompatActivity {
+public class ConsultarTramiteActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

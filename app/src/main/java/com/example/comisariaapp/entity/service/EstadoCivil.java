@@ -1,6 +1,6 @@
 package com.example.comisariaapp.entity.service;
 
-public class EstadoCivil {
+public final class EstadoCivil {
     private int id;
     private String estadoCivil;
     private boolean estado;
@@ -28,4 +28,6 @@ public class EstadoCivil {
     public void setEstado(boolean estado) {
         this.estado = estado;
     }
+
+
 }

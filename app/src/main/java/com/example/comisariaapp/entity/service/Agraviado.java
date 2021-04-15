@@ -2,79 +2,13 @@ package com.example.comisariaapp.entity.service;
 
 import java.util.Date;
 
-public class Agraviado {
-    private int id;
-    private String nombreAgraviado;
-    private String apellidosAgraviado;
-    private String sexo;
-    private Date fechaNac;
-    private String telefono;
-    private String numeroDoc;
+public final class Agraviado extends Persona{
     private boolean medidaProteccion;
     private String detalleProteccion;
-    private String juzgado;
+    private String Juzgado;
     private Date fechaEmision;
     private String RHD;
-    private TipoIdentificacion tipoIdentificacion;
-    private Distrito distrito;
     private InformacionAdicional informacionAdicional;
-    private String direccionAgraviado;
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public String getNombreAgraviado() {
-        return nombreAgraviado;
-    }
-
-    public void setNombreAgraviado(String nombreAgraviado) {
-        this.nombreAgraviado = nombreAgraviado;
-    }
-
-    public String getApellidosAgraviado() {
-        return apellidosAgraviado;
-    }
-
-    public void setApellidosAgraviado(String apellidosAgraviado) {
-        this.apellidosAgraviado = apellidosAgraviado;
-    }
-
-    public String getSexo() {
-        return sexo;
-    }
-
-    public void setSexo(String sexo) {
-        this.sexo = sexo;
-    }
-
-    public Date getFechaNac() {
-        return fechaNac;
-    }
-
-    public void setFechaNac(Date fechaNac) {
-        this.fechaNac = fechaNac;
-    }
-
-    public String getTelefono() {
-        return telefono;
-    }
-
-    public void setTelefono(String telefono) {
-        this.telefono = telefono;
-    }
-
-    public String getNumeroDoc() {
-        return numeroDoc;
-    }
-
-    public void setNumeroDoc(String numeroDoc) {
-        this.numeroDoc = numeroDoc;
-    }
 
     public boolean isMedidaProteccion() {
         return medidaProteccion;
@@ -93,11 +27,11 @@ public class Agraviado {
     }
 
     public String getJuzgado() {
-        return juzgado;
+        return Juzgado;
     }
 
     public void setJuzgado(String juzgado) {
-        this.juzgado = juzgado;
+        Juzgado = juzgado;
     }
 
     public Date getFechaEmision() {
@@ -116,35 +50,11 @@ public class Agraviado {
         this.RHD = RHD;
     }
 
-    public TipoIdentificacion getTipoIdentificacion() {
-        return tipoIdentificacion;
-    }
-
-    public void setTipoIdentificacion(TipoIdentificacion tipoIdentificacion) {
-        this.tipoIdentificacion = tipoIdentificacion;
-    }
-
-    public Distrito getDistrito() {
-        return distrito;
-    }
-
-    public void setDistrito(Distrito distrito) {
-        this.distrito = distrito;
-    }
-
     public InformacionAdicional getInformacionAdicional() {
         return informacionAdicional;
     }
 
     public void setInformacionAdicional(InformacionAdicional informacionAdicional) {
         this.informacionAdicional = informacionAdicional;
-    }
-
-    public String getDireccionAgraviado() {
-        return direccionAgraviado;
-    }
-
-    public void setDireccionAgraviado(String direccionAgraviado) {
-        this.direccionAgraviado = direccionAgraviado;
     }
 }

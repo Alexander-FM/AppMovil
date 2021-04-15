@@ -13,10 +13,9 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-import com.example.comisariaapp.activity.LoginActivity;
 import com.example.comisariaapp.R;
 import com.example.comisariaapp.activity.RegistrarDenunciaActivity;
-import com.example.comisariaapp.activity.RegistrarTramite;
+import com.example.comisariaapp.activity.RegistrarTramiteActivity;
 import com.example.comisariaapp.communication.MainCommunication;
 import com.example.comisariaapp.entity.GridSeccion;
 
@@ -56,7 +55,7 @@ public class SeccionArrayAdapter extends ArrayAdapter<GridSeccion> {
                     destiny = RegistrarDenunciaActivity.class;
                     break;
                 case 2:
-                    destiny = RegistrarTramite.class;
+                    destiny = RegistrarTramiteActivity.class;
                     break;
                 case 3:
                     break;

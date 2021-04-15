@@ -4,9 +4,9 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
 import com.example.comisariaapp.api.ConfigApi;
-import com.example.comisariaapp.entity.service.Usuario;
 import com.example.comisariaapp.api.UsuarioApi;
 import com.example.comisariaapp.entity.GenericResponse;
+import com.example.comisariaapp.entity.service.Usuario;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -54,7 +54,8 @@ public class UsuarioRepository {
 
             @Override
             public void onFailure(Call<GenericResponse<Usuario>> call, Throwable t) {
-                System.out.println("se ha producido un error alintentar registrarte:" + t.getMessage());
+                System.out.println("se ha producido un error al intentar registrarte:" + t.getMessage());
+                t.printStackTrace();
             }
         });
         return mld;

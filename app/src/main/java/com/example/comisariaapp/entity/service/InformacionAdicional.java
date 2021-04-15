@@ -1,6 +1,6 @@
 package com.example.comisariaapp.entity.service;
 
-public class InformacionAdicional {
+public final class InformacionAdicional {
     private int id;
     private String nombre;
 
@@ -19,5 +19,4 @@ public class InformacionAdicional {
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
-
 }

@@ -1,15 +1,14 @@
 package com.example.comisariaapp.entity.service;
-
 import java.util.Date;
 
-public class Tramite {
+public final class Tramites {
     private int id;
     private String codTramite;
     private Date fechaDenuncia;
     private TipoTramite tipoTramite;
     private boolean estadoTramite;
     private Usuario usuario;
-    private Policia policia;
+    private Policia policia; /*Muchos Trámites puede atender un solo policía*/
 
     public int getId() {
         return id;

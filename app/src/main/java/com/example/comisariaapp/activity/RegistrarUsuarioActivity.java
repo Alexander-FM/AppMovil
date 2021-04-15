@@ -1,7 +1,6 @@
 package com.example.comisariaapp.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.os.Bundle;
@@ -16,9 +15,8 @@ import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.Toast;
 
-import com.example.comisariaapp.DatePickerFragment;
+import com.example.comisariaapp.utils.DatePickerFragment;
 import com.example.comisariaapp.R;
-import com.example.comisariaapp.entity.GenericResponse;
 import com.example.comisariaapp.entity.service.Distrito;
 import com.example.comisariaapp.entity.service.EstadoCivil;
 import com.example.comisariaapp.entity.service.TipoIdentificacion;
@@ -26,7 +24,6 @@ import com.example.comisariaapp.entity.service.Usuario;
 import com.example.comisariaapp.viewmodel.*;
 import com.google.android.material.textfield.TextInputLayout;
 
-import java.sql.Date;
 import java.text.SimpleDateFormat;
 
 public class RegistrarUsuarioActivity extends AppCompatActivity {
@@ -150,8 +147,8 @@ public class RegistrarUsuarioActivity extends AppCompatActivity {
             String fn = edtFechaNacimiento.getText().toString();
             u.setFechaNacimiento(new SimpleDateFormat("dd-MM-yyyy").parse(fn));
             u.setVigencia(true);
-            u.setEmail(edtEmail.getText().toString());
-            u.setContrasenia(edtContraseña.getText().toString());
+            u.setCorreo(edtEmail.getText().toString());
+            u.setContraseña(edtContraseña.getText().toString());
             u.setTipoIdentificacion(new TipoIdentificacion());
             u.getTipoIdentificacion().setId(1);
             u.setDistrito(new Distrito());

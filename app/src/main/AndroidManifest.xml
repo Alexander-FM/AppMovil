@@ -22,8 +22,8 @@
         </activity>
         <activity android:name=".activity.RegistrarDenunciaActivity">
         </activity>
-        <activity android:name=".activity.ConsultarTramite"></activity>
-        <activity android:name=".activity.RegistrarTramite" />
+        <activity android:name=".activity.ConsultarTramiteActivity"></activity>
+        <activity android:name=".activity.RegistrarTramiteActivity" />
         <activity android:name=".activity.RegistrarUsuarioActivity" />
         <activity android:name=".activity.PersonasCarritoActity" />
         <activity android:name=".activity.MenuActivity" />

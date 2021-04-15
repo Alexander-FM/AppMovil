@@ -6,7 +6,7 @@ import androidx.lifecycle.MutableLiveData;
 import com.example.comisariaapp.api.ConfigApi;
 import com.example.comisariaapp.api.TramiteApi;
 import com.example.comisariaapp.entity.GenericResponse;
-import com.example.comisariaapp.entity.service.Tramite;
+import com.example.comisariaapp.entity.service.Tramites;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -27,16 +27,16 @@ public class TramiteRepository {
         return repository;
     }
 
-    public LiveData<GenericResponse<Tramite>> save(Tramite t) {
+    public LiveData<GenericResponse<Tramites>> save(Tramites t) {
         MutableLiveData mld = new MutableLiveData();
-        this.api.save(t).enqueue(new Callback<GenericResponse<Tramite>>() {
+        this.api.save(t).enqueue(new Callback<GenericResponse<Tramites>>() {
             @Override
-            public void onResponse(Call<GenericResponse<Tramite>> call, Response<GenericResponse<Tramite>> response) {
+            public void onResponse(Call<GenericResponse<Tramites>> call, Response<GenericResponse<Tramites>> response) {
                 mld.setValue(response.body());
             }
 
             @Override
-            public void onFailure(Call<GenericResponse<Tramite>> call, Throwable t) {
+            public void onFailure(Call<GenericResponse<Tramites>> call, Throwable t) {
                 System.out.println("error al intentar registrar el Trámite:" + t.getMessage());
             }
         });

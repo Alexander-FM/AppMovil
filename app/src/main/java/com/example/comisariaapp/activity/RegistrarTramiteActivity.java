@@ -5,18 +5,14 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.preference.PreferenceManager;
 
 import android.os.Bundle;
-import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.AutoCompleteTextView;
 import android.widget.Button;
-import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.example.comisariaapp.R;
 import com.example.comisariaapp.entity.service.Policia;
 import com.example.comisariaapp.entity.service.TipoTramite;
-import com.example.comisariaapp.entity.service.Tramite;
+import com.example.comisariaapp.entity.service.Tramites;
 import com.example.comisariaapp.entity.service.Usuario;
 import com.example.comisariaapp.viewmodel.TipoTramiteViewModel;
 import com.example.comisariaapp.viewmodel.TramiteViewModel;
@@ -29,7 +25,7 @@ import java.util.List;
 
 import fr.ganfra.materialspinner.MaterialSpinner;
 
-public class RegistrarTramite extends AppCompatActivity {
+public class RegistrarTramiteActivity extends AppCompatActivity {
     private MaterialSpinner sp_tipoTramite;
     //private Spinner sp_tipoTramite;
     private List<TipoTramite> tiposTramite = new ArrayList<>();
@@ -77,7 +73,7 @@ public class RegistrarTramite extends AppCompatActivity {
     }
 
     private void save() {
-        Tramite t = new Tramite();
+        Tramites t = new Tramites();
         t.setEstadoTramite(false);
         t.setFechaDenuncia(new Date());
         t.setTipoTramite(tiposTramite.get(sp_tipoTramite.getSelectedItemPosition()));

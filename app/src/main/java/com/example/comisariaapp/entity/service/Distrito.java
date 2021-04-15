@@ -1,14 +1,9 @@
 package com.example.comisariaapp.entity.service;
-
-public class Distrito {
+public final class Distrito {
     private int id;
-    /*--------------------------------------------------*/
     private String distrito;
-    /*--------------------------------------------------*/
     private String codigoPostal;
-    /*--------------------------------------------------*/
     private boolean estado;
-    /*-------------------------------------------------*/
     private Provincia provincia;
 
     public int getId() {
@@ -50,4 +45,6 @@ public class Distrito {
     public void setProvincia(Provincia provincia) {
         this.provincia = provincia;
     }
+
+
 }

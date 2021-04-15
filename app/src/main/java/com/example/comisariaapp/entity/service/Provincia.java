@@ -1,12 +1,9 @@
 package com.example.comisariaapp.entity.service;
 
-public class Provincia {
+public final class Provincia {
     private int id;
-    /*-------------------------------------------------*/
     private String provincia;
-    /*-------------------------------------------------*/
     private boolean estado;
-
     private Departamento departamento;
 
     public int getId() {
@@ -40,4 +37,6 @@ public class Provincia {
     public void setDepartamento(Departamento departamento) {
         this.departamento = departamento;
     }
+
+
 }

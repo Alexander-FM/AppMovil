@@ -1,9 +1,9 @@
 package com.example.comisariaapp.api;
 
+import com.example.comisariaapp.utils.DateDeserializer;
 import com.facebook.stetho.okhttp3.StethoInterceptor;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.google.gson.JsonDeserializer;
 
 import java.util.Date;
 import java.util.concurrent.TimeUnit;
@@ -32,8 +32,8 @@ public class ConfigApi {
 
     private static void initClient() {
         Gson gson = new GsonBuilder()
-                .setDateFormat("yyyy-MM-dd'T'HH:mm:ss")
-                .registerTypeAdapter(Date.class, (JsonDeserializer<Date>) (json, typeOfT, context) -> new Date(json.getAsJsonPrimitive().getAsLong()))
+                .setDateFormat("yyyy-MM-dd")
+                .registerTypeAdapter(Date.class, new DateDeserializer())
                 .create();
 
         retrofit = new Retrofit.Builder()

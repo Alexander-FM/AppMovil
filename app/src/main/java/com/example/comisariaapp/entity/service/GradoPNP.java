@@ -1,10 +1,8 @@
 package com.example.comisariaapp.entity.service;
 
-public class GradoPNP {
+public final class GradoPNP {
     private int id;
-    /*---------------------------------*/
     private String nombreGrado;
-    /*---------------------------------*/
     private boolean vigencia;
 
     public int getId() {
@@ -30,4 +28,6 @@ public class GradoPNP {
     public void setVigencia(boolean vigencia) {
         this.vigencia = vigencia;
     }
+
+
 }

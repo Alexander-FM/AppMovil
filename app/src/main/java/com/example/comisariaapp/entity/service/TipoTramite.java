@@ -1,6 +1,5 @@
 package com.example.comisariaapp.entity.service;
-
-public class TipoTramite {
+public final class TipoTramite {
     private int id;
     private String tipoTramite;
     private boolean estado;

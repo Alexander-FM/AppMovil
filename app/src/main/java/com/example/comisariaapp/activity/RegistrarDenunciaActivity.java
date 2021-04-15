@@ -12,16 +12,14 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ArrayAdapter;
-import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.Toast;
 
-import com.example.comisariaapp.DatePickerFragment;
+import com.example.comisariaapp.utils.DatePickerFragment;
 import com.example.comisariaapp.R;
-import com.example.comisariaapp.entity.DenunciaManager;
 import com.example.comisariaapp.entity.service.Agraviado;
 import com.example.comisariaapp.entity.service.Denuncia;
 import com.example.comisariaapp.entity.service.Distrito;
@@ -29,6 +27,7 @@ import com.example.comisariaapp.entity.service.InformacionAdicional;
 import com.example.comisariaapp.entity.service.TipoDenuncia;
 import com.example.comisariaapp.entity.service.Usuario;
 import com.example.comisariaapp.entity.service.VinculoParteDenunciada;
+import com.example.comisariaapp.utils.DenunciaManager;
 import com.example.comisariaapp.viewmodel.DistritoViewModel;
 import com.example.comisariaapp.viewmodel.InformacionAdicionalViewModel;
 import com.example.comisariaapp.viewmodel.TipoDenunciaViewModel;
@@ -189,12 +188,13 @@ public class RegistrarDenunciaActivity extends AppCompatActivity {
                 && edtReferenciaDomicilioReal.getText().toString() != "" && edtHechoDenunciar.getText().toString() != "") {
             a = new Agraviado();
             try {
-                a.setNumeroDoc(edtDoc.getText().toString());
-                a.setNombreAgraviado(edtNombres.getText().toString());
-                a.setApellidosAgraviado(edtApellidos.getText().toString());
-                a.setFechaNac(new SimpleDateFormat("dd-MM-yyyy").parse(edtFechaNacimiento.getText().toString()));
+                a.setNumeroIdentificacion(edtDoc.getText().toString());
+                a.setNombres(edtNombres.getText().toString());
+                a.setApellidoPaterno(edtApellidos.getText().toString());
+                a.setApellidoMaterno("FALTA IMPLEMENTAR");
+                a.setFechaNacimiento(new SimpleDateFormat("dd-MM-yyyy").parse(edtFechaNacimiento.getText().toString()));
                 a.setTelefono(edtCeluarA.getText().toString());
-                a.setDireccionAgraviado(edtReferenciaDomicilioReal.getText().toString());
+                a.setDireccion(edtReferenciaDomicilioReal.getText().toString());
                 a.setRHD(edtHechoDenunciar.getText().toString());
                 int indexDistritoSelected = drop_distritoA.getSelectedItemPosition();
                 a.setDistrito(distritos.get(indexDistritoSelected));
@@ -213,6 +213,8 @@ public class RegistrarDenunciaActivity extends AppCompatActivity {
         } else {
             Toast.makeText(this, "Por favor complete todos los campos 😑", Toast.LENGTH_SHORT).show();
         }
+    }
+    private void guardarDenunciado() {
     }
 
     private void init() {
@@ -241,6 +243,7 @@ public class RegistrarDenunciaActivity extends AppCompatActivity {
 
         btnSaveA = findViewById(R.id.btnSaveA);
         btnSaveA.setOnClickListener(v -> guardarAgraviado());
+        btnSaveD.setOnClickListener(v -> guardarDenunciado());
         //DENUNCIA
         edtLugarHechos = findViewById(R.id.edtDireccionHechos);
         edtReferenciaHechos = findViewById(R.id.edtreferenciahechos);
@@ -297,7 +300,7 @@ public class RegistrarDenunciaActivity extends AppCompatActivity {
         adapterInfAdic.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         drop_infoAdicionalA.setAdapter(adapterInfAdic);
 
-        drop_medidaProteccion.setAdapter(new ArrayAdapter<>(this,  android.R.layout.simple_spinner_dropdown_item, new String[]{
+        drop_medidaProteccion.setAdapter(new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, new String[]{
                 "Sí",
                 "No"
         }));
@@ -389,9 +392,10 @@ public class RegistrarDenunciaActivity extends AppCompatActivity {
             d.setReferenciaDireccion(this.edtReferenciaHechos.getText().toString());
             d.setVinculoParteDenunciada(this.vinculos.get(this.drop_vpd.getSelectedItemPosition()));
             d.setTipoDenuncia(this.tiposDenuncia.get(this.drop_td.getSelectedItemPosition()));
-            DenunciaManager.set(d);
+            DenunciaManager.setDenuncia(d);
+            Toast.makeText(this, "Los datos de la denuncia fueron guardados coorectamente, no olvide llenar los datos de los agraviados y denunciados", Toast.LENGTH_LONG).show();
         } catch (Exception e) {
-            Toast.makeText(this, "se ha producido un error al intentar armar la denuncia:" + e.getMessage(), Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "se ha producido un error al intentar armar la denuncia:" + e.getMessage(), Toast.LENGTH_LONG).show();
         }
     }
 

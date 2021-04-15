@@ -1,12 +1,8 @@
 package com.example.comisariaapp.entity.service;
-
-public class Departamento {
+public final class Departamento {
     private int id;
-    /*------------------------------------------------*/
     private String departamento;
-    /*----------------------------------------------*/
     private String capital;
-    /*-----------------------------------------------*/
     private boolean estado;
 
     public int getId() {
@@ -40,4 +36,6 @@ public class Departamento {
     public void setEstado(boolean estado) {
         this.estado = estado;
     }
+
+
 }

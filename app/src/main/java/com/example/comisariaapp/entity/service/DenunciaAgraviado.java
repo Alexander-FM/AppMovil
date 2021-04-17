@@ -4,7 +4,13 @@ public final class DenunciaAgraviado {
     public int id;
     public Denuncia denuncia;
     public Agraviado agraviado;
+    public DenunciaAgraviado() {
+    }
 
+    public DenunciaAgraviado(Denuncia denuncia, Agraviado agraviado) {
+        this.denuncia = denuncia;
+        this.agraviado = agraviado;
+    }
     public int getId() {
         return id;
     }

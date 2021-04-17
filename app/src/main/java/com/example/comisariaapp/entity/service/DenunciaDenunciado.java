@@ -5,6 +5,14 @@ public final class DenunciaDenunciado {
     public Denuncia denuncia;
     public Denunciado denunciado;
 
+    public DenunciaDenunciado() {
+    }
+
+    public DenunciaDenunciado(Denuncia denuncia, Denunciado denunciado) {
+        this.denuncia = denuncia;
+        this.denunciado = denunciado;
+    }
+
     public int getId() {
         return id;
     }

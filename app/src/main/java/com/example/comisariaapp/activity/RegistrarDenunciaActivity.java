@@ -98,9 +98,9 @@ public class RegistrarDenunciaActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.usuariosagregados:
-                save();
-                startActivity(new Intent(this, PersonasCarritoActity.class));
-                overridePendingTransition(R.anim.above_in, R.anim.above_out);
+                //save();
+                this.startActivity(new Intent(this, PersonasCarritoActity.class));
+                this.overridePendingTransition(R.anim.above_in, R.anim.above_out);
                 break;
         }
         return super.onOptionsItemSelected(item);
@@ -160,7 +160,7 @@ public class RegistrarDenunciaActivity extends AppCompatActivity {
             this.edtFechaNacimiento.setText(strFechaN);
             int indexDistrito = displayAllDistritos.indexOf(us.getDistrito().getDistrito());
             this.drop_distritoA.setSelection(indexDistrito);
-            this.drop_generoA.setSelection(us.getSexo().equals("M") ? 0 : 1);
+            this.drop_generoA.setSelection(us.getSexo().equals("H") ? 1 : 2);
             this.edtReferenciaDomicilioReal.setText(us.getDireccion());
 
         } else {
@@ -205,15 +205,17 @@ public class RegistrarDenunciaActivity extends AppCompatActivity {
                     a.setFechaEmision(new SimpleDateFormat("dd-MM-yyyy").parse(edtFechaEmisionProteccion.getText().toString()));
                     a.setDetalleProteccion(edtDetalleProtección.getText().toString());
                 }
-                DenunciaManager.addAgraviado(a);
+                Toast.makeText(this, DenunciaManager.addAgraviado(a), Toast.LENGTH_SHORT).show();
             } catch (Exception e) {
                 Toast.makeText(this, "Error al intentar crear el objeto Agraviado:" + e.getMessage() + " 😥", Toast.LENGTH_SHORT).show();
+                e.printStackTrace();
             }
-
+            this.clearCamposAgraviado();
         } else {
             Toast.makeText(this, "Por favor complete todos los campos 😑", Toast.LENGTH_SHORT).show();
         }
     }
+
     private void guardarDenunciado() {
     }
 
@@ -243,6 +245,7 @@ public class RegistrarDenunciaActivity extends AppCompatActivity {
 
         btnSaveA = findViewById(R.id.btnSaveA);
         btnSaveA.setOnClickListener(v -> guardarAgraviado());
+        btnSaveD = findViewById(R.id.btnSaveDenunciado);
         btnSaveD.setOnClickListener(v -> guardarDenunciado());
         //DENUNCIA
         edtLugarHechos = findViewById(R.id.edtDireccionHechos);

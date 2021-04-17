@@ -21,6 +21,7 @@ public class PersonasCarritoActity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_personas_carrito_actity);
         this.init();
+        this.initAdapters();
     }
 
     private void init() {
@@ -31,9 +32,10 @@ public class PersonasCarritoActity extends AppCompatActivity {
             overridePendingTransition(R.anim.down_in, R.anim.down_out);
         });
         this.rcvAgraviados = findViewById(R.id.rcvAgraviados);
-        this.rcvAgraviados.setLayoutManager(new GridLayoutManager(this,0));
+        this.rcvAgraviados.setLayoutManager(new GridLayoutManager(this, 1));
     }
-    private void initAdapters(){
+
+    private void initAdapters() {
         this.agraviadosAdapter = new AgraviadoAdapter(DenunciaManager.getDto().getAgraviados());
         this.rcvAgraviados.setAdapter(this.agraviadosAdapter);
     }

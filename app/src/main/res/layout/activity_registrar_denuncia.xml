@@ -87,7 +87,7 @@
                         app:layout_constraintHorizontal_bias="0.0"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintVertical_bias="0.20"
+                        app:layout_constraintVertical_bias="0.16000003"
                         app:startIconDrawable="@drawable/date">
 
                         <com.google.android.material.textfield.TextInputEditText
@@ -122,8 +122,7 @@
                         app:ms_hint="Distrito"
                         app:ms_hintColor="@color/black"
                         app:ms_multiline="false"
-                        app:ms_thickness="1dp"
-                        />
+                        app:ms_thickness="1dp" />
 
                     <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/text_input_direccion_hechos"
@@ -306,7 +305,7 @@
                     <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/text_input_nombresA"
                         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                        android:layout_width="177dp"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
@@ -325,15 +324,16 @@
                     </com.google.android.material.textfield.TextInputLayout>
 
                     <com.google.android.material.textfield.TextInputLayout
-                        android:id="@+id/text_input_apellidosA"
+                        android:id="@+id/txtInputApellidoPaternoAgraviado"
                         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                         android:layout_width="177dp"
                         android:layout_height="wrap_content"
-                        app:layout_constraintBottom_toBottomOf="@+id/text_input_nombresA"
+                        app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintHorizontal_bias="1.0"
-                        app:layout_constraintStart_toEndOf="@+id/text_input_nombresA"
-                        app:layout_constraintTop_toTopOf="@+id/text_input_nombresA"
+                        app:layout_constraintHorizontal_bias="0.0"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/text_input_nombresA"
+                        app:layout_constraintVertical_bias="0.0"
                         app:startIconDrawable="@drawable/ic_baseline_person">
 
                         <com.google.android.material.textfield.TextInputEditText
@@ -341,7 +341,27 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/poppins_medium"
-                            android:hint="Apellidos" />
+                            android:hint="Apellido Paterno" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/txtInputApellidoMaternoAgraviado"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                        android:layout_width="177dp"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintBottom_toBottomOf="@+id/txtInputApellidoPaternoAgraviado"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="1.0"
+                        app:layout_constraintStart_toEndOf="@+id/txtInputApellidoPaternoAgraviado"
+                        app:layout_constraintTop_toTopOf="@+id/txtInputApellidoPaternoAgraviado"
+                        app:startIconDrawable="@drawable/ic_baseline_person">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/edtApellidoMaternoAgraviado"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/poppins_medium"
+                            android:hint="Apellido Materno" />
                     </com.google.android.material.textfield.TextInputLayout>
 
                     <com.google.android.material.textfield.TextInputLayout
@@ -349,12 +369,11 @@
                         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                         android:layout_width="177dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="5dp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="0.0"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/text_input_nombresA"
+                        app:layout_constraintTop_toBottomOf="@+id/txtInputApellidoPaternoAgraviado"
                         app:layout_constraintVertical_bias="0.0"
                         app:startIconDrawable="@drawable/date">
 
@@ -441,7 +460,6 @@
                         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
@@ -554,7 +572,6 @@
                         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="5dp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
@@ -575,7 +592,6 @@
                         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="5dp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
@@ -690,7 +706,7 @@
                     <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/text_input_nombresD"
                         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                        android:layout_width="177dp"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
@@ -709,35 +725,55 @@
                     </com.google.android.material.textfield.TextInputLayout>
 
                     <com.google.android.material.textfield.TextInputLayout
-                        android:id="@+id/text_input_apellidosD"
+                        android:id="@+id/txtInputApellidoPaternoDenunciado"
                         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                         android:layout_width="177dp"
                         android:layout_height="wrap_content"
-                        app:layout_constraintBottom_toBottomOf="@+id/text_input_nombresD"
+                        app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintHorizontal_bias="1.0"
-                        app:layout_constraintStart_toEndOf="@+id/text_input_nombresD"
-                        app:layout_constraintTop_toTopOf="@+id/text_input_nombresD"
+                        app:layout_constraintHorizontal_bias="0.0"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/text_input_nombresD"
+                        app:layout_constraintVertical_bias="0.0"
                         app:startIconDrawable="@drawable/ic_baseline_person">
 
                         <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/edtapellidosD"
+                            android:id="@+id/edtapellidoPaternoD"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/poppins_medium"
-                            android:hint="Apellidos" />
+                            android:hint="Apellido Paterno" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/txtInputApellidoMaternoDenunciado"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                        android:layout_width="177dp"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintBottom_toBottomOf="@+id/txtInputApellidoPaternoDenunciado"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="1.0"
+                        app:layout_constraintStart_toEndOf="@+id/txtInputApellidoPaternoDenunciado"
+                        app:layout_constraintTop_toTopOf="@+id/txtInputApellidoPaternoDenunciado"
+                        app:startIconDrawable="@drawable/ic_baseline_person">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/edtApellidoMaternoDenunciado"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/poppins_medium"
+                            android:hint="Apellido Materno" />
                     </com.google.android.material.textfield.TextInputLayout>
 
                     <fr.ganfra.materialspinner.MaterialSpinner
                         android:id="@+id/dropdown_distritoD"
                         android:layout_width="177dp"
                         android:layout_height="70dp"
-                        android:layout_marginTop="8dp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="0.0"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/text_input_nombresD"
+                        app:layout_constraintTop_toBottomOf="@+id/txtInputApellidoPaternoDenunciado"
                         app:layout_constraintVertical_bias="0.0"
                         app:ms_alignLabels="false"
                         app:ms_arrowColor="@color/colorPrimary"
@@ -848,14 +884,39 @@
                         app:layout_constraintStart_toEndOf="@+id/dropdown_generoD"
                         app:layout_constraintTop_toTopOf="@+id/dropdown_generoD"
                         app:layout_constraintVertical_bias="0.0"
-                        app:startIconDrawable="@drawable/ic_baseline_edit">
+                        app:startIconDrawable="@drawable/date">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/dtpFechaNacimientoDenunciado"
+                            android:layout_width="177dp"
+                            android:layout_height="wrap_content"
+                            android:clickable="false"
+                            android:focusable="false"
+                            android:fontFamily="@font/poppins_medium"
+                            android:hint="Fecha Nacimiento"
+                            android:inputType="date"
+                            android:maxLines="1" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/txtInputDireccionDenunciado"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.0"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/dropdown_generoD"
+                        app:layout_constraintVertical_bias="0.0"
+                        app:startIconDrawable="@drawable/ic_baseline_house">
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/edtDireccionD"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/poppins_medium"
-                            android:hint="Direccion" />
+                            android:hint="Ingresa la dirección de tu casa y/o referencias" />
                     </com.google.android.material.textfield.TextInputLayout>
 
                     <Button
@@ -870,13 +931,9 @@
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="1.0"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/dropdown_generoD" />
-
+                        app:layout_constraintTop_toBottomOf="@+id/txtInputDireccionDenunciado" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
-
             </com.google.android.material.card.MaterialCardView>
-
-
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
 

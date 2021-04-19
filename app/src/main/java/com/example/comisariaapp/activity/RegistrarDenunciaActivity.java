@@ -75,6 +75,13 @@ public class RegistrarDenunciaActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         this.setContentView(R.layout.activity_registrar_denuncia);
 
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        toolbar.setNavigationIcon(R.drawable.atras);
+        toolbar.setNavigationOnClickListener(v -> {//Reemplazo con lamba
+            startActivity(new Intent(getApplicationContext(), MenuActivity.class));
+            overridePendingTransition(R.anim.rigth_in, R.anim.rigth_out);
+        });
+
         ViewModelProvider vmp = new ViewModelProvider(this);
         this.distritoViewModel = vmp.get(DistritoViewModel.class);
         this.vpdViewModel = vmp.get(VinculoParteDenunciadaViewModel.class);
@@ -83,7 +90,6 @@ public class RegistrarDenunciaActivity extends AppCompatActivity {
         this.init();
         this.initAdapters();
         this.loadData();
-        Toolbar toolbar = findViewById(R.id.toolbar);
         this.setSupportActionBar(toolbar);
     }
 
@@ -278,11 +284,12 @@ public class RegistrarDenunciaActivity extends AppCompatActivity {
         drop_td.setAdapter(adapterTd);
 
         //
-        drop_tipoIdentificacion.setAdapter(new ArrayAdapter<>(this,
-                android.R.layout.simple_spinner_dropdown_item, new String[]{
+        drop_tipoIdentificacion.setAdapter(new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, new String[]{
                 "Natural",
                 "Jurídica"
         }));
+
+
         adapterAllDistritos = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, displayAllDistritos);
         adapterAllDistritos.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         drop_distritoA.setAdapter(adapterAllDistritos);
@@ -364,12 +371,12 @@ public class RegistrarDenunciaActivity extends AppCompatActivity {
                 adapterInfAdic.notifyDataSetChanged();
             }
         });
-        drop_tipoIdentificacion.setAdapter(new ArrayAdapter<>(this,
-                R.layout.dropdown_item, new String[]{
+
+        drop_tipoIdentificacion.setAdapter(new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, new String[]{
                 "Natural",
                 "Jurídica"
         }));
-        drop_medidaProteccion.setAdapter(new ArrayAdapter<>(this, R.layout.dropdown_item, new String[]{
+        drop_medidaProteccion.setAdapter(new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, new String[]{
                 "Si",
                 "No"
         }));

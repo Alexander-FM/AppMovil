@@ -8,9 +8,12 @@ import androidx.preference.PreferenceManager;
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -18,6 +21,9 @@ import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.Toast;
 
+import com.example.comisariaapp.entity.service.Denunciado;
+import com.example.comisariaapp.entity.service.EstadoCivil;
+import com.example.comisariaapp.entity.service.TipoIdentificacion;
 import com.example.comisariaapp.utils.DatePickerFragment;
 import com.example.comisariaapp.R;
 import com.example.comisariaapp.entity.service.Agraviado;
@@ -54,13 +60,19 @@ public class RegistrarDenunciaActivity extends AppCompatActivity {
     private InformacionAdicionalViewModel infoAdicViewModel;
     //CON RESPECTO A LOS DATOS DE LA DENUNCIA
     private EditText edtFechaHechos, edtLugarHechos, edtReferenciaHechos;
-    private MaterialSpinner drop_distrito, drop_vpd, drop_td;
-    //CON RESPECTO A LOS DATOS DEL USUARIO O AGRAVIADO
+    private MaterialSpinner drop_distritoD, drop_vpd, drop_td;
+    //CON RESPECTO A LOS DATOS DEL AGRAVIADO
     private CheckBox mismaPersona;
-    public MaterialSpinner drop_tipoIdentificacion, drop_generoA, drop_generoD, drop_distritoA, drop_infoAdicionalA, drop_infoAdicionalD, drop_medidaProteccion, drop_Juzgado;
-    private EditText edtDoc, edtApellidos, edtNombres, edtFechaNacimiento, edtFechaEmisionProteccion, edtDistritoAgraviado, edtCeluarA, edtCelularD, edtReferenciaDomicilioReal, edtHechoDenunciar, edtDetalleProtección;
+    public MaterialSpinner drop_tipoIdentificacionA, drop_generoA, drop_distritoA, drop_infoAdicionalA, drop_medidaProteccion, drop_Juzgado;
+    private EditText edtDocA, edtApellidoPaternoA, edtApellidoMaternoA, edtNombresA, edtFechaNacimientoA, edtCeluarA, edtReferenciaDomicilioReal, edtHechoDenunciar,
+            edtFechaEmisionProteccion, edtDetalleProtección;
+
+    //CON RESPECTO A LOS DATOS DEL DENUNCIADO
+    private MaterialSpinner sp_TipoIdentificacionD, sp_DistritoDenunciado, sp_EstadoCivilD, sp_InfoAdicionalD, drop_GeneroD, dtp_FechaNacD;
+
+    private EditText edt_DocD, edt_NombresD, edt_ApellidoPaternoD, edt_ApellidoMaternoD, edt_FechaNacimientoD, edt_CelularD, edt_DireccionD;
+
     private Button btnSaveA, btnSaveD;
-    private RadioButton rbMasculino, rbFemenino;
 
     private List<Distrito> distritos = new ArrayList<>(), allDistritos = new ArrayList<>();
     private List<VinculoParteDenunciada> vinculos = new ArrayList<>();
@@ -71,8 +83,16 @@ public class RegistrarDenunciaActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         super.onCreate(savedInstanceState);
         this.setContentView(R.layout.activity_registrar_denuncia);
+
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        toolbar.setNavigationIcon(R.drawable.atras);
+        toolbar.setNavigationOnClickListener(v -> {//Reemplazo con lamba
+            startActivity(new Intent(getApplicationContext(), MenuActivity.class));
+            overridePendingTransition(R.anim.rigth_in, R.anim.rigth_out);
+        });
 
         ViewModelProvider vmp = new ViewModelProvider(this);
         this.distritoViewModel = vmp.get(DistritoViewModel.class);
@@ -82,7 +102,6 @@ public class RegistrarDenunciaActivity extends AppCompatActivity {
         this.init();
         this.initAdapters();
         this.loadData();
-        Toolbar toolbar = findViewById(R.id.toolbar);
         this.setSupportActionBar(toolbar);
     }
 
@@ -107,11 +126,12 @@ public class RegistrarDenunciaActivity extends AppCompatActivity {
     }
 
     private void cambiarEstadoCampos(boolean b) {
-        drop_tipoIdentificacion.setEnabled(b);
-        edtDoc.setEnabled(b);
-        edtNombres.setEnabled(b);
-        edtApellidos.setEnabled(b);
-        edtFechaNacimiento.setEnabled(b);
+        drop_tipoIdentificacionA.setEnabled(b);
+        edtDocA.setEnabled(b);
+        edtNombresA.setEnabled(b);
+        edtApellidoPaternoA.setEnabled(b);
+        edtApellidoMaternoA.setEnabled(b);
+        edtFechaNacimientoA.setEnabled(b);
         //drop_distritoA.setEnabled(b);
         drop_generoA.setEnabled(b);
         if (b) {
@@ -125,9 +145,7 @@ public class RegistrarDenunciaActivity extends AppCompatActivity {
         drop_Juzgado.setEnabled(b);
         edtFechaEmisionProteccion.setEnabled(b);
         edtDetalleProtección.setEnabled(b);
-        //edtCeluarA.setEnabled(b);
         edtReferenciaDomicilioReal.setEnabled(b);
-        drop_infoAdicionalA.setEnabled(b);
         if (b == false) {
             drop_Juzgado.setSelection(0);
             edtDetalleProtección.setText("");
@@ -143,10 +161,11 @@ public class RegistrarDenunciaActivity extends AppCompatActivity {
         String strU = preferences.getString("UsuarioJson", "");
         if (!strU.equals("")) {
             Usuario us = g.fromJson(strU, Usuario.class);
-            this.drop_tipoIdentificacion.setSelection(us.getTipoIdentificacion().getId() == 1 ? 0 : 1);
-            this.edtDoc.setText(us.getNumeroIdentificacion());
-            this.edtNombres.setText(us.getNombres());
-            this.edtApellidos.setText(us.getApellidoPaterno() + " " + us.getApellidoMaterno());
+            this.drop_tipoIdentificacionA.setSelection((us.getTipoIdentificacion().getId() == 1 ? 0 : 1) + 1);
+            this.edtDocA.setText(us.getNumeroIdentificacion());
+            this.edtNombresA.setText(us.getNombres());
+            this.edtApellidoPaternoA.setText(us.getApellidoPaterno());
+            this.edtApellidoMaternoA.setText(us.getApellidoMaterno());
             String strFechaN;
             if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
                 LocalDate ldate = Instant.ofEpochMilli(us.getFechaNacimiento().getTime()).atZone(ZoneId.systemDefault()).toLocalDate();
@@ -157,11 +176,12 @@ public class RegistrarDenunciaActivity extends AppCompatActivity {
                 c.setTime(d);
                 strFechaN = c.get(Calendar.DAY_OF_MONTH) + "-" + (c.get(Calendar.MONTH) + 1) + "-" + c.get(Calendar.YEAR);
             }
-            this.edtFechaNacimiento.setText(strFechaN);
+            this.edtFechaNacimientoA.setText(strFechaN);
             int indexDistrito = displayAllDistritos.indexOf(us.getDistrito().getDistrito());
-            this.drop_distritoA.setSelection(indexDistrito);
+            this.drop_distritoA.setSelection(indexDistrito + 1);
             this.drop_generoA.setSelection(us.getSexo().equals("H") ? 1 : 2);
             this.edtReferenciaDomicilioReal.setText(us.getDireccion());
+            this.edtCeluarA.setText(us.getTelefono());
 
         } else {
             Toast.makeText(this, "No se pudo recuperar los datos de la seccion actual 😟,por favor reinice la aplicación y vuelva a intentarlo en unos minutos ⚙⚙⚙", Toast.LENGTH_LONG).show();
@@ -170,35 +190,43 @@ public class RegistrarDenunciaActivity extends AppCompatActivity {
     }
 
     private void clearCamposAgraviado() {
-        drop_tipoIdentificacion.setSelection(0);
-        edtDoc.setText("");
-        edtNombres.setText("");
-        edtApellidos.setText("");
-        edtFechaNacimiento.setText("");
+        this.mismaPersona.setChecked(false);
+        /*drop_tipoIdentificacionA.setSelection(0);
+        edtDocA.setText("");
+        edtNombresA.setText("");
+        edtApellidoPaternoA.setText("");
+        edtApellidoMaternoA.setText("");
+        edtFechaNacimientoA.setText("");
         drop_distritoA.setSelection(0);
         drop_generoA.setSelection(0);
         edtCeluarA.setText("");
-        edtReferenciaDomicilioReal.setText("");
+        edtReferenciaDomicilioReal.setText("");*/
+
     }
 
     private void guardarAgraviado() {
         Agraviado a;
-        if (edtDoc.getText().toString() != "" && edtNombres.getText().toString() != "" && edtApellidos.getText().toString() != ""
-                && edtFechaNacimiento.getText().toString() != "" && edtCeluarA.getText().toString() != ""
-                && edtReferenciaDomicilioReal.getText().toString() != "" && edtHechoDenunciar.getText().toString() != "") {
+        if (edtDocA.getText().toString().equals("") && edtNombresA.getText().toString().equals("") && edtApellidoPaternoA.getText().toString().equals("") && edtApellidoMaternoA.getText().toString().equals("")
+                && drop_tipoIdentificacionA.getSelectedItemPosition() != -1
+                && edtFechaNacimientoA.getText().toString() != "" && edtCeluarA.getText().toString().equals("")
+                && edtReferenciaDomicilioReal.getText().toString().equals("") && edtHechoDenunciar.getText().toString().equals("") && drop_medidaProteccion.getSelectedItemPosition() != -1) {
             a = new Agraviado();
             try {
-                a.setNumeroIdentificacion(edtDoc.getText().toString());
-                a.setNombres(edtNombres.getText().toString());
-                a.setApellidoPaterno(edtApellidos.getText().toString());
-                a.setApellidoMaterno("FALTA IMPLEMENTAR");
-                a.setFechaNacimiento(new SimpleDateFormat("dd-MM-yyyy").parse(edtFechaNacimiento.getText().toString()));
+                a.setNumeroIdentificacion(edtDocA.getText().toString());
+                a.setNombres(edtNombresA.getText().toString());
+                a.setApellidoPaterno(edtApellidoPaternoA.getText().toString());
+                a.setApellidoMaterno(edtApellidoMaternoA.getText().toString());
+                a.setFechaNacimiento(new SimpleDateFormat("dd-MM-yyyy").parse(edtFechaNacimientoA.getText().toString()));
                 a.setTelefono(edtCeluarA.getText().toString());
                 a.setDireccion(edtReferenciaDomicilioReal.getText().toString());
                 a.setRHD(edtHechoDenunciar.getText().toString());
                 int indexDistritoSelected = drop_distritoA.getSelectedItemPosition();
                 a.setDistrito(distritos.get(indexDistritoSelected));
                 a.setSexo(drop_generoA.getSelectedItem().toString());
+                a.setTipoIdentificacion(new TipoIdentificacion());
+                a.getTipoIdentificacion().setId(drop_tipoIdentificacionA.getSelectedItemPosition());
+                a.setEstadoCivil(new EstadoCivil());
+                a.getEstadoCivil().setId(2);
                 if (drop_medidaProteccion.getSelectedItemPosition() == 1) {
                     a.setMedidaProteccion(true);
                     a.setJuzgado(drop_Juzgado.getSelectedItem().toString());
@@ -207,7 +235,7 @@ public class RegistrarDenunciaActivity extends AppCompatActivity {
                 }
                 Toast.makeText(this, DenunciaManager.addAgraviado(a), Toast.LENGTH_SHORT).show();
             } catch (Exception e) {
-                Toast.makeText(this, "Error al intentar crear el objeto Agraviado:" + e.getMessage() + " 😥", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "Error al intentar crear el objeto Agraviado:" + e.getMessage() + " 😥", Toast.LENGTH_LONG).show();
                 e.printStackTrace();
             }
             this.clearCamposAgraviado();
@@ -217,37 +245,66 @@ public class RegistrarDenunciaActivity extends AppCompatActivity {
     }
 
     private void guardarDenunciado() {
+        Denunciado d;
+        if (!edt_DocD.getText().toString().equals("") && !edt_NombresD.getText().toString().equals("") && !edt_ApellidoPaternoD.getText().toString().equals("")
+                && !edt_ApellidoMaternoD.getText().toString().equals("")) {
+            d = new Denunciado();
+            try {
+            } catch (Exception e) {
+                Toast.makeText(this, "Error al intentar crear el objeto Denunciado:" + e.getMessage() + " 😥", Toast.LENGTH_LONG).show();
+                e.printStackTrace();
+            }
+        } else {
+            Toast.makeText(this, "Por favor complete todos los campos 😑", Toast.LENGTH_SHORT).show();
+        }
     }
 
     private void init() {
-
-        edtDoc = findViewById(R.id.edtNumeroIdentificacion);
-        edtNombres = findViewById(R.id.edtnombreA);
-        edtApellidos = findViewById(R.id.edtapellidosA);
-        edtFechaNacimiento = findViewById(R.id.edtFechaNacA);
-        edtFechaNacimiento.setOnClickListener(v -> {
+        //AGRAVIADO
+        edtDocA = findViewById(R.id.edtNumeroIdentificacionA);
+        edtNombresA = findViewById(R.id.edt_nombresA);
+        edtApellidoPaternoA = findViewById(R.id.edt_apellidoPaternoA);
+        edtApellidoMaternoA = findViewById(R.id.edt_ApellidoMaternoA);
+        edtFechaNacimientoA = findViewById(R.id.edt_FechaNacA);
+        edtFechaNacimientoA.setOnClickListener(v -> {
             showDatePickerDialog((view, year, month, dayOfMonth) -> {
                 final String selectedDate = dayOfMonth + "-" + (month + 1) + "-" + year;
-                edtFechaNacimiento.setText(selectedDate);
+                edtFechaNacimientoA.setText(selectedDate);
             });
         });
         drop_distritoA = findViewById(R.id.dropdown_distritoA);
         drop_generoA = findViewById(R.id.dropdown_generoA);
-        edtCeluarA = findViewById(R.id.edtcelularA);
-        edtReferenciaDomicilioReal = findViewById(R.id.edtDireccionA);
-        drop_infoAdicionalA = findViewById(R.id.dropdown_infAdicionalA);
+        edtCeluarA = findViewById(R.id.edt_celularA);
+        edtReferenciaDomicilioReal = findViewById(R.id.edt_DireccionA);
+        drop_infoAdicionalA = findViewById(R.id.sp_infAdicionalA);
         drop_medidaProteccion = findViewById(R.id.dropdown_medida_proteccion_A);
 
         drop_Juzgado = findViewById(R.id.dropdown_juzgadoA);
         edtFechaEmisionProteccion = findViewById(R.id.edtFechaEmisionP);
         edtDetalleProtección = findViewById(R.id.edtdetalleproteccion_juez);
         edtHechoDenunciar = findViewById(R.id.edtrelateHechosDenuncia);
+        //DENUNCIADO
+        edt_DocD = findViewById(R.id.edtNumeroIdentificacionD);
+        edt_NombresD = findViewById(R.id.edtnombreD);
+        edt_ApellidoPaternoD = findViewById(R.id.edt_ApellidoPaternoD);
+        edt_ApellidoMaternoD = findViewById(R.id.edt_ApellidoMaternoA);
+        dtp_FechaNacD = findViewById(R.id.dtp_FechaNacD);
+        edt_CelularD = findViewById(R.id.edt_CelularD);
+        edt_DireccionD = findViewById(R.id.edtDireccionD);
+        sp_TipoIdentificacionD = findViewById(R.id.sp_tipoIdentificacionD);
+        sp_DistritoDenunciado = findViewById(R.id.sp_distritoD);
+        sp_EstadoCivilD = findViewById(R.id.sp_estadocivilD);
+        sp_InfoAdicionalD = findViewById(R.id.sp_infAdicionalD);
+        drop_GeneroD = findViewById(R.id.sp_generoD);
 
+
+        //BOTONES
         btnSaveA = findViewById(R.id.btnSaveA);
         btnSaveA.setOnClickListener(v -> guardarAgraviado());
         btnSaveD = findViewById(R.id.btnSaveDenunciado);
         btnSaveD.setOnClickListener(v -> guardarDenunciado());
         //DENUNCIA
+
         edtLugarHechos = findViewById(R.id.edtDireccionHechos);
         edtReferenciaHechos = findViewById(R.id.edtreferenciahechos);
 
@@ -260,20 +317,32 @@ public class RegistrarDenunciaActivity extends AppCompatActivity {
             final String selectedDate = dayOfMonth + "-" + (month + 1) + "-" + year;
             edtFechaEmisionProteccion.setText(selectedDate);
         }));
-        drop_distrito = findViewById(R.id.dropdown_distrito);
-        drop_vpd = findViewById(R.id.dropdown_vinculoParteDenunciada);
-        drop_td = findViewById(R.id.dropdown_tipodenuncia);
-        drop_tipoIdentificacion = findViewById(R.id.dropdown_tipoIdentificacion);
+        drop_distritoD = findViewById(R.id.sp_distritoDenuncia);
+        drop_vpd = findViewById(R.id.sp_vinculoParteDenunciada);
+        drop_td = findViewById(R.id.sp_tipodenuncia);
+        drop_tipoIdentificacionA = findViewById(R.id.sp_tipoIdentificacionA);
         mismaPersona = findViewById(R.id.chkSoyLaMismaPesona);
         mismaPersona.setOnCheckedChangeListener((buttonView, isChecked) -> {
             cambiarEstadoCampos(!isChecked);
+        });
+        drop_medidaProteccion.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                asignarCamposProteccion(position == 0);
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
         });
     }
 
     private void initAdapters() {
         adapterDistritos = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, displayDistritos);
         adapterDistritos.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        drop_distrito.setAdapter(adapterDistritos);
+        drop_distritoD.setAdapter(adapterDistritos);
 
         adapterVinculos = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, displayVinculos);
         adapterVinculos.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -284,11 +353,12 @@ public class RegistrarDenunciaActivity extends AppCompatActivity {
         drop_td.setAdapter(adapterTd);
 
         //
-        drop_tipoIdentificacion.setAdapter(new ArrayAdapter<>(this,
-                android.R.layout.simple_spinner_dropdown_item, new String[]{
+        drop_tipoIdentificacionA.setAdapter(new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, new String[]{
                 "Natural",
                 "Jurídica"
         }));
+
+
         adapterAllDistritos = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, displayAllDistritos);
         adapterAllDistritos.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         drop_distritoA.setAdapter(adapterAllDistritos);
@@ -370,12 +440,12 @@ public class RegistrarDenunciaActivity extends AppCompatActivity {
                 adapterInfAdic.notifyDataSetChanged();
             }
         });
-        drop_tipoIdentificacion.setAdapter(new ArrayAdapter<>(this,
-                R.layout.dropdown_item, new String[]{
+
+        drop_tipoIdentificacionA.setAdapter(new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, new String[]{
                 "Natural",
                 "Jurídica"
         }));
-        drop_medidaProteccion.setAdapter(new ArrayAdapter<>(this, R.layout.dropdown_item, new String[]{
+        drop_medidaProteccion.setAdapter(new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, new String[]{
                 "Si",
                 "No"
         }));
@@ -390,7 +460,7 @@ public class RegistrarDenunciaActivity extends AppCompatActivity {
         Denuncia d = new Denuncia();
         try {
             d.setFechaHechos(new SimpleDateFormat("dd-MM-yyyy").parse(this.edtFechaHechos.getText().toString()));
-            d.setDistrito(this.distritos.get(this.drop_distrito.getSelectedItemPosition()));
+            d.setDistrito(this.distritos.get(this.drop_distritoD.getSelectedItemPosition()));
             d.setDireccion(this.edtLugarHechos.getText().toString());
             d.setReferenciaDireccion(this.edtReferenciaHechos.getText().toString());
             d.setVinculoParteDenunciada(this.vinculos.get(this.drop_vpd.getSelectedItemPosition()));

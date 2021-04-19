@@ -1,15 +1,14 @@
 package com.example.comisariaapp.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.lifecycle.ViewModelProvider;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
@@ -25,31 +24,46 @@ import com.example.comisariaapp.viewmodel.*;
 import com.google.android.material.textfield.TextInputLayout;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.List;
+
+import fr.ganfra.materialspinner.MaterialSpinner;
 
 public class RegistrarUsuarioActivity extends AppCompatActivity {
+    private DistritoViewModel distritoViewModel;
     private BuscarPersonaViewModel bpViewModel;
     private UsuarioViewModel viewModel;
     public TextInputLayout textInputLayout;
-    public AutoCompleteTextView dropdown_text;
-    private EditText edtDoc, edtApellidoPaterno, edtApellidoMaterno, edtNombres, edtFechaNacimiento, edtEmail, edtContraseña;
+    private EditText edtDoc, edtApellidoPaterno, edtApellidoMaterno, edtNombres, edtFechaNacimiento, edtEmail, edtContraseña, edtTelefono, edtDireccion;
     private Button btnSave;
     private RadioButton rbMasculino, rbFemenino;
+    public MaterialSpinner dropdown_tipoIdentificacionU, dropdown_distritoUsuario, dropdown_estadocivilU;
+    private List<Distrito> distritos = new ArrayList<>();
+    private ArrayAdapter<String> adapterDistritos;
+    private List<String> displayDistritos = new ArrayList<>();
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registrar_usuario);
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        toolbar.setNavigationIcon(R.drawable.atras);
+        toolbar.setNavigationOnClickListener(v -> {//Reemplazo con lamba
+            startActivity(new Intent(getApplicationContext(), LoginActivity.class));
+            overridePendingTransition(R.anim.rigth_in, R.anim.rigth_out);
+        });
         ViewModelProvider vmp = new ViewModelProvider(this);
+        this.distritoViewModel = vmp.get(DistritoViewModel.class);
         this.bpViewModel = vmp.get(BuscarPersonaViewModel.class);
         this.viewModel = vmp.get(UsuarioViewModel.class);
         init();
+        initAdapter();
+        loadData();
     }
 
     private void init() {
-        textInputLayout = findViewById(R.id.text_input_layout);
-        dropdown_text = findViewById(R.id.dropdown_text);
-
+        //INPUTS DEL MÓDULOS DE USUARIOS
         edtDoc = findViewById(R.id.edtNroDocIdentidad);
         edtApellidoPaterno = findViewById(R.id.edtApellidoPaterno);
         edtApellidoMaterno = findViewById(R.id.edtApellidoMaterno);
@@ -57,29 +71,19 @@ public class RegistrarUsuarioActivity extends AppCompatActivity {
         edtFechaNacimiento = findViewById(R.id.dtpFechaNacimiento);
         edtEmail = findViewById(R.id.edtEmail);
         edtContraseña = findViewById(R.id.edtPassword);
-
+        edtTelefono = findViewById(R.id.edtTelefonoUsuario);
+        edtDireccion = findViewById(R.id.edtDireccionUsuario);
+        //MATERIAL SPINNER DEL MÓDULO DE USUARIOS
+        dropdown_tipoIdentificacionU = findViewById(R.id.dropdown_tipoIdentificacionU);
+        dropdown_distritoUsuario = findViewById(R.id.dropdown_distritoUsuario);
+        dropdown_estadocivilU = findViewById(R.id.dropdown_estadocivilU);
+        //RADIO BUTTONS DEL MÓDULO DE USUARIOS
         rbMasculino = findViewById(R.id.radio_masculino);
         rbFemenino = findViewById(R.id.radio_femenino);
+        //BOTONES DEL MÓDULO DE USUARIOS
         btnSave = findViewById(R.id.btnSave);
         edtFechaNacimiento.setOnClickListener(v -> showDatePickerDialog());
 
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(this,
-                R.layout.dropdown_item, new String[]{
-                "Natural",
-                "Jurídica"
-        });
-
-        dropdown_text.setAdapter(adapter);
-
-        dropdown_text.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-            }
-        });
 
         edtDoc.addTextChangedListener(new TextWatcher() {
             @Override
@@ -106,6 +110,31 @@ public class RegistrarUsuarioActivity extends AppCompatActivity {
             );
 
         });
+    }
+
+    private void loadData() {
+        this.distritoViewModel.list().observe(this, response -> {
+            if (response.getRpta() == 1) {
+                this.distritos.clear();
+                this.distritos.addAll(response.getBody());
+                displayDistritos.clear();
+                for (Distrito d : distritos) {
+                    displayDistritos.add(d.getDistrito());
+                }
+                adapterDistritos.notifyDataSetChanged();
+            }
+        });
+    }
+
+    private void initAdapter() {
+        adapterDistritos = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, displayDistritos);
+        adapterDistritos.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        dropdown_distritoUsuario.setAdapter(adapterDistritos);
+
+        dropdown_tipoIdentificacionU.setAdapter(new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, new String[]{
+                "Natural",
+                "Jurídica"
+        }));
     }
 
     private void buscarReniec() {

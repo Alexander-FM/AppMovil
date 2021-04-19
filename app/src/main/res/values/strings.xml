@@ -26,5 +26,6 @@
     <string name="titulopersonasagregadasA">Agraviados(as)</string>
     <string name="titulopersonasagregadasD">Denunciados(as)</string>
     <string name="titulospinnertramite">Seleccione Tipo Trámite</string>
+    <string name="tituloformularioagraviado"><u>Datos del usuario</u></string>
 
 </resources>

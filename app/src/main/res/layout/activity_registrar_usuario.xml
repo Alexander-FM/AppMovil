@@ -1,90 +1,128 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
     tools:context=".activity.RegistrarUsuarioActivity">
 
-    <com.google.android.material.appbar.AppBarLayout
-        android:id="@+id/bar"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
 
-        <androidx.appcompat.widget.Toolbar
-            android:id="@+id/toolbar"
+        <com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/bar"
             android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:background="@color/colorPrimary"
-            app:navigationIcon="@drawable/atras"
-            app:title="Registrar Usuario"
-            app:titleTextColor="@color/white" />
-    </com.google.android.material.appbar.AppBarLayout>
+            android:layout_height="wrap_content">
+
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:background="@color/colorPrimary"
+                app:navigationIcon="@drawable/atras"
+                app:title="Registrar Usuario"
+                app:titleTextColor="@color/white" />
+        </com.google.android.material.appbar.AppBarLayout>
+    </LinearLayout>
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/bar">
+        android:layout_height="wrap_content">
 
-        <LinearLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:layout_height="wrap_content">
 
             <com.google.android.material.card.MaterialCardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="10dp">
+                android:layout_margin="10dp"
+                app:cardCornerRadius="10dp"
+                app:cardElevation="8dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.0">
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:padding="10dp">
+                    android:layout_height="match_parent">
 
                     <TextView
-                        android:layout_width="match_parent"
+                        android:id="@+id/txtTituloDenuncia"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="10dp"
-                        android:text="Datos Personales"
+                        android:layout_marginStart="100dp"
+                        android:fontFamily="@font/poppins_regular"
+                        android:text="@string/tituloformularioagraviado"
                         android:textColor="@color/black"
-                        android:textSize="20sp" />
+                        android:textSize="18sp" />
+                </LinearLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp">
+
+                    <fr.ganfra.materialspinner.MaterialSpinner
+                        android:id="@+id/dropdown_tipoIdentificacionU"
+                        android:layout_width="177dp"
+                        android:layout_height="70dp"
+                        android:layout_marginTop="32dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.0"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintVertical_bias="0.0"
+                        app:ms_alignLabels="false"
+                        app:ms_arrowColor="@color/colorPrimary"
+                        app:ms_arrowSize="16dp"
+                        app:ms_baseColor="@color/colorPrimary"
+                        app:ms_enableFloatingLabel="true"
+                        app:ms_floatingLabelColor="@color/black"
+                        app:ms_floatingLabelText="Tipo Identificación"
+                        app:ms_hint="Tipo Identificación"
+                        app:ms_hintColor="@color/black"
+                        app:ms_multiline="false"
+                        app:ms_thickness="1dp" />
 
                     <com.google.android.material.textfield.TextInputLayout
-                        android:id="@+id/text_input_layout"
                         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                        android:layout_width="match_parent"
+                        android:layout_width="177dp"
                         android:layout_height="wrap_content"
-                        android:hint="Tipo Persona (Natural / Juridica)"
-                        app:endIconMode="dropdown_menu"
-                        app:startIconDrawable="@drawable/tipopersona">
-
-                        <AutoCompleteTextView
-                            android:id="@+id/dropdown_text"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:inputType="none" />
-
-                    </com.google.android.material.textfield.TextInputLayout>
-
-                    <com.google.android.material.textfield.TextInputLayout
-                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        app:layout_constraintBottom_toBottomOf="@+id/dropdown_tipoIdentificacionU"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="1.0"
+                        app:layout_constraintStart_toEndOf="@+id/dropdown_tipoIdentificacionU"
+                        app:layout_constraintTop_toTopOf="@+id/dropdown_tipoIdentificacionU"
+                        app:layout_constraintVertical_bias="0.0"
                         app:startIconDrawable="@drawable/dni">
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/edtNroDocIdentidad"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:hint="Número de Identificación"
+                            android:fontFamily="@font/poppins_medium"
+                            android:hint="N.º de Identificación"
                             android:maxLength="11" />
                     </com.google.android.material.textfield.TextInputLayout>
 
                     <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/txtInputApellidoPaternoAgraviado"
                         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                        android:layout_width="match_parent"
+                        android:layout_width="177dp"
                         android:layout_height="wrap_content"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.0"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/dropdown_tipoIdentificacionU"
+                        app:layout_constraintVertical_bias="0.0"
                         app:startIconDrawable="@drawable/person">
 
                         <com.google.android.material.textfield.TextInputEditText
@@ -92,13 +130,19 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:enabled="false"
+                            android:fontFamily="@font/poppins_medium"
                             android:hint="Apellido Paterno" />
                     </com.google.android.material.textfield.TextInputLayout>
 
                     <com.google.android.material.textfield.TextInputLayout
                         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                        android:layout_width="match_parent"
+                        android:layout_width="177dp"
                         android:layout_height="wrap_content"
+                        app:layout_constraintBottom_toBottomOf="@+id/txtInputApellidoPaternoAgraviado"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="1.0"
+                        app:layout_constraintStart_toEndOf="@+id/txtInputApellidoPaternoAgraviado"
+                        app:layout_constraintTop_toTopOf="@+id/txtInputApellidoPaternoAgraviado"
                         app:startIconDrawable="@drawable/person">
 
                         <com.google.android.material.textfield.TextInputEditText
@@ -106,13 +150,21 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:enabled="false"
+                            android:fontFamily="@font/poppins_medium"
                             android:hint="Apellido Materno" />
                     </com.google.android.material.textfield.TextInputLayout>
 
                     <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/txtInputNombresUsuario"
                         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                        android:layout_width="match_parent"
+                        android:layout_width="177dp"
                         android:layout_height="wrap_content"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.0"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/txtInputApellidoPaternoAgraviado"
+                        app:layout_constraintVertical_bias="0.0"
                         app:startIconDrawable="@drawable/person">
 
                         <com.google.android.material.textfield.TextInputEditText
@@ -120,138 +172,248 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:enabled="false"
+                            android:fontFamily="@font/poppins_medium"
                             android:hint="Nombres" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                        android:layout_width="177dp"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintBottom_toBottomOf="@+id/txtInputNombresUsuario"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="1.0"
+                        app:layout_constraintStart_toEndOf="@+id/txtInputNombresUsuario"
+                        app:layout_constraintTop_toTopOf="@+id/txtInputNombresUsuario"
+                        app:startIconDrawable="@drawable/date">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/dtpFechaNacimiento"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:clickable="false"
+                            android:focusable="false"
+                            android:fontFamily="@font/poppins_medium"
+                            android:hint="Fecha de Nacimiento"
+                            android:inputType="date"
+                            android:maxLines="1" />
                     </com.google.android.material.textfield.TextInputLayout>
 
                     <TextView
                         android:id="@+id/etiqueta_genero"
-                        android:layout_width="wrap_content"
+                        android:layout_width="177dp"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="8dp"
-                        android:layout_marginTop="10dp"
-                        android:text="Seleccione su género:"
-                        android:textAppearance="?android:attr/textAppearanceMedium" />
+                        android:fontFamily="@font/poppins_medium"
+                        android:text="Seleccione Género:"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.0"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/txtInputNombresUsuario"
+                        app:layout_constraintVertical_bias="0.0" />
 
                     <RadioGroup
-                        android:gravity="start"
                         android:id="@+id/opciones_genero"
-                        android:layout_width="match_parent"
+                        android:layout_width="177dp"
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/etiqueta_genero"
-                        android:layout_marginBottom="8dp"
-                        android:orientation="horizontal">
+                        android:orientation="horizontal"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.0"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/etiqueta_genero"
+                        app:layout_constraintVertical_bias="0.0">
 
                         <RadioButton
                             android:id="@+id/radio_masculino"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginRight="10dp"
                             android:checked="true"
-                            android:text="Masculino" />
+                            android:fontFamily="@font/poppins_regular"
+                            android:text="Hombre" />
 
                         <RadioButton
                             android:id="@+id/radio_femenino"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:layout_marginStart="16dp"
                             android:checked="false"
-                            android:text="Femenino" />
+                            android:fontFamily="@font/poppins_regular"
+                            android:rotationX="0"
+                            android:text="Mujer" />
                     </RadioGroup>
 
-
                     <com.google.android.material.textfield.TextInputLayout
                         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                        android:layout_width="match_parent"
+                        android:layout_width="177dp"
                         android:layout_height="wrap_content"
-                        app:startIconDrawable="@drawable/date">
+                        app:layout_constraintBottom_toBottomOf="@+id/opciones_genero"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="1.0"
+                        app:layout_constraintStart_toEndOf="@+id/opciones_genero"
+                        app:layout_constraintTop_toTopOf="@+id/opciones_genero"
+                        app:startIconDrawable="@drawable/ic_phone">
 
                         <com.google.android.material.textfield.TextInputEditText
-
-                            android:id="@+id/dtpFechaNacimiento"
+                            android:id="@+id/edtTelefonoUsuario"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:hint="Fecha de Nacimiento"
-                            android:inputType="date"
-                            android:focusable="false"
-                            android:clickable="false"
-                            android:maxLines="1"/>
+                            android:fontFamily="@font/poppins_medium"
+                            android:hint="N.º Teléfono" />
                     </com.google.android.material.textfield.TextInputLayout>
-                </LinearLayout>
-            </com.google.android.material.card.MaterialCardView>
 
-            <com.google.android.material.card.MaterialCardView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="10dp">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:padding="10dp">
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="10dp"
-                        android:text="Credenciales"
-                        android:textColor="@color/black"
-                        android:textSize="20sp" />
+                    <fr.ganfra.materialspinner.MaterialSpinner
+                        android:id="@+id/dropdown_distritoUsuario"
+                        android:layout_width="177dp"
+                        android:layout_height="70dp"
+                        android:layout_marginTop="8dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.0"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/opciones_genero"
+                        app:layout_constraintVertical_bias="0.0"
+                        app:ms_alignLabels="false"
+                        app:ms_arrowColor="@color/colorPrimary"
+                        app:ms_arrowSize="16dp"
+                        app:ms_baseColor="@color/colorPrimary"
+                        app:ms_enableFloatingLabel="true"
+                        app:ms_floatingLabelColor="@color/black"
+                        app:ms_floatingLabelText="Distrito"
+                        app:ms_hint="Distrito"
+                        app:ms_hintColor="@color/black"
+                        app:ms_multiline="true"
+                        app:ms_thickness="1dp" />
 
                     <com.google.android.material.textfield.TextInputLayout
                         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                        android:layout_width="177dp"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintBottom_toBottomOf="@+id/dropdown_distritoUsuario"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="1.0"
+                        app:layout_constraintStart_toEndOf="@+id/dropdown_distritoUsuario"
+                        app:layout_constraintTop_toTopOf="@+id/dropdown_distritoUsuario"
+                        app:layout_constraintVertical_bias="0.0"
+                        app:startIconDrawable="@drawable/ic_baseline_house">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/edtDireccionUsuario"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/poppins_medium"
+                            android:hint="Dirección" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <fr.ganfra.materialspinner.MaterialSpinner
+                        android:id="@+id/dropdown_estadocivilU"
+                        android:layout_width="177dp"
+                        android:layout_height="70dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.0"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/dropdown_distritoUsuario"
+                        app:layout_constraintVertical_bias="0.0"
+                        app:ms_alignLabels="false"
+                        app:ms_arrowColor="@color/colorPrimary"
+                        app:ms_arrowSize="16dp"
+                        app:ms_baseColor="@color/colorPrimary"
+                        app:ms_enableFloatingLabel="true"
+                        app:ms_floatingLabelColor="@color/black"
+                        app:ms_floatingLabelText="Estado Civil"
+                        app:ms_hint="Estado Civil"
+                        app:ms_hintColor="@color/black"
+                        app:ms_multiline="true"
+                        app:ms_thickness="1dp" />
+
+                    <CheckBox
+                        android:id="@+id/chkEstadoUsuario"
+                        android:layout_width="177dp"
+                        android:layout_height="wrap_content"
+                        android:checked="true"
+                        android:enabled="false"
+                        android:fontFamily="@font/poppins_medium"
+                        android:text="Usuario Activo"
+                        app:layout_constraintBottom_toBottomOf="@+id/dropdown_estadocivilU"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="1.0"
+                        app:layout_constraintStart_toEndOf="@+id/dropdown_estadocivilU"
+                        app:layout_constraintTop_toTopOf="@+id/dropdown_estadocivilU" />
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/txtInputCorreoElectronicoU"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.0"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/dropdown_estadocivilU"
+                        app:layout_constraintVertical_bias="0.0"
                         app:startIconDrawable="@drawable/ic_baseline_email_24">
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/edtEmail"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:fontFamily="@font/poppins_medium"
                             android:hint="E-mail" />
                     </com.google.android.material.textfield.TextInputLayout>
 
                     <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/txtInputClaveEmail"
                         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/txtInputCorreoElectronicoU"
+                        app:layout_constraintVertical_bias="0.06"
                         app:startIconDrawable="@drawable/lock">
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/edtPassword"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:hint="Contraseña"
-                            android:inputType="textPassword" />
+                            android:fontFamily="@font/poppins_medium"
+                            android:hint="Clave" />
                     </com.google.android.material.textfield.TextInputLayout>
-                </LinearLayout>
+
+                    <Button
+                        android:id="@+id/btnCancel"
+                        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+                        android:text="Cancelar"
+                        app:layout_constraintBottom_toTopOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.0"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/txtInputClaveEmail"
+                        app:layout_constraintVertical_bias="0.0" />
+
+                    <Button
+                        android:id="@+id/btnSave"
+                        style="@style/Widget.MaterialComponents.Button"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="20dp"
+                        android:text="Registrar Usuario"
+                        app:icon="@drawable/ic_baseline_save_24"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="1.0"
+                        app:layout_constraintStart_toEndOf="@+id/btnCancel"
+                        app:layout_constraintTop_toTopOf="@+id/btnCancel" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
             </com.google.android.material.card.MaterialCardView>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="20dp"
-                android:gravity="center"
-                android:orientation="horizontal">
-
-                <Button
-                    android:id="@+id/btnCancel"
-                    style="@style/Widget.MaterialComponents.Button.OutlinedButton"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Cancelar" />
-
-                <Button
-                    android:id="@+id/btnSave"
-                    style="@style/Widget.MaterialComponents.Button"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="20dp"
-                    android:text="Registrar"
-                    app:icon="@drawable/ic_baseline_save_24" />
-            </LinearLayout>
-
-        </LinearLayout>
-
+        </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
-
-</RelativeLayout>
+</LinearLayout>

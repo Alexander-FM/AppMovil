@@ -87,7 +87,7 @@
                         app:layout_constraintHorizontal_bias="0.0"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintVertical_bias="0.20"
+                        app:layout_constraintVertical_bias="0.16000003"
                         app:startIconDrawable="@drawable/date">
 
                         <com.google.android.material.textfield.TextInputEditText
@@ -103,7 +103,7 @@
                     </com.google.android.material.textfield.TextInputLayout>
 
                     <fr.ganfra.materialspinner.MaterialSpinner
-                        android:id="@+id/dropdown_distrito"
+                        android:id="@+id/sp_distritoDenuncia"
                         android:layout_width="177dp"
                         android:layout_height="70dp"
                         android:layout_marginTop="10dp"
@@ -122,8 +122,7 @@
                         app:ms_hint="Distrito"
                         app:ms_hintColor="@color/black"
                         app:ms_multiline="false"
-                        app:ms_thickness="1dp"
-                        />
+                        app:ms_thickness="1dp" />
 
                     <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/text_input_direccion_hechos"
@@ -166,7 +165,7 @@
                     </com.google.android.material.textfield.TextInputLayout>
 
                     <fr.ganfra.materialspinner.MaterialSpinner
-                        android:id="@+id/dropdown_vinculoParteDenunciada"
+                        android:id="@+id/sp_vinculoParteDenunciada"
                         android:layout_width="177dp"
                         android:layout_height="70dp"
                         android:layout_marginTop="8dp"
@@ -190,14 +189,14 @@
                         app:ms_thickness="1dp" />
 
                     <fr.ganfra.materialspinner.MaterialSpinner
-                        android:id="@+id/dropdown_tipodenuncia"
+                        android:id="@+id/sp_tipodenuncia"
                         android:layout_width="177dp"
                         android:layout_height="70dp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="1.0"
-                        app:layout_constraintStart_toEndOf="@+id/dropdown_vinculoParteDenunciada"
-                        app:layout_constraintTop_toTopOf="@+id/dropdown_vinculoParteDenunciada"
+                        app:layout_constraintStart_toEndOf="@+id/sp_vinculoParteDenunciada"
+                        app:layout_constraintTop_toTopOf="@+id/sp_vinculoParteDenunciada"
                         app:ms_alignLabels="false"
                         app:ms_arrowColor="@color/colorPrimary"
                         app:ms_arrowSize="16dp"
@@ -261,7 +260,7 @@
                         app:layout_constraintVertical_bias="0.04000002" />
 
                     <fr.ganfra.materialspinner.MaterialSpinner
-                        android:id="@+id/dropdown_tipoIdentificacion"
+                        android:id="@+id/sp_tipoIdentificacionA"
                         android:layout_width="177dp"
                         android:layout_height="70dp"
                         app:layout_constraintBottom_toBottomOf="parent"
@@ -287,16 +286,16 @@
                         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                         android:layout_width="177dp"
                         android:layout_height="wrap_content"
-                        app:layout_constraintBottom_toBottomOf="@+id/dropdown_tipoIdentificacion"
+                        app:layout_constraintBottom_toBottomOf="@+id/sp_tipoIdentificacionA"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="1.0"
-                        app:layout_constraintStart_toEndOf="@+id/dropdown_tipoIdentificacion"
-                        app:layout_constraintTop_toTopOf="@+id/dropdown_tipoIdentificacion"
+                        app:layout_constraintStart_toEndOf="@+id/sp_tipoIdentificacionA"
+                        app:layout_constraintTop_toTopOf="@+id/sp_tipoIdentificacionA"
                         app:layout_constraintVertical_bias="0.0"
                         app:startIconDrawable="@drawable/dni">
 
                         <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/edtNumeroIdentificacion"
+                            android:id="@+id/edtNumeroIdentificacionA"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/poppins_medium"
@@ -306,18 +305,18 @@
                     <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/text_input_nombresA"
                         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                        android:layout_width="177dp"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="0.0"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/dropdown_tipoIdentificacion"
+                        app:layout_constraintTop_toBottomOf="@+id/sp_tipoIdentificacionA"
                         app:layout_constraintVertical_bias="0.0"
                         app:startIconDrawable="@drawable/ic_baseline_person">
 
                         <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/edtnombreA"
+                            android:id="@+id/edt_nombresA"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/poppins_medium"
@@ -325,23 +324,44 @@
                     </com.google.android.material.textfield.TextInputLayout>
 
                     <com.google.android.material.textfield.TextInputLayout
-                        android:id="@+id/text_input_apellidosA"
+                        android:id="@+id/txtInputApellidoPaternoAgraviado"
                         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                         android:layout_width="177dp"
                         android:layout_height="wrap_content"
-                        app:layout_constraintBottom_toBottomOf="@+id/text_input_nombresA"
+                        app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintHorizontal_bias="1.0"
-                        app:layout_constraintStart_toEndOf="@+id/text_input_nombresA"
-                        app:layout_constraintTop_toTopOf="@+id/text_input_nombresA"
+                        app:layout_constraintHorizontal_bias="0.0"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/text_input_nombresA"
+                        app:layout_constraintVertical_bias="0.0"
                         app:startIconDrawable="@drawable/ic_baseline_person">
 
                         <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/edtapellidosA"
+                            android:id="@+id/edt_apellidoPaternoA"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/poppins_medium"
-                            android:hint="Apellidos" />
+                            android:hint="Apellido Paterno" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/txtInputApellidoMaternoAgraviado"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                        android:layout_width="177dp"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintBottom_toBottomOf="@+id/txtInputApellidoPaternoAgraviado"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="1.0"
+                        app:layout_constraintStart_toEndOf="@+id/txtInputApellidoPaternoAgraviado"
+                        app:layout_constraintTop_toTopOf="@+id/txtInputApellidoPaternoAgraviado"
+                        app:startIconDrawable="@drawable/ic_baseline_person">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/edt_ApellidoMaternoA"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/poppins_medium"
+                            android:hint="Apellido Materno" />
                     </com.google.android.material.textfield.TextInputLayout>
 
                     <com.google.android.material.textfield.TextInputLayout
@@ -349,17 +369,16 @@
                         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                         android:layout_width="177dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="5dp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="0.0"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/text_input_nombresA"
+                        app:layout_constraintTop_toBottomOf="@+id/txtInputApellidoPaternoAgraviado"
                         app:layout_constraintVertical_bias="0.0"
                         app:startIconDrawable="@drawable/date">
 
                         <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/edtFechaNacA"
+                            android:id="@+id/edt_FechaNacA"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:clickable="false"
@@ -429,7 +448,7 @@
                         app:startIconDrawable="@drawable/ic_phone">
 
                         <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/edtcelularA"
+                            android:id="@+id/edt_celularA"
                             android:layout_width="177dp"
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/poppins_medium"
@@ -441,7 +460,6 @@
                         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
@@ -450,7 +468,7 @@
                         app:startIconDrawable="@drawable/ic_baseline_person">
 
                         <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/edtDireccionA"
+                            android:id="@+id/edt_DireccionA"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/poppins_medium"
@@ -458,7 +476,7 @@
                     </com.google.android.material.textfield.TextInputLayout>
 
                     <fr.ganfra.materialspinner.MaterialSpinner
-                        android:id="@+id/dropdown_infAdicionalA"
+                        android:id="@+id/sp_infAdicionalA"
                         android:layout_width="177dp"
                         android:layout_height="70dp"
                         android:layout_marginTop="5dp"
@@ -484,11 +502,11 @@
                         android:id="@+id/dropdown_medida_proteccion_A"
                         android:layout_width="177dp"
                         android:layout_height="70dp"
-                        app:layout_constraintBottom_toBottomOf="@+id/dropdown_infAdicionalA"
+                        app:layout_constraintBottom_toBottomOf="@+id/sp_infAdicionalA"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="1.0"
-                        app:layout_constraintStart_toEndOf="@+id/dropdown_infAdicionalA"
-                        app:layout_constraintTop_toTopOf="@+id/dropdown_infAdicionalA"
+                        app:layout_constraintStart_toEndOf="@+id/sp_infAdicionalA"
+                        app:layout_constraintTop_toTopOf="@+id/sp_infAdicionalA"
                         app:ms_alignLabels="false"
                         app:ms_arrowColor="@color/colorPrimary"
                         app:ms_arrowSize="16dp"
@@ -510,7 +528,7 @@
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="0.0"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/dropdown_infAdicionalA"
+                        app:layout_constraintTop_toBottomOf="@+id/sp_infAdicionalA"
                         app:layout_constraintVertical_bias="0.0"
                         app:ms_alignLabels="false"
                         app:ms_arrowColor="@color/colorPrimary"
@@ -554,7 +572,6 @@
                         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="5dp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
@@ -575,7 +592,6 @@
                         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="5dp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
@@ -644,7 +660,7 @@
                     android:layout_margin="5dp">
 
                     <fr.ganfra.materialspinner.MaterialSpinner
-                        android:id="@+id/dropdown_tipoIdentificacionD"
+                        android:id="@+id/sp_tipoIdentificacionD"
                         android:layout_width="177dp"
                         android:layout_height="70dp"
                         android:layout_marginTop="32dp"
@@ -671,11 +687,11 @@
                         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                         android:layout_width="177dp"
                         android:layout_height="wrap_content"
-                        app:layout_constraintBottom_toBottomOf="@+id/dropdown_tipoIdentificacionD"
+                        app:layout_constraintBottom_toBottomOf="@+id/sp_tipoIdentificacionD"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="1.0"
-                        app:layout_constraintStart_toEndOf="@+id/dropdown_tipoIdentificacionD"
-                        app:layout_constraintTop_toTopOf="@+id/dropdown_tipoIdentificacionD"
+                        app:layout_constraintStart_toEndOf="@+id/sp_tipoIdentificacionD"
+                        app:layout_constraintTop_toTopOf="@+id/sp_tipoIdentificacionD"
                         app:layout_constraintVertical_bias="0.0"
                         app:startIconDrawable="@drawable/dni">
 
@@ -690,13 +706,13 @@
                     <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/text_input_nombresD"
                         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                        android:layout_width="177dp"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="0.0"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/dropdown_tipoIdentificacionD"
+                        app:layout_constraintTop_toBottomOf="@+id/sp_tipoIdentificacionD"
                         app:layout_constraintVertical_bias="0.0"
                         app:startIconDrawable="@drawable/ic_baseline_person">
 
@@ -709,35 +725,55 @@
                     </com.google.android.material.textfield.TextInputLayout>
 
                     <com.google.android.material.textfield.TextInputLayout
-                        android:id="@+id/text_input_apellidosD"
+                        android:id="@+id/txtInputApellidoPaternoDenunciado"
                         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                         android:layout_width="177dp"
                         android:layout_height="wrap_content"
-                        app:layout_constraintBottom_toBottomOf="@+id/text_input_nombresD"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintHorizontal_bias="1.0"
-                        app:layout_constraintStart_toEndOf="@+id/text_input_nombresD"
-                        app:layout_constraintTop_toTopOf="@+id/text_input_nombresD"
-                        app:startIconDrawable="@drawable/ic_baseline_person">
-
-                        <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/edtapellidosD"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:fontFamily="@font/poppins_medium"
-                            android:hint="Apellidos" />
-                    </com.google.android.material.textfield.TextInputLayout>
-
-                    <fr.ganfra.materialspinner.MaterialSpinner
-                        android:id="@+id/dropdown_distritoD"
-                        android:layout_width="177dp"
-                        android:layout_height="70dp"
-                        android:layout_marginTop="8dp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="0.0"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/text_input_nombresD"
+                        app:layout_constraintVertical_bias="0.0"
+                        app:startIconDrawable="@drawable/ic_baseline_person">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/edt_ApellidoPaternoD"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/poppins_medium"
+                            android:hint="Apellido Paterno" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/txtInputApellidoMaternoDenunciado"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                        android:layout_width="177dp"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintBottom_toBottomOf="@+id/txtInputApellidoPaternoDenunciado"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="1.0"
+                        app:layout_constraintStart_toEndOf="@+id/txtInputApellidoPaternoDenunciado"
+                        app:layout_constraintTop_toTopOf="@+id/txtInputApellidoPaternoDenunciado"
+                        app:startIconDrawable="@drawable/ic_baseline_person">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/edt_ApellidoMaternoD"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/poppins_medium"
+                            android:hint="Apellido Materno" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <fr.ganfra.materialspinner.MaterialSpinner
+                        android:id="@+id/sp_distritoD"
+                        android:layout_width="177dp"
+                        android:layout_height="70dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.0"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/txtInputApellidoPaternoDenunciado"
                         app:layout_constraintVertical_bias="0.0"
                         app:ms_alignLabels="false"
                         app:ms_arrowColor="@color/colorPrimary"
@@ -756,16 +792,16 @@
                         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                         android:layout_width="177dp"
                         android:layout_height="wrap_content"
-                        app:layout_constraintBottom_toBottomOf="@+id/dropdown_distritoD"
+                        app:layout_constraintBottom_toBottomOf="@+id/sp_distritoD"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="1.0"
-                        app:layout_constraintStart_toEndOf="@+id/dropdown_distritoD"
-                        app:layout_constraintTop_toTopOf="@+id/dropdown_distritoD"
+                        app:layout_constraintStart_toEndOf="@+id/sp_distritoD"
+                        app:layout_constraintTop_toTopOf="@+id/sp_distritoD"
                         app:layout_constraintVertical_bias="0.0"
                         app:startIconDrawable="@drawable/ic_phone">
 
                         <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/edtcelularD"
+                            android:id="@+id/edt_CelularD"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/poppins_medium"
@@ -773,14 +809,14 @@
                     </com.google.android.material.textfield.TextInputLayout>
 
                     <fr.ganfra.materialspinner.MaterialSpinner
-                        android:id="@+id/dropdown_estadocivilD"
+                        android:id="@+id/sp_estadocivilD"
                         android:layout_width="177dp"
                         android:layout_height="70dp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="0.0"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/dropdown_distritoD"
+                        app:layout_constraintTop_toBottomOf="@+id/sp_distritoD"
                         app:layout_constraintVertical_bias="0.0"
                         app:ms_alignLabels="false"
                         app:ms_arrowColor="@color/colorPrimary"
@@ -795,14 +831,14 @@
                         app:ms_thickness="1dp" />
 
                     <fr.ganfra.materialspinner.MaterialSpinner
-                        android:id="@+id/dropdown_infAdicionalD"
+                        android:id="@+id/sp_infAdicionalD"
                         android:layout_width="177dp"
                         android:layout_height="70dp"
-                        app:layout_constraintBottom_toBottomOf="@+id/dropdown_estadocivilD"
+                        app:layout_constraintBottom_toBottomOf="@+id/sp_estadocivilD"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="1.0"
-                        app:layout_constraintStart_toEndOf="@+id/dropdown_estadocivilD"
-                        app:layout_constraintTop_toTopOf="@+id/dropdown_estadocivilD"
+                        app:layout_constraintStart_toEndOf="@+id/sp_estadocivilD"
+                        app:layout_constraintTop_toTopOf="@+id/sp_estadocivilD"
                         app:ms_alignLabels="false"
                         app:ms_arrowColor="@color/colorPrimary"
                         app:ms_arrowSize="16dp"
@@ -816,14 +852,14 @@
                         app:ms_thickness="1dp" />
 
                     <fr.ganfra.materialspinner.MaterialSpinner
-                        android:id="@+id/dropdown_generoD"
+                        android:id="@+id/sp_generoD"
                         android:layout_width="177dp"
                         android:layout_height="70dp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="0.0"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/dropdown_estadocivilD"
+                        app:layout_constraintTop_toBottomOf="@+id/sp_estadocivilD"
                         app:layout_constraintVertical_bias="0.0"
                         app:ms_alignLabels="false"
                         app:ms_arrowColor="@color/colorPrimary"
@@ -842,20 +878,45 @@
                         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                         android:layout_width="177dp"
                         android:layout_height="wrap_content"
-                        app:layout_constraintBottom_toBottomOf="@+id/dropdown_generoD"
+                        app:layout_constraintBottom_toBottomOf="@+id/sp_generoD"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="1.0"
-                        app:layout_constraintStart_toEndOf="@+id/dropdown_generoD"
-                        app:layout_constraintTop_toTopOf="@+id/dropdown_generoD"
+                        app:layout_constraintStart_toEndOf="@+id/sp_generoD"
+                        app:layout_constraintTop_toTopOf="@+id/sp_generoD"
                         app:layout_constraintVertical_bias="0.0"
-                        app:startIconDrawable="@drawable/ic_baseline_edit">
+                        app:startIconDrawable="@drawable/date">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/dtp_FechaNacD"
+                            android:layout_width="177dp"
+                            android:layout_height="wrap_content"
+                            android:clickable="false"
+                            android:focusable="false"
+                            android:fontFamily="@font/poppins_medium"
+                            android:hint="Fecha Nacimiento"
+                            android:inputType="date"
+                            android:maxLines="1" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/txtInputDireccionDenunciado"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.0"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/sp_generoD"
+                        app:layout_constraintVertical_bias="0.0"
+                        app:startIconDrawable="@drawable/ic_baseline_house">
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/edtDireccionD"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/poppins_medium"
-                            android:hint="Direccion" />
+                            android:hint="Ingresa la dirección de su casa y/o referencias" />
                     </com.google.android.material.textfield.TextInputLayout>
 
                     <Button
@@ -870,15 +931,9 @@
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="1.0"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/dropdown_generoD" />
-
+                        app:layout_constraintTop_toBottomOf="@+id/txtInputDireccionDenunciado" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
-
             </com.google.android.material.card.MaterialCardView>
-
-
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
-
-
 </LinearLayout>

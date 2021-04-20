@@ -2,12 +2,12 @@ package com.example.comisariaapp.entity.service;
 
 import java.util.Date;
 
-public final class Agraviado extends Persona{
+public final class Agraviado extends Persona {
     private boolean medidaProteccion;
     private String detalleProteccion;
     private String Juzgado;
     private Date fechaEmision;
-    private String RHD;
+    private String rhd;
     private InformacionAdicional informacionAdicional;
 
     public boolean isMedidaProteccion() {
@@ -42,12 +42,12 @@ public final class Agraviado extends Persona{
         this.fechaEmision = fechaEmision;
     }
 
-    public String getRHD() {
-        return RHD;
+    public String getRhd() {
+        return rhd;
     }
 
-    public void setRHD(String RHD) {
-        this.RHD = RHD;
+    public void setRhd(String rhd) {
+        this.rhd = rhd;
     }
 
     public InformacionAdicional getInformacionAdicional() {

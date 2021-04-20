@@ -16,7 +16,7 @@ import retrofit2.Response;
 
 public class DistritoRepository {
     private static DistritoRepository repository;
-    private DistritoApi api;
+    private final DistritoApi api;
 
     private DistritoRepository() {
         this.api = ConfigApi.getDistritoApi();

@@ -3,20 +3,25 @@ package com.example.comisariaapp.adapter;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.comisariaapp.R;
+import com.example.comisariaapp.communication.AgraviadoCommunication;
 import com.example.comisariaapp.entity.service.Agraviado;
 
 import java.util.List;
 
 public class AgraviadoAdapter extends RecyclerView.Adapter<AgraviadoAdapter.ViewHolder> {
-    private List<Agraviado> agraviados;
+    private final AgraviadoCommunication c;
+    private final List<Agraviado> agraviados;
 
-    public AgraviadoAdapter(List<Agraviado> agraviados) {
+    public AgraviadoAdapter(AgraviadoCommunication c, List<Agraviado> agraviados) {
+        this.c = c;
         this.agraviados = agraviados;
     }
 
@@ -29,23 +34,32 @@ public class AgraviadoAdapter extends RecyclerView.Adapter<AgraviadoAdapter.View
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        holder.setItem(agraviados.get(position));
+        holder.setItem(this.agraviados.get(position));
     }
 
     @Override
     public int getItemCount() {
-        return agraviados.size();
+        return this.agraviados.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
+    public void updateItems(List<Agraviado> agraviados) {
+        this.agraviados.clear();
+        this.agraviados.addAll(agraviados);
+        this.notifyDataSetChanged();
+    }
+
+    protected class ViewHolder extends RecyclerView.ViewHolder {
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
         }
 
-        public void setItem(Agraviado a) {
-            final TextView txtNombre = itemView.findViewById(R.id.txtItemNombres);
-            txtNombre.setText(a.getNombres() + " " + a.getApellidoPaterno() + "" + a.getApellidoMaterno());
+        public void setItem(final Agraviado a) {
+            final TextView txtNombre = this.itemView.findViewById(R.id.txtItemNombres);
+            final ImageView btnEliminar = itemView.findViewById(R.id.btnEliminar);
+            txtNombre.setText(a.getNombres() + " " + a.getApellidoPaterno() + " " + a.getApellidoMaterno());
+            btnEliminar.setOnClickListener(v -> c.deleteA(a.getNumeroIdentificacion())
+            );
         }
     }
 }

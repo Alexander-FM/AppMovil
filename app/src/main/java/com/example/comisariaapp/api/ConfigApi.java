@@ -5,16 +5,22 @@ import com.facebook.stetho.okhttp3.StethoInterceptor;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
+import org.jetbrains.annotations.NotNull;
+
+import java.io.IOException;
 import java.util.Date;
 import java.util.concurrent.TimeUnit;
 
+import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class ConfigApi {
-    public static String baseUrlE = "http://10.0.2.2:9090", baseUrlD = "http://192.168.1.103:9090";
+    private static final String baseUrlE = "http://10.0.2.2:9090", baseUrlD = "http://192.168.1.103:9090";
     private static Retrofit retrofit;
     private static String token = "";
 
@@ -25,6 +31,8 @@ public class ConfigApi {
     private static InformacionAdicionalApi infoAdicApi;
     private static TipoTramiteApi tTApi;
     private static TramiteApi tApi;
+    private static EstadoCivilApi ecApi;
+    private static DenunciaApi dApi;
 
     static {
         initClient();
@@ -50,16 +58,9 @@ public class ConfigApi {
         StethoInterceptor stetho = new StethoInterceptor();
 
         OkHttpClient.Builder builder = new OkHttpClient.Builder();
-/*
-        Interceptor authInterceptor = new Interceptor() {
-            @NotNull
-            @Override
-            public Response intercept(@NotNull Chain chain) throws IOException {
-                Request request = chain.request().newBuilder().addHeader("Authorization", "Bearer " + token).build();
-                return chain.proceed(request);
-            }
-        };
-        */
+
+        //Interceptor authInterceptor = chain -> chain.proceed(chain.request().newBuilder().addHeader("Authorization", "Bearer " + token).build());
+
 
         builder.addInterceptor(logging)
                 .connectTimeout(60, TimeUnit.SECONDS)
@@ -123,6 +124,20 @@ public class ConfigApi {
             tApi = retrofit.create(TramiteApi.class);
         }
         return tApi;
+    }
+
+    public static EstadoCivilApi getEstadoCivilApi() {
+        if (ecApi == null) {
+            ecApi = retrofit.create(EstadoCivilApi.class);
+        }
+        return ecApi;
+    }
+
+    public static DenunciaApi getDenunciaApi() {
+        if (dApi == null) {
+            dApi = retrofit.create(DenunciaApi.class);
+        }
+        return dApi;
     }
 }
 

@@ -18,7 +18,6 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
-import android.widget.RadioButton;
 import android.widget.Toast;
 
 import com.example.comisariaapp.entity.service.Denunciado;
@@ -124,7 +123,7 @@ public class RegistrarDenunciaActivity extends AppCompatActivity {
             case R.id.usuariosagregados:
                 if (validarDatosDenuncia()) {
                     this.save();
-                    this.startActivity(new Intent(this, PersonasCarritoActity.class));
+                    this.startActivity(new Intent(this, DetalleDenunciaActivity.class));
                     this.overridePendingTransition(R.anim.above_in, R.anim.above_out);
                     break;
                 } else {
@@ -225,7 +224,7 @@ public class RegistrarDenunciaActivity extends AppCompatActivity {
     private void guardarAgraviado() {
         Agraviado a;
         if (!edtDocA.getText().toString().equals("") && !edtNombresA.getText().toString().equals("") && !edtApellidoPaternoA.getText().toString().equals("") && !edtApellidoMaternoA.getText().toString().equals("")
-                && drop_tipoIdentificacionA.getSelectedItemPosition() != -1
+                && drop_tipoIdentificacionA.getSelectedItemPosition() != 0
                 && !edtFechaNacimientoA.getText().toString().equals("") && !edtCeluarA.getText().toString().equals("")
                 && !edtReferenciaDomicilioReal.getText().toString().equals("") && !edtHechoDenunciar.getText().toString().equals("") && drop_medidaProteccion.getSelectedItemPosition() != -1) {
             a = new Agraviado();
@@ -239,14 +238,15 @@ public class RegistrarDenunciaActivity extends AppCompatActivity {
                 a.setDireccion(edtReferenciaDomicilioReal.getText().toString());
                 a.setRhd(edtHechoDenunciar.getText().toString());
                 int indexDistritoSelected = drop_distritoA.getSelectedItemPosition();
-                a.setDistrito(distritos.get(indexDistritoSelected));
+                a.setDistrito(distritos.get(indexDistritoSelected - 1));
                 a.setSexo(drop_generoA.getSelectedItem().toString());
                 a.setTipoIdentificacion(new TipoIdentificacion());
-                a.getTipoIdentificacion().setId(drop_tipoIdentificacionA.getSelectedItemPosition());
+                final int indexti = drop_tipoIdentificacionA.getSelectedItemPosition();
+                a.getTipoIdentificacion().setId(indexti);
                 a.setEstadoCivil(new EstadoCivil());
                 a.getEstadoCivil().setId(2);
-                int indexIA = sp_InfoAdicionalD.getSelectedItemPosition();
-                a.setInformacionAdicional(infosAdicional.get(indexIA));
+                int indexIA = drop_infoAdicionalA.getSelectedItemPosition();
+                a.setInformacionAdicional(infosAdicional.get(indexIA - 1));
                 if (drop_medidaProteccion.getSelectedItemPosition() == 1) {
                     a.setMedidaProteccion(true);
                     a.setJuzgado(drop_Juzgado.getSelectedItem().toString());
@@ -274,14 +274,18 @@ public class RegistrarDenunciaActivity extends AppCompatActivity {
                 && !dtp_FechaNacD.getText().toString().equals("")) {
             d = new Denunciado();
             try {
+                d.setTipoIdentificacion(new TipoIdentificacion());
+                d.getTipoIdentificacion().setId(sp_TipoIdentificacionD.getSelectedItemPosition() - 1);
+                d.getTipoIdentificacion().setId(1);
                 d.setNumeroIdentificacion(edt_DocD.getText().toString());
                 d.setNombres(edt_NombresD.getText().toString());
                 d.setApellidoPaterno(edt_ApellidoPaternoD.getText().toString());
                 d.setApellidoMaterno(edt_ApellidoMaternoD.getText().toString());
                 d.setTelefono(edt_CelularD.getText().toString());
-                int indexIA = sp_InfoAdicionalD.getSelectedItemPosition();
+                int indexIA = sp_InfoAdicionalD.getSelectedItemPosition() - 1;
                 d.setInformacionAdicional(infosAdicional.get(indexIA));
                 d.setFechaNacimiento(new SimpleDateFormat("dd-MM-yyyy").parse(dtp_FechaNacD.getText().toString()));
+                d.setDistrito(distritos.get(sp_DistritoDenunciado.getSelectedItemPosition() - 1));
                 d.setDireccion(edt_DireccionD.getText().toString());
                 d.setSexo(sp_GeneroD.getSelectedItem().toString());
                 d.setEstadoCivil(new EstadoCivil());
@@ -522,19 +526,21 @@ public class RegistrarDenunciaActivity extends AppCompatActivity {
     private void save() {
         Denuncia d = new Denuncia();
         try {
+            d.setCod_denuncia("? ? ?");
             d.setPolicia(new Policia());
             d.getPolicia().setId(1);
             d.setFechaDenuncia(new Date());
             d.setFechaHechos(new SimpleDateFormat("dd-MM-yyyy").parse(this.edtFechaHechos.getText().toString()));
-            d.setDistrito(this.distritos.get(this.drop_distritoD.getSelectedItemPosition()));
+            d.setDistrito(this.distritos.get(this.drop_distritoD.getSelectedItemPosition() - 1));
             d.setDireccion(this.edtLugarHechos.getText().toString());
             d.setReferenciaDireccion(this.edtReferenciaHechos.getText().toString());
-            d.setVinculoParteDenunciada(this.vinculos.get(this.drop_vpd.getSelectedItemPosition()));
-            d.setTipoDenuncia(this.tiposDenuncia.get(this.drop_td.getSelectedItemPosition()));
+            d.setVinculoParteDenunciada(this.vinculos.get(this.drop_vpd.getSelectedItemPosition() - 1));
+            d.setTipoDenuncia(this.tiposDenuncia.get(this.drop_td.getSelectedItemPosition() - 1));
             DenunciaManager.setDenuncia(d, this);
             Toast.makeText(this, "Los datos de la denuncia fueron guardados correctamente", Toast.LENGTH_LONG).show();
         } catch (Exception e) {
             Toast.makeText(this, "se ha producido un error al intentar armar la denuncia:" + e.getMessage(), Toast.LENGTH_LONG).show();
+            e.printStackTrace();
         }
     }
 

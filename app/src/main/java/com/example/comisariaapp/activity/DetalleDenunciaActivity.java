@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.Toast;
 
 import com.example.comisariaapp.R;
@@ -20,8 +21,9 @@ import com.example.comisariaapp.entity.service.dto.DenunciaConDetallesDTO;
 import com.example.comisariaapp.utils.DenunciaManager;
 import com.example.comisariaapp.viewmodel.DenunciaViewModel;
 
-public class PersonasCarritoActity extends AppCompatActivity implements AgraviadoCommunication, DenunciadoCommunication {
+public class DetalleDenunciaActivity extends AppCompatActivity implements AgraviadoCommunication, DenunciadoCommunication {
     private Button btnSaveDenuncia;
+    private CheckBox chkTerminosyCondiciones;
     private AgraviadoAdapter agraviadosAdapter;
     private DenunciadoAdapter denunciadosAdapter;
     private RecyclerView rcvAgraviados, rcvDenunciados;
@@ -30,7 +32,7 @@ public class PersonasCarritoActity extends AppCompatActivity implements Agraviad
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        this.setContentView(R.layout.activity_personas_carrito_actity);
+        this.setContentView(R.layout.activity_detalle_denuncia);
         this.init();
         this.initAdapters();
     }
@@ -56,6 +58,8 @@ public class PersonasCarritoActity extends AppCompatActivity implements Agraviad
                 }
             });
         });
+        this.chkTerminosyCondiciones = findViewById(R.id.chkTerminosyCondiciones);
+        this.chkTerminosyCondiciones.setOnCheckedChangeListener((buttonView, isChecked) -> btnSaveDenuncia.setEnabled(isChecked));
         this.rcvAgraviados = findViewById(R.id.rcvAgraviados);
         this.rcvDenunciados = findViewById(R.id.rcvDenunciados);
         this.rcvAgraviados.setLayoutManager(new GridLayoutManager(this, 1));
@@ -63,10 +67,11 @@ public class PersonasCarritoActity extends AppCompatActivity implements Agraviad
     }
 
     private void initAdapters() {
-        this.agraviadosAdapter = new AgraviadoAdapter(this, DenunciaManager.getDto(this).getAgraviados());
+        DenunciaConDetallesDTO dto = DenunciaManager.getDto(this);
+        this.agraviadosAdapter = new AgraviadoAdapter(this, dto.getAgraviados());
         this.rcvAgraviados.setAdapter(this.agraviadosAdapter);
 
-        this.denunciadosAdapter = new DenunciadoAdapter(this, DenunciaManager.getDto(this).getDenunciados());
+        this.denunciadosAdapter = new DenunciadoAdapter(this, dto.getDenunciados());
         this.rcvDenunciados.setAdapter(this.denunciadosAdapter);
 
     }

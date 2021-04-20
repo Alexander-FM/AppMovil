@@ -25,7 +25,7 @@
         <activity android:name=".activity.ConsultarTramiteActivity"></activity>
         <activity android:name=".activity.RegistrarTramiteActivity" />
         <activity android:name=".activity.RegistrarUsuarioActivity" />
-        <activity android:name=".activity.PersonasCarritoActity" />
+        <activity android:name=".activity.DetalleDenunciaActivity" />
         <activity android:name=".activity.MenuActivity" />
     </application>
 

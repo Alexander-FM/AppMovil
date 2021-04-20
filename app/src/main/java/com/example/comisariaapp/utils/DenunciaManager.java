@@ -5,7 +5,6 @@ import android.content.SharedPreferences;
 
 import androidx.preference.PreferenceManager;
 
-import com.example.comisariaapp.activity.PersonasCarritoActity;
 import com.example.comisariaapp.entity.service.Agraviado;
 import com.example.comisariaapp.entity.service.Denuncia;
 import com.example.comisariaapp.entity.service.Denunciado;

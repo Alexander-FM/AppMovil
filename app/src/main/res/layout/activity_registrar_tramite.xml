@@ -89,7 +89,7 @@
                     <fr.ganfra.materialspinner.MaterialSpinner
                         android:id="@+id/sp_tipoTramite"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="70dp"
                         android:layout_marginTop="10dp"
                         app:ms_alignLabels="false"
                         app:ms_arrowColor="@color/colorPrimary"

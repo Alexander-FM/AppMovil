@@ -7,6 +7,7 @@ public final class Tramites {
     private Date fechaDenuncia;
     private TipoTramite tipoTramite;
     private boolean estadoTramite;
+    private String correo;
     private Usuario usuario;
     private Policia policia; /*Muchos Trámites puede atender un solo policía*/
 
@@ -64,5 +65,13 @@ public final class Tramites {
 
     public void setPolicia(Policia policia) {
         this.policia = policia;
+    }
+
+    public String getCorreo() {
+        return correo;
+    }
+
+    public void setCorreo(String correo) {
+        this.correo = correo;
     }
 }

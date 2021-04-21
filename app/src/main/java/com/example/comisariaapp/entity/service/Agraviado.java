@@ -5,7 +5,7 @@ import java.util.Date;
 public final class Agraviado extends Persona {
     private boolean medidaProteccion;
     private String detalleProteccion;
-    private String Juzgado;
+    private String juzgado;
     private Date fechaEmision;
     private String rhd;
     private InformacionAdicional informacionAdicional;
@@ -27,11 +27,11 @@ public final class Agraviado extends Persona {
     }
 
     public String getJuzgado() {
-        return Juzgado;
+        return juzgado;
     }
 
     public void setJuzgado(String juzgado) {
-        Juzgado = juzgado;
+        this.juzgado = juzgado;
     }
 
     public Date getFechaEmision() {

@@ -4,9 +4,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.preference.PreferenceManager;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.comisariaapp.R;
@@ -33,6 +37,8 @@ public class RegistrarTramiteActivity extends AppCompatActivity {
     private TipoTramiteViewModel tipoTramiteViewModel;
     private TramiteViewModel viewModel;
     private ArrayAdapter<String> adapterTramite;
+    private EditText correoUsuarioTramite;
+    private CheckBox chkmismoCorreo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,6 +53,15 @@ public class RegistrarTramiteActivity extends AppCompatActivity {
 
     private void init() {
         Button btnRegistrarTramite = findViewById(R.id.btnRegistrarTramite), btnCancelar = findViewById(R.id.btnCancelTramite);
+        correoUsuarioTramite = findViewById(R.id.edtCorreoElectronicoT);
+        chkmismoCorreo = findViewById(R.id.chkmismocorreotramite);
+        chkmismoCorreo.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            if (isChecked) {
+                getCorreoUsuario();//asigna a la caja de texto el correo del usuario en sesión.
+            }else{
+                correoUsuarioTramite.setText("");//limpia la caja de texto si esta desmarcada
+            }
+        });
         btnCancelar.setOnClickListener(v -> finish());
         btnRegistrarTramite.setOnClickListener(v -> save());
         sp_tipoTramite = findViewById(R.id.sp_tipoTramite);
@@ -55,6 +70,20 @@ public class RegistrarTramiteActivity extends AppCompatActivity {
         adapterTramite.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         sp_tipoTramite.setAdapter(adapterTramite);
 
+
+    }
+
+    private void getCorreoUsuario() {
+        Gson g = new GsonBuilder()
+                .setDateFormat("yyyy-MM-dd'T'HH:mm:ss")
+                //.registerTypeAdapter(Date.class, (JsonDeserializer<Date>) (json, typeOfT, context) -> new Date(json.getAsJsonPrimitive().getAsLong()))
+                .create();
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
+        String strU = preferences.getString("UsuarioJson", "");
+        if(!strU.equals("")){
+            Usuario us = g.fromJson(strU, Usuario.class);
+            this.correoUsuarioTramite.setText(us.getCorreo());
+        }
     }
 
     private void loadData() {
@@ -76,10 +105,11 @@ public class RegistrarTramiteActivity extends AppCompatActivity {
         Tramites t = new Tramites();
         t.setEstadoTramite(false);
         t.setFechaDenuncia(new Date());
-        t.setTipoTramite(tiposTramite.get(sp_tipoTramite.getSelectedItemPosition()));
+        t.setTipoTramite(tiposTramite.get(sp_tipoTramite.getSelectedItemPosition() - 1));
         t.setPolicia(new Policia());
         t.getPolicia().setId(1);
         t.setCodTramite("---");
+        t.setCorreo(correoUsuarioTramite.getText().toString());
         final Gson g = new GsonBuilder()
                 .setDateFormat("yyyy-MM-dd'T'HH:mm:ss")
                 //.registerTypeAdapter(Date.class, (JsonDeserializer<Date>) (json, typeOfT, context) -> new Date(json.getAsJsonPrimitive().getAsLong()))

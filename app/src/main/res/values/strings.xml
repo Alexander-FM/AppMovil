@@ -1,9 +1,7 @@
 <resources>
     <string name="app_name">ComisariaApp</string>
-
     <string name="btn_ver_mas">Ver más</string>
     <string name="btn_ingresar_denuncia">Ingresar denuncia</string>
-
     <string name="textoTrámite">Hola, Usuario. Aquí puedes registrar tu trámite virtual, recuerda poner
     un correo electronico válido para poder recibir el código de tu trámite y poder hacer seguimiento.</string>
     <string name="titulotramite"><u>Datos Generales</u></string>
@@ -27,5 +25,10 @@
     <string name="titulopersonasagregadasD">Denunciados(as)</string>
     <string name="titulospinnertramite">Seleccione Tipo Trámite</string>
     <string name="tituloformularioagraviado"><u>Datos del usuario</u></string>
-
+    <string name="titulomisdenuncias">Hola, usuario(a), aquí puedes visualizar todas tus
+        denuncias realizadas mediante esta aplicación.</string>
+    <string name="titulomistramites">Hola, usuario(a), aquí puedes visualizar todos tus
+        trámites realizados mediante esta aplicación.</string>
+    <string name="titulodenuncias"><u>Mis Denuncias</u></string>
+    <string name="titulotramites"><u>Mis Trámites</u></string>
 </resources>

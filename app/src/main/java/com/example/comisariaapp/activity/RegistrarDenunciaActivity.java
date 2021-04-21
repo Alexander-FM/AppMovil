@@ -24,6 +24,7 @@ import com.example.comisariaapp.entity.service.Denunciado;
 import com.example.comisariaapp.entity.service.EstadoCivil;
 import com.example.comisariaapp.entity.service.Policia;
 import com.example.comisariaapp.entity.service.TipoIdentificacion;
+import com.example.comisariaapp.utils.DateDeserializer;
 import com.example.comisariaapp.utils.DatePickerFragment;
 import com.example.comisariaapp.R;
 import com.example.comisariaapp.entity.service.Agraviado;
@@ -149,6 +150,8 @@ public class RegistrarDenunciaActivity extends AppCompatActivity {
         edtApellidoPaternoA.setEnabled(b);
         edtApellidoMaternoA.setEnabled(b);
         edtFechaNacimientoA.setEnabled(b);
+        edtReferenciaDomicilioReal.setEnabled(b);
+        edtCeluarA.setEnabled(b);
         //drop_distritoA.setEnabled(b);
         drop_generoA.setEnabled(b);
         if (b) {
@@ -162,7 +165,6 @@ public class RegistrarDenunciaActivity extends AppCompatActivity {
         drop_Juzgado.setEnabled(b);
         edtFechaEmisionProteccion.setEnabled(b);
         edtDetalleProtección.setEnabled(b);
-        edtReferenciaDomicilioReal.setEnabled(b);
         if (b == false) {
             drop_Juzgado.setSelection(0);
             edtDetalleProtección.setText("");
@@ -526,6 +528,12 @@ public class RegistrarDenunciaActivity extends AppCompatActivity {
     private void save() {
         Denuncia d = new Denuncia();
         try {
+            SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);//getPreferences(Context.MODE_PRIVATE);
+            Gson g = new GsonBuilder()
+                    .setDateFormat("yyyy-MM-dd")
+                    .registerTypeAdapter(Date.class, new DateDeserializer())
+                    .create();
+            d.setUsuario(g.fromJson(preferences.getString("UsuarioJson", null), Usuario.class));
             d.setCod_denuncia("? ? ?");
             d.setPolicia(new Policia());
             d.getPolicia().setId(1);

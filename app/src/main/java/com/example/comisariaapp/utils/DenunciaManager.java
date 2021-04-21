@@ -162,6 +162,7 @@ public class DenunciaManager {
     public static void clear(Context c) {
         SharedPreferences.Editor editor = sp.edit();
         editor.remove("dto");
+        editor.apply();
     }
 }
 

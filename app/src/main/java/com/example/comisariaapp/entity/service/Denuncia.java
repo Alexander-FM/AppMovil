@@ -13,6 +13,7 @@ public final class Denuncia {
     private Distrito distrito;
     private VinculoParteDenunciada vinculoParteDenunciada;
     private Policia policia;
+    private Usuario usuario;
 
     public int getId() {
         return id;
@@ -117,5 +118,13 @@ public final class Denuncia {
     }
     public String getNombreVPD(){
         return this.vinculoParteDenunciada!=null?this.vinculoParteDenunciada.getNombre():"- - - ";
+    }
+
+    public Usuario getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
     }
 }

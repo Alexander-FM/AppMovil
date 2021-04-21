@@ -194,12 +194,10 @@ public class RegistrarUsuarioActivity extends AppCompatActivity {
             u.setContraseña(edtContraseña.getText().toString());
             u.setTipoIdentificacion(new TipoIdentificacion());
             u.getTipoIdentificacion().setId(dropdown_tipoIdentificacionU.getSelectedItemPosition());
-            u.setDistrito(new Distrito());
-            u.getDistrito().setId(1);
-            u.setEstadoCivil(estadosCiviles.get(dropdown_estadocivilU.getSelectedItemPosition()));
-            u.getDistrito().setId(1);
-            u.setDireccion("No existe información");
-            u.setTelefono("968458123");
+            u.setDistrito(distritos.get(dropdown_distritoUsuario.getSelectedItemPosition() - 1));
+            u.setEstadoCivil(estadosCiviles.get(dropdown_estadocivilU.getSelectedItemPosition() - 1));
+            u.setDireccion(edtDireccion.getText().toString());
+            u.setTelefono(edtTelefono.getText().toString());
             //u.getTipoIdentificacion().setId(dropdown_text.getListSelection() + 1);
             u.getTipoIdentificacion().setEstado(true);
             u.getTipoIdentificacion().setTipoIdentificacion("");

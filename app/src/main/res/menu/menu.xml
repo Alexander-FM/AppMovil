@@ -3,9 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
         android:id="@+id/more"
-        android:title="Contáctanos"
         android:icon="@drawable/shr_more"
-        android:iconTint="@color/white"
+        android:title="Contáctanos"
         app:showAsAction="never"/>
     <item
         android:id="@+id/contacto"

@@ -20,8 +20,13 @@ import com.example.comisariaapp.R;
 import com.example.comisariaapp.adapter.SeccionArrayAdapter;
 import com.example.comisariaapp.communication.MainCommunication;
 import com.example.comisariaapp.entity.GridSeccion;
+import com.example.comisariaapp.entity.service.Usuario;
+import com.example.comisariaapp.utils.DateDeserializer;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 public class MenuActivity extends AppCompatActivity implements MainCommunication {
     public Button btnVioFamiliar;
@@ -32,6 +37,16 @@ public class MenuActivity extends AppCompatActivity implements MainCommunication
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Toolbar toolbar = findViewById(R.id.toolbar);
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);//getPreferences(Context.MODE_PRIVATE);
+        Gson g = new GsonBuilder()
+                .setDateFormat("yyyy-MM-dd")
+                .registerTypeAdapter(Date.class, new DateDeserializer())
+                .create();
+        String user = preferences.getString("UsuarioJson", null);
+        if (user!= null){
+            Usuario usuario = g.fromJson(user, Usuario.class);
+            toolbar.setTitle("HOLA, " + usuario.getNombres() + " " + usuario.getApellidoPaterno());
+        }
 
         this.seccions = new ArrayList<>();
         seccions.add(new GridSeccion(1, R.drawable.denunciasonline, "Ingresar Denuncia"));
@@ -55,12 +70,17 @@ public class MenuActivity extends AppCompatActivity implements MainCommunication
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
             case R.id.logout:
-
                 SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);//getPreferences(Context.MODE_PRIVATE);
                 SharedPreferences.Editor editor = preferences.edit();
                 editor.remove("UsuarioJson");
                 editor.apply();
                 this.loadActivity(new Intent(this, LoginActivity.class));
+                break;
+            case R.id.misDenuncias:
+                this.loadActivity(new Intent(this, MisDenunciasActivity.class));
+                break;
+            case R.id.misTramites:
+                this.loadActivity(new Intent(this, MisTramitesActivity.class));
                 break;
         }
         return super.onOptionsItemSelected(item);

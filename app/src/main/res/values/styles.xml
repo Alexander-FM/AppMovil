@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <style name="Widget.Shrine.Toolbar" parent="TextAppearance.AppCompat">
-        <item name="backgroundColor">#104a38</item>
+        <item name="backgroundColor">#fff</item>
+    </style>
+    <style name="MyStyle.Toolbar" parent="TextAppearance.AppCompat">
+        <item name="android:textSize">18sp</item>
     </style>
 </resources>

@@ -9,6 +9,8 @@ import com.example.comisariaapp.entity.GenericResponse;
 import com.example.comisariaapp.entity.service.Denuncia;
 import com.example.comisariaapp.entity.service.dto.DenunciaConDetallesDTO;
 
+import java.util.List;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -42,6 +44,23 @@ public class DenunciaRepository {
                 mld.setValue(new GenericResponse<>());
                 mld.getValue().setRpta(0);
                 mld.getValue().setBody("se ha producido un error ak intentar guadrar la denuncia:" + t.getMessage());
+                t.printStackTrace();
+            }
+        });
+        return mld;
+    }
+
+    public LiveData<GenericResponse<List<Denuncia>>> devolverMisDenuncias(int idUsu) {
+        MutableLiveData<GenericResponse<List<Denuncia>>> mld = new MutableLiveData<>();
+        this.api.devolverMisDenuncias(idUsu).enqueue(new Callback<GenericResponse<List<Denuncia>>>() {
+            @Override
+            public void onResponse(Call<GenericResponse<List<Denuncia>>> call, Response<GenericResponse<List<Denuncia>>> response) {
+                mld.setValue(response.body());
+            }
+
+            @Override
+            public void onFailure(Call<GenericResponse<List<Denuncia>>> call, Throwable t) {
+                mld.setValue(new GenericResponse<>());
                 t.printStackTrace();
             }
         });

@@ -19,7 +19,8 @@
             android:padding="2dp">
 
             <ImageView
-                android:id="@+id/imgCheque"
+                android:padding="10dp"
+                android:id="@+id/imgEstadoTramite"
                 android:layout_width="150dp"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="237dp"
@@ -37,16 +38,16 @@
                 android:fontFamily="@font/poppins_medium"
                 android:text="TIPO TRÁMITE:"
                 android:textStyle="bold"
-                app:layout_constraintBottom_toBottomOf="@+id/imgCheque"
+                app:layout_constraintBottom_toBottomOf="@+id/imgEstadoTramite"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.05"
-                app:layout_constraintStart_toEndOf="@+id/imgCheque"
-                app:layout_constraintTop_toTopOf="@+id/imgCheque"
+                app:layout_constraintStart_toEndOf="@+id/imgEstadoTramite"
+                app:layout_constraintTop_toTopOf="@+id/imgEstadoTramite"
                 app:layout_constraintVertical_bias="0.0" />
 
             <TextView
-                android:id="@+id/txtNombreTipoDenuncia"
-                android:layout_width="125dp"
+                android:id="@+id/txtNombreTipoTramite"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/poppins_regular"
                 android:text="Copia Certificada"
@@ -63,8 +64,8 @@
                 android:fontFamily="@font/poppins_medium"
                 android:text="CÓD-TRÁMITE:"
                 android:textStyle="bold"
-                app:layout_constraintBottom_toBottomOf="@+id/imgCheque"
-                app:layout_constraintEnd_toStartOf="@+id/txtNombreTipoDenuncia"
+                app:layout_constraintBottom_toBottomOf="@+id/imgEstadoTramite"
+                app:layout_constraintEnd_toStartOf="@+id/txtNombreTipoTramite"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="@+id/textView"
                 app:layout_constraintTop_toBottomOf="@+id/textView"
@@ -77,7 +78,7 @@
                 android:fontFamily="@font/poppins_medium"
                 android:text="POLICÍA:"
                 android:textStyle="bold"
-                app:layout_constraintBottom_toBottomOf="@+id/imgCheque"
+                app:layout_constraintBottom_toBottomOf="@+id/imgEstadoTramite"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="@+id/textView3"
@@ -91,16 +92,16 @@
                 android:fontFamily="@font/poppins_medium"
                 android:text="FECHA REGISTRO:"
                 android:textStyle="bold"
-                app:layout_constraintBottom_toBottomOf="@+id/imgCheque"
-                app:layout_constraintEnd_toStartOf="@+id/txtNombreTipoDenuncia"
+                app:layout_constraintBottom_toBottomOf="@+id/imgEstadoTramite"
+                app:layout_constraintEnd_toStartOf="@+id/txtNombreTipoTramite"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="@+id/txtTituloPolicia"
                 app:layout_constraintTop_toBottomOf="@+id/txtTituloPolicia"
                 app:layout_constraintVertical_bias="1.0" />
 
             <TextView
-                android:id="@+id/txtNombreCodDenuncia"
-                android:layout_width="80dp"
+                android:id="@+id/txtNombreCodTramite"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/poppins_regular"
                 android:text="C-9492"
@@ -111,7 +112,7 @@
                 app:layout_constraintTop_toTopOf="@+id/textView3" />
 
             <TextView
-                android:id="@+id/txtNombrePolicia"
+                android:id="@+id/txtNombrePoliciaTramite"
                 android:layout_width="150dp"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/poppins_regular"
@@ -122,8 +123,8 @@
                 app:layout_constraintTop_toTopOf="@+id/txtTituloPolicia" />
 
             <TextView
-                android:id="@+id/txtNombreFechaDenuncia"
-                android:layout_width="90dp"
+                android:id="@+id/txtNombreFechaDenunciaTramite"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/poppins_regular"
                 android:text="23-04-2021"

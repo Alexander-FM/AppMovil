@@ -18,6 +18,7 @@
             android:layout_height="?attr/actionBarSize"
             android:background="@color/colorPrimary"
             app:menu="@menu/menu"
+            app:titleTextAppearance="@style/MyStyle.Toolbar"
             app:navigationIcon="@drawable/shr_menu"
             app:title="@string/app_name"
             app:titleTextColor="@color/white" />

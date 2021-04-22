@@ -4,22 +4,27 @@
     <item
         android:id="@+id/more"
         android:icon="@drawable/shr_more"
+        android:iconTint="@color/white"
         android:title="Contáctanos"
-        app:showAsAction="never"/>
-    <item
-        android:id="@+id/contacto"
-        android:title="Acerca de Nostros"
-        app:showAsAction="never"/>
-    <item
-        android:id="@+id/logout"
-        android:title="Cerrar Sesión"
-        app:showAsAction="never"/>
-    <item
-        android:id="@+id/misDenuncias"
-        android:title="Mis Denuncias"
-        app:showAsAction="never"/>
-    <item
-        android:id="@+id/misTramites"
-        android:title="Mis Trámites"
-        app:showAsAction="never"/>
+        app:showAsAction="always">
+        <menu>
+            <item
+                android:id="@+id/contacto"
+                android:icon="@drawable/ic_baseline_contact_mail_24"
+                android:title="Acerca de Nostros" />
+            <item
+                android:id="@+id/logout"
+                android:title="Cerrar Sesión"
+                android:icon="@drawable/exit_app"/>
+            <item
+                android:id="@+id/misDenuncias"
+                android:title="Mis Denuncias"
+                android:icon="@drawable/ic_baseline_content_paste_24"/>
+            <item
+                android:id="@+id/misTramites"
+                android:title="Mis Trámites"
+                android:icon="@drawable/ic_assigmente"/>
+        </menu>
+    </item>
+
 </menu>

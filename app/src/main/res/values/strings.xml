@@ -7,6 +7,8 @@
     <string name="titulotramite"><u>Datos Generales</u></string>
     <string name="estadoTramite">Estimado, Usuario. Aquí puedes consultar el estado de tu trámite virtual
     ingresando el código de tu trámite que se te envió en tu correo electronico.</string>
+    <string name="estadoDenuncia">Estimado, Usuario. Aquí puedes consultar el estado de tu denuncia virtual
+    ingresando el código de tu denuncia que se te envió en tu correo electronico.</string>
     <string name="tituloDenuncia"><u>Datos de la denuncia</u></string>
     <string name="tituloAgraviado"><u>Datos del Agraviado(a)</u></string>
     <string name="fechaHechos">Fecha Hechos</string>

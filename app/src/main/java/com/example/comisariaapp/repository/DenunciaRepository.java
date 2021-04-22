@@ -7,6 +7,7 @@ import com.example.comisariaapp.api.ConfigApi;
 import com.example.comisariaapp.api.DenunciaApi;
 import com.example.comisariaapp.entity.GenericResponse;
 import com.example.comisariaapp.entity.service.Denuncia;
+import com.example.comisariaapp.entity.service.Tramites;
 import com.example.comisariaapp.entity.service.dto.DenunciaConDetallesDTO;
 
 import java.util.List;
@@ -60,6 +61,23 @@ public class DenunciaRepository {
 
             @Override
             public void onFailure(Call<GenericResponse<List<Denuncia>>> call, Throwable t) {
+                mld.setValue(new GenericResponse<>());
+                t.printStackTrace();
+            }
+        });
+        return mld;
+    }
+
+    public LiveData<GenericResponse<Denuncia>> consultarDenuncias(String cod_denuncia, int idUsu) {
+        MutableLiveData<GenericResponse<Denuncia>> mld = new MutableLiveData<>();
+        this.api.consultarDenuncias(cod_denuncia, idUsu).enqueue(new Callback<GenericResponse<Denuncia>>() {
+            @Override
+            public void onResponse(Call<GenericResponse<Denuncia>> call, Response<GenericResponse<Denuncia>> response) {
+                mld.setValue(response.body());
+            }
+
+            @Override
+            public void onFailure(Call<GenericResponse<Denuncia>> call, Throwable t) {
                 mld.setValue(new GenericResponse<>());
                 t.printStackTrace();
             }

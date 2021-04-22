@@ -64,7 +64,7 @@
                 android:fontFamily="@font/poppins_medium"
                 android:text="CÓD-DENUNCIA:"
                 android:textStyle="bold"
-                app:layout_constraintBottom_toBottomOf="@+id/imgCheque"
+                app:layout_constraintBottom_toBottomOf="@+id/imgEstado"
                 app:layout_constraintEnd_toStartOf="@+id/txtNombreTipoDenuncia"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="@+id/textView"

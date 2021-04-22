@@ -59,8 +59,10 @@
         android:layout_gravity="bottom|end"
         android:layout_marginEnd="10dp"
         android:layout_marginBottom="10dp"
-        android:backgroundTint="@color/colorPrimary"
-        android:src="@drawable/ic_svgwhatsapp" />
+        android:backgroundTint="#1de956"
+        app:borderWidth="0dp"
+        app:elevation="6dp"
+        android:src="@drawable/whatsapp3" />
 
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

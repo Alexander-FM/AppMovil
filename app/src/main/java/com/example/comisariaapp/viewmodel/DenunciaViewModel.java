@@ -8,6 +8,7 @@ import androidx.lifecycle.LiveData;
 
 import com.example.comisariaapp.entity.GenericResponse;
 import com.example.comisariaapp.entity.service.Denuncia;
+import com.example.comisariaapp.entity.service.Tramites;
 import com.example.comisariaapp.entity.service.dto.DenunciaConDetallesDTO;
 import com.example.comisariaapp.repository.DenunciaRepository;
 
@@ -27,5 +28,9 @@ public class DenunciaViewModel extends AndroidViewModel {
 
     public LiveData<GenericResponse<List<Denuncia>>> devolverMisDenuncias(int idUsu) {
         return this.repository.devolverMisDenuncias(idUsu);
+    }
+
+    public LiveData<GenericResponse<Denuncia>> consultarDenuncias(String cod_denuncia, int idUsu) {
+        return this.repository.consultarDenuncias(cod_denuncia, idUsu);
     }
 }

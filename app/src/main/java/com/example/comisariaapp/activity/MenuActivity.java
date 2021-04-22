@@ -5,13 +5,16 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.preference.PreferenceManager;
 
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.telephony.PhoneNumberUtils;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Button;
 import android.widget.GridView;
 import android.widget.Toast;
@@ -22,6 +25,7 @@ import com.example.comisariaapp.communication.MainCommunication;
 import com.example.comisariaapp.entity.GridSeccion;
 import com.example.comisariaapp.entity.service.Usuario;
 import com.example.comisariaapp.utils.DateDeserializer;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
@@ -31,11 +35,19 @@ import java.util.Date;
 public class MenuActivity extends AppCompatActivity implements MainCommunication {
     public Button btnVioFamiliar;
     private ArrayList<GridSeccion> seccions;
+    private FloatingActionButton fabWhatsapp;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        fabWhatsapp = findViewById(R.id.fabAgregar);
+        fabWhatsapp.setOnClickListener(v -> {
+            Intent _intencion = new Intent("android.intent.action.MAIN");
+            _intencion.setComponent(new ComponentName("com.whatsapp","com.whatsapp.Conversation"));
+            _intencion.putExtra("jid", PhoneNumberUtils.stripSeparators("51" + "917967148")+"@s.whatsapp.net");
+            startActivity(_intencion);
+        });
         Toolbar toolbar = findViewById(R.id.toolbar);
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);//getPreferences(Context.MODE_PRIVATE);
         Gson g = new GsonBuilder()
@@ -52,7 +64,7 @@ public class MenuActivity extends AppCompatActivity implements MainCommunication
         seccions.add(new GridSeccion(1, R.drawable.denunciasonline, "Ingresar Denuncia"));
         seccions.add(new GridSeccion(2, R.drawable.tramite, "Ingresar Trámite"));
         seccions.add(new GridSeccion(3, R.drawable.consulta_tramite, "Consultar Trámite"));
-        seccions.add(new GridSeccion(4, R.drawable.solicitudes, "Solicitar Información"));
+        seccions.add(new GridSeccion(4, R.drawable.consulta_denuncia, "Consultar Denuncia"));
 
         GridView grwSecciones = findViewById(R.id.grwSecciones);
         SeccionArrayAdapter adapter = new SeccionArrayAdapter(this, R.layout.gridview_seccion, seccions, this);

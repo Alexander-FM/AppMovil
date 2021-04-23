@@ -30,7 +30,7 @@ public class DenunciaViewModel extends AndroidViewModel {
         return this.repository.devolverMisDenuncias(idUsu);
     }
 
-    public LiveData<GenericResponse<Denuncia>> consultarDenuncias(String cod_denuncia, int idUsu) {
+    public LiveData<GenericResponse<DenunciaConDetallesDTO>> consultarDenuncias(String cod_denuncia, int idUsu) {
         return this.repository.consultarDenuncias(cod_denuncia, idUsu);
     }
 }

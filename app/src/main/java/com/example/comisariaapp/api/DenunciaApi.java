@@ -24,5 +24,5 @@ public interface DenunciaApi {
 
     @GET(baseUrl + "/consultarDenuncia/{cod_denuncia}/{idUsu}")
     //hacemos la consulta al servicio
-    Call<GenericResponse<Denuncia>> consultarDenuncias(@Path("cod_denuncia") String cod_denuncia, @Path("idUsu") int idUsu);
+    Call<GenericResponse<DenunciaConDetallesDTO>> consultarDenuncias(@Path("cod_denuncia") String cod_denuncia, @Path("idUsu") int idUsu);
 }

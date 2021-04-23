@@ -17,9 +17,12 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.comisariaapp.R;
+import com.example.comisariaapp.entity.service.Agraviado;
 import com.example.comisariaapp.entity.service.Denuncia;
+import com.example.comisariaapp.entity.service.Denunciado;
 import com.example.comisariaapp.entity.service.Tramites;
 import com.example.comisariaapp.entity.service.Usuario;
+import com.example.comisariaapp.entity.service.dto.DenunciaConDetallesDTO;
 import com.example.comisariaapp.utils.DateDeserializer;
 import com.example.comisariaapp.viewmodel.DenunciaViewModel;
 import com.example.comisariaapp.viewmodel.TramiteViewModel;
@@ -29,6 +32,7 @@ import com.google.gson.GsonBuilder;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 public class ConsultarDenuncias extends AppCompatActivity {
     private Button btnConsultarDenuncia;
@@ -39,6 +43,7 @@ public class ConsultarDenuncias extends AppCompatActivity {
     private TextView txtNombreTipoDenuncia, txtNombreCodDenuncia, txtNombrePolicia,
             txtNombreVPD, txtNombreFechaDenuncia;
     private ImageView imgEstado;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -65,23 +70,25 @@ public class ConsultarDenuncias extends AppCompatActivity {
         imgEstado = findViewById(R.id.imgEstado);
         btnConsultarDenuncia.setOnClickListener(v -> {
             if (!edtCodDenuncia.getText().toString().equals("")) {
-                SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);//getPreferences(Context.MODE_PRIVATE);
-                Gson g = new GsonBuilder()
+                final SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);//getPreferences(Context.MODE_PRIVATE);
+                final Gson g = new GsonBuilder()
                         .setDateFormat("yyyy-MM-dd")
                         .registerTypeAdapter(Date.class, new DateDeserializer())
                         .create();
-                String user = preferences.getString("UsuarioJson", null);
+                final String user = preferences.getString("UsuarioJson", null);
                 if (user != null) {
-                    Usuario usuario = g.fromJson(user, Usuario.class);
-                    denunciaViewModel.consultarDenuncias(edtCodDenuncia.getText().toString(), usuario.getId()).observe(this, response -> {
+                    final Usuario usuario = g.fromJson(user, Usuario.class);
+                    this.denunciaViewModel.consultarDenuncias(edtCodDenuncia.getText().toString(), usuario.getId()).observe(this, response -> {
                         if (response.getRpta() == 1) {
-                            if (response.getBody().getId() != 0) {
+                            if (response.getBody().getDenuncia().getId() != 0) {
                                 Toast.makeText(this, "Excelente, se encontro una denuncia", Toast.LENGTH_LONG).show();
-                                constraintLayoutDenuncia.setVisibility(View.VISIBLE);
-                                showDenuncia(response.getBody());
+                                this.constraintLayoutDenuncia.setVisibility(View.VISIBLE);
+                                final DenunciaConDetallesDTO dto = response.getBody();
+                                this.showDenuncia(dto.getDenuncia());
+                                this.asignarListenerConstraintLayout(dto);
                             } else {
                                 Toast.makeText(this, "Denuncia no encontrada", Toast.LENGTH_SHORT).show();
-                                constraintLayoutDenuncia.setVisibility(View.INVISIBLE);
+                                this.constraintLayoutDenuncia.setVisibility(View.INVISIBLE);
                             }
 
                         } else {
@@ -104,5 +111,21 @@ public class ConsultarDenuncias extends AppCompatActivity {
         DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
         String strDate = dateFormat.format(d.getFechaDenuncia());
         txtNombreFechaDenuncia.setText(strDate);
+
+    }
+
+    private void asignarListenerConstraintLayout(DenunciaConDetallesDTO dto) {
+        this.constraintLayoutDenuncia.setOnClickListener(v -> {
+            final Gson g = new GsonBuilder()
+                    .setDateFormat("yyyy-MM-dd")
+                    .registerTypeAdapter(Date.class, new DateDeserializer())
+                    .create();
+            final List<Agraviado> agraviados = dto.getAgraviados();
+            final List<Denunciado> denunciados = dto.getDenunciados();
+            final Intent i = new Intent(this, DetalleMisDenunciasActivity.class);
+            i.putExtra("agraviados", g.toJson(agraviados));
+            i.putExtra("denunciados", g.toJson(denunciados));
+            this.startActivity(i);
+        });
     }
 }

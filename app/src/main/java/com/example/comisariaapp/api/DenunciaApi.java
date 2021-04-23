@@ -20,7 +20,7 @@ public interface DenunciaApi {
     Call<GenericResponse<String>> save(@Body DenunciaConDetallesDTO dto);
 
     @GET(baseUrl + "/misDenuncias/{idUsu}")
-    Call<GenericResponse<List<Denuncia>>> devolverMisDenuncias(@Path("idUsu") int idUsu);
+    Call<GenericResponse<List<DenunciaConDetallesDTO>>> devolverMisDenuncias(@Path("idUsu") int idUsu);
 
     @GET(baseUrl + "/consultarDenuncia/{cod_denuncia}/{idUsu}")
     //hacemos la consulta al servicio

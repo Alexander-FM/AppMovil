@@ -13,6 +13,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.example.comisariaapp.R;
+import com.example.comisariaapp.communication.MisDenunciasCommunication;
 import com.example.comisariaapp.entity.service.Denuncia;
 
 import java.text.DateFormat;
@@ -20,9 +21,11 @@ import java.text.SimpleDateFormat;
 import java.util.List;
 
 public class MisDenunciasAdapter extends ArrayAdapter<Denuncia> {
+    private MisDenunciasCommunication communication;
 
-    public MisDenunciasAdapter(@NonNull Context context, int resource, @NonNull List<Denuncia> objects) {
+    public MisDenunciasAdapter(@NonNull Context context, int resource, @NonNull List<Denuncia> objects, MisDenunciasCommunication communication) {
         super(context, resource, objects);
+        this.communication = communication;
     }
 
     @NonNull
@@ -47,6 +50,7 @@ public class MisDenunciasAdapter extends ArrayAdapter<Denuncia> {
         DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
         String strDate = dateFormat.format(d.getFechaDenuncia());
         txtNombreFechaDenuncia.setText(strDate);
+        convertView.setOnClickListener(v -> communication.showDetalles(position));
         return convertView;
     }
 }

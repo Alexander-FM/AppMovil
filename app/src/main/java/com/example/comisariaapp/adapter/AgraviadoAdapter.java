@@ -8,6 +8,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.comisariaapp.R;
@@ -20,7 +21,7 @@ public class AgraviadoAdapter extends RecyclerView.Adapter<AgraviadoAdapter.View
     private final AgraviadoCommunication c;
     private final List<Agraviado> agraviados;
 
-    public AgraviadoAdapter(AgraviadoCommunication c, List<Agraviado> agraviados) {
+    public AgraviadoAdapter(@Nullable AgraviadoCommunication c, List<Agraviado> agraviados) {
         this.c = c;
         this.agraviados = agraviados;
     }

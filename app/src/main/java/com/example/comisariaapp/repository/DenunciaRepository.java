@@ -51,16 +51,16 @@ public class DenunciaRepository {
         return mld;
     }
 
-    public LiveData<GenericResponse<List<Denuncia>>> devolverMisDenuncias(int idUsu) {
-        MutableLiveData<GenericResponse<List<Denuncia>>> mld = new MutableLiveData<>();
-        this.api.devolverMisDenuncias(idUsu).enqueue(new Callback<GenericResponse<List<Denuncia>>>() {
+    public LiveData<GenericResponse<List<DenunciaConDetallesDTO>>> devolverMisDenuncias(int idUsu) {
+        MutableLiveData<GenericResponse<List<DenunciaConDetallesDTO>>> mld = new MutableLiveData<>();
+        this.api.devolverMisDenuncias(idUsu).enqueue(new Callback<GenericResponse<List<DenunciaConDetallesDTO>>>() {
             @Override
-            public void onResponse(Call<GenericResponse<List<Denuncia>>> call, Response<GenericResponse<List<Denuncia>>> response) {
+            public void onResponse(Call<GenericResponse<List<DenunciaConDetallesDTO>>> call, Response<GenericResponse<List<DenunciaConDetallesDTO>>> response) {
                 mld.setValue(response.body());
             }
 
             @Override
-            public void onFailure(Call<GenericResponse<List<Denuncia>>> call, Throwable t) {
+            public void onFailure(Call<GenericResponse<List<DenunciaConDetallesDTO>>> call, Throwable t) {
                 mld.setValue(new GenericResponse<>());
                 t.printStackTrace();
             }

@@ -1,4 +1,5 @@
 package com.example.comisariaapp.entity.service;
+
 public final class Departamento {
     private int id;
     private String departamento;

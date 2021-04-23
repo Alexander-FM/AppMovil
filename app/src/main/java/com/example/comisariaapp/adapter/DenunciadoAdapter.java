@@ -8,6 +8,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.comisariaapp.R;
@@ -20,7 +21,7 @@ public class DenunciadoAdapter extends RecyclerView.Adapter<DenunciadoAdapter.Vi
     private final List<Denunciado> denunciados;
     private DenunciadoCommunication c;
 
-    public DenunciadoAdapter(DenunciadoCommunication c, List<Denunciado> denunciados) {
+    public DenunciadoAdapter(@Nullable DenunciadoCommunication c, List<Denunciado> denunciados) {
         this.c = c;
         this.denunciados = denunciados;
     }

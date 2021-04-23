@@ -1,6 +1,6 @@
 package com.example.comisariaapp.entity.service;
 
-public final class VinculoParteDenunciada {
+public final class VinculoParteDenunciada{
     private int id;
     private String nombre;
 

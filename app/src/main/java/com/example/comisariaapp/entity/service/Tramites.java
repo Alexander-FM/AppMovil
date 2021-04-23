@@ -1,4 +1,5 @@
 package com.example.comisariaapp.entity.service;
+
 import java.util.Date;
 
 public final class Tramites {

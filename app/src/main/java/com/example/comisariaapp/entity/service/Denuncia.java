@@ -1,6 +1,7 @@
 package com.example.comisariaapp.entity.service;
 
 import java.util.Date;
+
 public final class Denuncia {
     private int id;
     private Date fechaDenuncia;
@@ -107,17 +108,19 @@ public final class Denuncia {
     public String getNombreCompletoPolicia() {
         /*this.nombreCompletoPolicia = policia != null ? this.policia.getNombres() + " " + this.policia.getApellidos() : " - - - ";
         return nombreCompletoPolicia;*/
-        return this.policia != null ? this.policia.getNombres() + " " + this.policia.getApellidoPaterno()+" "+this.policia.getApellidoMaterno() : " - - - ";
+        return this.policia != null ? this.policia.getNombres() + " " + this.policia.getApellidoPaterno() + " " + this.policia.getApellidoMaterno() : " - - - ";
     }
 
     public String getNombreDistrito() {
-        return this.distrito!=null?this.distrito.getDistrito():"- - - ";
+        return this.distrito != null ? this.distrito.getDistrito() : "- - - ";
     }
-    public String getNombreTipoDenuncia(){
-        return this.tipoDenuncia!=null?this.tipoDenuncia.getTipoDenuncia():"- - - ";
+
+    public String getNombreTipoDenuncia() {
+        return this.tipoDenuncia != null ? this.tipoDenuncia.getTipoDenuncia() : "- - - ";
     }
-    public String getNombreVPD(){
-        return this.vinculoParteDenunciada!=null?this.vinculoParteDenunciada.getNombre():"- - - ";
+
+    public String getNombreVPD() {
+        return this.vinculoParteDenunciada != null ? this.vinculoParteDenunciada.getNombre() : "- - - ";
     }
 
     public Usuario getUsuario() {

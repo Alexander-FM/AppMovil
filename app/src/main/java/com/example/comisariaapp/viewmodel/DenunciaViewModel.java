@@ -26,7 +26,7 @@ public class DenunciaViewModel extends AndroidViewModel {
         return this.repository.save(dto);
     }
 
-    public LiveData<GenericResponse<List<Denuncia>>> devolverMisDenuncias(int idUsu) {
+    public LiveData<GenericResponse<List<DenunciaConDetallesDTO>>> devolverMisDenuncias(int idUsu) {
         return this.repository.devolverMisDenuncias(idUsu);
     }
 

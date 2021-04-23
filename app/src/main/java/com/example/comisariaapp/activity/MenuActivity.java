@@ -9,6 +9,7 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.telephony.PhoneNumberUtils;
 import android.view.Menu;
@@ -43,10 +44,14 @@ public class MenuActivity extends AppCompatActivity implements MainCommunication
         setContentView(R.layout.activity_main);
         fabWhatsapp = findViewById(R.id.fabAgregar);
         fabWhatsapp.setOnClickListener(v -> {
-            Intent _intencion = new Intent("android.intent.action.MAIN");
-            _intencion.setComponent(new ComponentName("com.whatsapp","com.whatsapp.Conversation"));
-            _intencion.putExtra("jid", PhoneNumberUtils.stripSeparators("51" + "917967148")+"@s.whatsapp.net");
-            startActivity(_intencion);
+            if (this.estaInstaladoWhatsapp()) {
+                Intent _intencion = new Intent("android.intent.action.MAIN");
+                _intencion.setComponent(new ComponentName("com.whatsapp", "com.whatsapp.Conversation"));
+                _intencion.putExtra("jid", PhoneNumberUtils.stripSeparators("51" + "917967148") + "@s.whatsapp.net");
+                this.startActivity(_intencion);
+            } else {
+                Toast.makeText(this, "No se puede completar la acción,no tienes whatsapp instalado 😥", Toast.LENGTH_SHORT).show();
+            }
         });
         Toolbar toolbar = findViewById(R.id.toolbar);
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);//getPreferences(Context.MODE_PRIVATE);
@@ -55,7 +60,7 @@ public class MenuActivity extends AppCompatActivity implements MainCommunication
                 .registerTypeAdapter(Date.class, new DateDeserializer())
                 .create();
         String user = preferences.getString("UsuarioJson", null);
-        if (user!= null){
+        if (user != null) {
             Usuario usuario = g.fromJson(user, Usuario.class);
             toolbar.setTitle("HOLA, " + usuario.getNombres() + " " + usuario.getApellidoPaterno());
         }
@@ -70,6 +75,16 @@ public class MenuActivity extends AppCompatActivity implements MainCommunication
         SeccionArrayAdapter adapter = new SeccionArrayAdapter(this, R.layout.gridview_seccion, seccions, this);
         grwSecciones.setAdapter(adapter);
         setSupportActionBar(toolbar);
+    }
+
+    private boolean estaInstaladoWhatsapp() {
+        PackageManager pm = this.getPackageManager();
+        try {
+            pm.getPackageInfo("com.whatsapp", PackageManager.GET_ACTIVITIES);
+            return true;
+        } catch (PackageManager.NameNotFoundException e) {
+            return false;
+        }
     }
 
     @Override

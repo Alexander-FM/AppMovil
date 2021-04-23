@@ -1,4 +1,5 @@
 package com.example.comisariaapp.entity.service;
+
 public final class Distrito {
     private int id;
     private String distrito;

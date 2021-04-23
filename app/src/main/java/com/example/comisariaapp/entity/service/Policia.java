@@ -1,6 +1,6 @@
 package com.example.comisariaapp.entity.service;
 
-public final class Policia extends Persona {
+public final class Policia extends Persona{
     private GradoPNP gradoPNP;
     private boolean estado;
 

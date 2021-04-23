@@ -2,7 +2,6 @@
 <ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-
     android:layout_width="match_parent"
     android:orientation="vertical"
     android:layout_height="wrap_content">
@@ -13,7 +12,7 @@
 
         <TextView
             android:id="@+id/txttitulonombre"
-            android:layout_width="250dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:fontFamily="@font/poppins_medium"
@@ -30,7 +29,7 @@
 
         <TextView
             android:id="@+id/txttituloacciones"
-            android:layout_width="70dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/poppins_medium"
             android:text="Acciones"
@@ -43,9 +42,8 @@
 
         <TextView
             android:id="@+id/txtItemNombres"
-            android:layout_width="250dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
             android:textAlignment="center"
             android:fontFamily="@font/poppins_regular"
             android:text="Juan Jose Ramirez Lopez"
@@ -57,15 +55,21 @@
 
         <ImageView
             android:id="@+id/btnEliminar"
-            android:layout_width="30dp"
-            android:layout_height="50dp"
-            android:layout_marginTop="16dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             app:iconTint="#FA0000"
             android:src="@drawable/trash"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="@+id/txttituloacciones"
             app:layout_constraintStart_toStartOf="@+id/txttituloacciones"
             app:layout_constraintTop_toBottomOf="@+id/txttituloacciones" />
+        <View
+            android:id="@+id/separador"
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:background="#114a39"
+            android:layout_marginTop="10dp"
+            app:layout_constraintTop_toBottomOf="@+id/btnEliminar"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -9,8 +9,10 @@ import android.os.Bundle;
 import com.example.comisariaapp.R;
 import com.example.comisariaapp.adapter.AgraviadoAdapter;
 import com.example.comisariaapp.adapter.DenunciadoAdapter;
+import com.example.comisariaapp.adapter.DetalleMiDenunciaAdapter;
 import com.example.comisariaapp.entity.service.Agraviado;
 import com.example.comisariaapp.entity.service.Denunciado;
+import com.example.comisariaapp.entity.service.Persona;
 import com.example.comisariaapp.utils.DateDeserializer;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -21,9 +23,12 @@ import java.util.Date;
 import java.util.List;
 
 public class DetalleMisDenunciasActivity extends AppCompatActivity {
-    private AgraviadoAdapter aAdapter;
-    private DenunciadoAdapter dAdapter;
+    private DetalleMiDenunciaAdapter aDmdAdapter, dDmdAdapter;
     private RecyclerView rcvAgraviados, rcvDenunciados;
+    final Gson g = new GsonBuilder()
+            .setDateFormat("yyyy-MM-dd")
+            .registerTypeAdapter(Date.class, new DateDeserializer())
+            .create();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,24 +47,28 @@ public class DetalleMisDenunciasActivity extends AppCompatActivity {
     }
 
     private void initAdpaters() {
-        this.aAdapter = new AgraviadoAdapter(null,new ArrayList<Agraviado>());
-        this.rcvAgraviados.setAdapter(aAdapter);
-        this.dAdapter = new DenunciadoAdapter(null,new ArrayList<Denunciado>());
-        this.rcvDenunciados.setAdapter(dAdapter);
+        this.aDmdAdapter = new DetalleMiDenunciaAdapter(new ArrayList<>());
+        this.rcvAgraviados.setAdapter(aDmdAdapter);
+        this.dDmdAdapter = new DetalleMiDenunciaAdapter(new ArrayList<>());
+        this.rcvDenunciados.setAdapter(dDmdAdapter);
+        /* this.dAdapter = new DenunciadoAdapter(null,new ArrayList<Denunciado>());
+         */
     }
 
     private void loadData() {
-        final Gson g = new GsonBuilder()
-                .setDateFormat("yyyy-MM-dd")
-                .registerTypeAdapter(Date.class, new DateDeserializer())
-                .create();
         Bundle data = getIntent().getExtras();
+
         List<Agraviado> agraviados = g.fromJson(data.getString("agraviados"), new TypeToken<List<Agraviado>>() {
         }.getType());
+        List<Persona> pAgraviados = new ArrayList<>();
+        agraviados.forEach(a -> pAgraviados.add(a));
+
         List<Denunciado> denunciados = g.fromJson(data.getString("denunciados"), new TypeToken<List<Denunciado>>() {
         }.getType());
-        this.aAdapter.updateItems(agraviados);
-        this.dAdapter.updateItems(denunciados);
+        List<Persona> pDenunciados = new ArrayList<>();
+        denunciados.forEach(d -> pDenunciados.add(d));
+        this.aDmdAdapter.updateItems(pAgraviados);
+        this.dDmdAdapter.updateItems(pDenunciados);
         //Toast.makeText(this, "Hello", Toast.LENGTH_SHORT).show();
     }
 }

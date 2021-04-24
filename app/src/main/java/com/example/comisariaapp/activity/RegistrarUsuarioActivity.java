@@ -138,14 +138,14 @@ public class RegistrarUsuarioActivity extends AppCompatActivity {
     }
 
     private void initAdapter() {
-        this.adapterDistritos = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, displayDistritos);
-        this.adapterDistritos.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        this.dropdown_distritoUsuario.setAdapter(adapterDistritos);
-
         this.dropdown_tipoIdentificacionU.setAdapter(new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, new String[]{
                 "Natural",
                 "Jurídica"
         }));
+        this.adapterDistritos = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, displayDistritos);
+        this.adapterDistritos.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        this.dropdown_distritoUsuario.setAdapter(adapterDistritos);
+
         this.adapterEstadosCiviles = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, displayEstadosCiviles);
         this.adapterEstadosCiviles.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         this.dropdown_estadocivilU.setAdapter(this.adapterEstadosCiviles);

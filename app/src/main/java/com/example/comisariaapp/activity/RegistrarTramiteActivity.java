@@ -1,9 +1,11 @@
 package com.example.comisariaapp.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.preference.PreferenceManager;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.widget.ArrayAdapter;
@@ -44,6 +46,12 @@ public class RegistrarTramiteActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registrar_tramite);
+        Toolbar toolbar = this.findViewById(R.id.toolbar);
+        toolbar.setNavigationIcon(R.drawable.atras);
+        toolbar.setNavigationOnClickListener(v -> {//Reemplazo con lamba
+            this.startActivity(new Intent(getApplicationContext(), MenuActivity.class));
+            this.overridePendingTransition(R.anim.down_in, R.anim.down_out);
+        });
         ViewModelProvider vmp = new ViewModelProvider(this);
         viewModel = vmp.get(TramiteViewModel.class);
         tipoTramiteViewModel = vmp.get(TipoTramiteViewModel.class);

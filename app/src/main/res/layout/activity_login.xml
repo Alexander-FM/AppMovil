@@ -41,14 +41,14 @@
                 android:background="@android:color/transparent"
                 android:fontFamily="@font/poppins_regular"
                 android:hint="Email"
-                android:textStyle="bold"
                 android:inputType="textEmailAddress"
                 android:maxLines="1"
                 android:paddingLeft="17dp"
                 android:paddingTop="15dp"
                 android:paddingBottom="15dp"
                 android:textCursorDrawable="@drawable/cursor_color"
-                android:textSize="12sp" />
+                android:textSize="12sp"
+                android:textStyle="bold" />
 
             <!--ICON-->
 
@@ -80,7 +80,6 @@
                 android:background="@android:color/transparent"
                 android:fontFamily="@font/poppins_regular"
                 android:hint="Password"
-                android:textStyle="bold"
                 android:inputType="textPassword"
                 android:maxLength="15"
                 android:maxLines="1"
@@ -88,7 +87,8 @@
                 android:paddingTop="15dp"
                 android:paddingBottom="15dp"
                 android:textCursorDrawable="@drawable/cursor_color"
-                android:textSize="12sp" />
+                android:textSize="12sp"
+                android:textStyle="bold" />
 
             <ImageView
                 android:id="@+id/icon"
@@ -102,14 +102,15 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="8dp"
-            android:paddingTop="20dp">
+            android:layout_height="60dp"
+            android:layout_marginTop="20dp"
+            android:paddingStart="8dp"
+            android:paddingEnd="8dp">
 
             <Button
                 android:id="@+id/btnIniciarSesion"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
                 android:layout_marginEnd="8dp"
                 android:layout_weight="1"
                 android:fontFamily="@font/poppins_medium"
@@ -118,8 +119,8 @@
 
             <Button
                 android:id="@+id/btnRegistrarse"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:fontFamily="@font/poppins_medium"
                 android:text="Registrar Usuario"

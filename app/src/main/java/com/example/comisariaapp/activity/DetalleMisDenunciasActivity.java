@@ -1,9 +1,11 @@
 package com.example.comisariaapp.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import com.example.comisariaapp.R;
@@ -40,6 +42,12 @@ public class DetalleMisDenunciasActivity extends AppCompatActivity {
     }
 
     private void init() {
+        Toolbar toolbar = this.findViewById(R.id.toolbar);
+        toolbar.setNavigationIcon(R.drawable.atras);
+        toolbar.setNavigationOnClickListener(v -> {//Reemplazo con lamba
+            this.startActivity(new Intent(getApplicationContext(), MisDenunciasActivity.class));
+            this.overridePendingTransition(R.anim.down_in, R.anim.down_out);
+        });
         this.rcvAgraviados = this.findViewById(R.id.rcvAgraviados);
         this.rcvDenunciados = this.findViewById(R.id.rcvDenunciados);
         this.rcvAgraviados.setLayoutManager(new GridLayoutManager(this, 1));

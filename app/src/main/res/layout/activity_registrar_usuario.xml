@@ -99,7 +99,8 @@
                             android:fontFamily="@font/poppins_medium"
                             android:hint="N.º de Identificación"
                             android:inputType="number"
-                            android:maxLength="11" />
+                            android:maxLength="11"
+                            android:textSize="15sp" />
                     </com.google.android.material.textfield.TextInputLayout>
 
                 </LinearLayout>
@@ -125,7 +126,8 @@
                             android:layout_height="wrap_content"
                             android:enabled="false"
                             android:fontFamily="@font/poppins_medium"
-                            android:hint="Apellido Paterno" />
+                            android:hint="Apellido Paterno"
+                            android:textSize="15sp" />
                     </com.google.android.material.textfield.TextInputLayout>
 
                     <com.google.android.material.textfield.TextInputLayout
@@ -142,7 +144,8 @@
                             android:layout_height="wrap_content"
                             android:enabled="false"
                             android:fontFamily="@font/poppins_medium"
-                            android:hint="Apellido Materno" />
+                            android:hint="Apellido Materno"
+                            android:textSize="15sp" />
                     </com.google.android.material.textfield.TextInputLayout>
 
                 </LinearLayout>
@@ -156,10 +159,8 @@
                     <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/txtInputNombresUsuario"
                         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginEnd="10dp"
-                        android:layout_weight="1"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
                         app:startIconDrawable="@drawable/person">
 
                         <com.google.android.material.textfield.TextInputEditText
@@ -168,13 +169,22 @@
                             android:layout_height="wrap_content"
                             android:enabled="false"
                             android:fontFamily="@font/poppins_medium"
-                            android:hint="Nombres" />
+                            android:hint="Nombres"
+                            android:textSize="15sp" />
                     </com.google.android.material.textfield.TextInputLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="70dp"
+                    android:layout_marginTop="5dp"
+                    android:orientation="horizontal">
 
                     <com.google.android.material.textfield.TextInputLayout
                         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
+                        android:layout_marginEnd="10dp"
                         android:layout_weight="1"
                         app:startIconDrawable="@drawable/date">
 
@@ -187,58 +197,9 @@
                             android:fontFamily="@font/poppins_medium"
                             android:hint="Fecha de Nacimiento"
                             android:inputType="date"
-                            android:maxLines="1" />
+                            android:maxLines="1"
+                            android:textSize="15sp" />
                     </com.google.android.material.textfield.TextInputLayout>
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="70dp"
-                    android:layout_marginTop="5dp"
-                    android:orientation="horizontal">
-
-                    <RelativeLayout
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_marginEnd="10dp"
-                        android:layout_weight="1">
-
-                        <TextView
-                            android:id="@+id/etiqueta_genero"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:fontFamily="@font/poppins_medium"
-                            android:text="Seleccione Género:"
-                            android:textAppearance="?android:attr/textAppearanceMedium" />
-
-                        <RadioGroup
-                            android:id="@+id/opciones_genero"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_below="@id/etiqueta_genero"
-                            android:orientation="horizontal">
-
-                            <RadioButton
-                                android:id="@+id/radio_masculino"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:checked="true"
-                                android:fontFamily="@font/poppins_regular"
-                                android:text="Hombre" />
-
-                            <RadioButton
-                                android:id="@+id/radio_femenino"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginStart="16dp"
-                                android:checked="false"
-                                android:fontFamily="@font/poppins_regular"
-                                android:rotationX="0"
-                                android:text="Mujer" />
-                        </RadioGroup>
-
-                    </RelativeLayout>
 
                     <com.google.android.material.textfield.TextInputLayout
                         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
@@ -253,7 +214,8 @@
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/poppins_medium"
                             android:hint="N.º Teléfono"
-                            android:inputType="phone" />
+                            android:inputType="phone"
+                            android:textSize="15sp" />
                     </com.google.android.material.textfield.TextInputLayout>
 
                 </LinearLayout>
@@ -262,6 +224,51 @@
                     android:layout_width="match_parent"
                     android:layout_height="70dp"
                     android:layout_marginTop="5dp"
+                    android:orientation="horizontal">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <TextView
+                            android:id="@+id/etiqueta_genero"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/poppins_medium"
+                            android:text="Seleccionar Sexo:"
+                            android:textAppearance="?android:attr/textAppearanceMedium" />
+
+                        <RadioGroup
+                            android:id="@+id/opciones_genero"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@id/etiqueta_genero"
+                            android:orientation="horizontal">
+
+                            <RadioButton
+                                android:id="@+id/radio_masculino"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:checked="false"
+                                android:fontFamily="@font/poppins_regular"
+                                android:text="Hombre" />
+
+                            <RadioButton
+                                android:id="@+id/radio_femenino"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="16dp"
+                                android:checked="false"
+                                android:fontFamily="@font/poppins_regular"
+                                android:rotationX="0"
+                                android:text="Mujer" />
+                        </RadioGroup>
+                    </RelativeLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="70dp"
                     android:orientation="horizontal">
 
                     <fr.ganfra.materialspinner.MaterialSpinner
@@ -319,7 +326,8 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/poppins_medium"
-                            android:hint="Dirección" />
+                            android:hint="Dirección"
+                            android:textSize="15sp" />
                     </com.google.android.material.textfield.TextInputLayout>
 
                 </LinearLayout>
@@ -343,7 +351,8 @@
                             android:layout_height="match_parent"
                             android:fontFamily="@font/poppins_medium"
                             android:hint="E-mail"
-                            android:inputType="textEmailAddress" />
+                            android:inputType="textEmailAddress"
+                            android:textSize="15sp" />
                     </com.google.android.material.textfield.TextInputLayout>
                 </LinearLayout>
 
@@ -366,7 +375,8 @@
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/poppins_medium"
                             android:hint="Clave"
-                            android:inputType="textPassword" />
+                            android:inputType="textPassword"
+                            android:textSize="15sp" />
                     </com.google.android.material.textfield.TextInputLayout>
                 </LinearLayout>
 

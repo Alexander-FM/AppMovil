@@ -7,50 +7,76 @@
     android:orientation="vertical"
     tools:context=".activity.MenuActivity">
 
-    <com.google.android.material.appbar.AppBarLayout
-        android:id="@+id/bar"
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/bar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:background="@color/colorPrimary"
+                app:menu="@menu/menu"
+                app:navigationIcon="@drawable/shr_menu"
+                app:title="@string/app_name"
+                app:titleTextAppearance="@style/MyStyle.Toolbar"
+                app:titleTextColor="@color/white" />
+        </com.google.android.material.appbar.AppBarLayout>
+    </LinearLayout>
+
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <androidx.appcompat.widget.Toolbar
-            android:id="@+id/toolbar"
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:background="@color/colorPrimary"
-            app:menu="@menu/menu"
-            app:titleTextAppearance="@style/MyStyle.Toolbar"
-            app:navigationIcon="@drawable/shr_menu"
-            app:title="@string/app_name"
-            app:titleTextColor="@color/white" />
-    </com.google.android.material.appbar.AppBarLayout>
+            android:layout_height="wrap_content">
 
-    <FrameLayout
-        android:id="@+id/frameTitulo"
-        android:layout_width="match_parent"
-        android:layout_height="150dp"
-        android:layout_marginTop="55dp"
-        android:background="@drawable/green_bg">
+            <LinearLayout
+                android:id="@+id/linear1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="50dp"
-            android:layout_marginTop="40dp"
-            android:text="NUESTROS SERVICIOS"
-            android:textColor="#fff"
-            android:textSize="30sp"
-            android:textStyle="bold" />
+                <FrameLayout
+                    android:id="@+id/frameTitulo"
+                    android:layout_width="match_parent"
+                    android:layout_height="125dp"
+                    android:layout_marginTop="55dp"
+                    android:background="@drawable/green_bg">
 
-    </FrameLayout>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="50dp"
+                        android:layout_marginTop="30dp"
+                        android:text="NUESTROS SERVICIOS"
+                        android:textColor="#fff"
+                        android:textSize="30sp"
+                        android:textStyle="bold" />
+                </FrameLayout>
+            </LinearLayout>
 
-    <GridView
-        android:id="@+id/grwSecciones"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="160dp"
-        android:numColumns="2"
-        android:padding="5dp"
-        android:verticalSpacing="7dp" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="500dp"
+                android:layout_below="@+id/linear1">
+
+                <GridView
+                    android:id="@+id/grwSecciones"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:numColumns="2"
+                    android:padding="5dp"
+                    android:verticalSpacing="7dp" />
+            </LinearLayout>
+        </RelativeLayout>
+    </ScrollView>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fabAgregar"
@@ -60,9 +86,8 @@
         android:layout_marginEnd="10dp"
         android:layout_marginBottom="10dp"
         android:backgroundTint="#1de956"
+        android:src="@drawable/whatsapp3"
         app:borderWidth="0dp"
-        app:elevation="6dp"
-        android:src="@drawable/whatsapp3" />
-
+        app:elevation="6dp" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

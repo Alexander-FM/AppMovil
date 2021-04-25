@@ -9,161 +9,149 @@
     <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="10dp"
+        android:layout_margin="7dp"
         app:cardCornerRadius="10dp"
         app:cardElevation="8dp">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="5dp">
+            android:layout_height="180dp"
+            android:gravity="center_vertical"
+            android:padding="5dp">
 
             <ImageView
                 android:id="@+id/imgEstado"
                 android:layout_width="125dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="14dp"
+                android:layout_alignParentStart="true"
                 android:adjustViewBounds="true"
                 android:padding="10dp"
-                android:src="@drawable/cheque"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.0" />
+                android:src="@drawable/cheque" />
 
-            <TextView
-                android:id="@+id/textView"
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:fontFamily="@font/poppins_medium"
-                android:text="TIPO DENUNCIA:"
-                android:textStyle="bold"
-                app:layout_constraintBottom_toBottomOf="@+id/imgEstado"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toEndOf="@+id/imgEstado"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.0" />
+                android:layout_alignParentEnd="true"
+                android:layout_marginStart="10dp"
+                android:layout_toEndOf="@id/imgEstado"
+                android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/txtNombreTipoDenuncia"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/poppins_regular"
-                android:text="Psicológica"
-                app:layout_constraintBottom_toBottomOf="@+id/textView"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/textView"
-                app:layout_constraintTop_toTopOf="@+id/textView" />
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
 
-            <TextView
-                android:id="@+id/textView3"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:fontFamily="@font/poppins_medium"
-                android:text="CÓD-DENUNCIA:"
-                android:textStyle="bold"
-                app:layout_constraintBottom_toBottomOf="@+id/imgEstado"
-                app:layout_constraintEnd_toStartOf="@+id/txtNombreTipoDenuncia"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toStartOf="@+id/textView"
-                app:layout_constraintTop_toBottomOf="@+id/textView"
-                app:layout_constraintVertical_bias="0.0" />
+                    <TextView
+                        android:id="@+id/textView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/poppins_medium"
+                        android:text="TIPO DENUNCIA:"
+                        android:textStyle="bold" />
 
-            <TextView
-                android:id="@+id/txtTituloPolicia"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:fontFamily="@font/poppins_medium"
-                android:text="POLICÍA:"
-                android:textStyle="bold"
-                app:layout_constraintBottom_toBottomOf="@+id/imgEstado"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toStartOf="@+id/textView3"
-                app:layout_constraintTop_toBottomOf="@+id/textView3"
-                app:layout_constraintVertical_bias="0.0" />
+                    <TextView
+                        android:id="@+id/txtNombreTipoDenuncia"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="5dp"
+                        android:layout_toEndOf="@id/textView"
+                        android:fontFamily="@font/poppins_regular"
+                        android:text="Psicológica" />
 
-            <TextView
-                android:id="@+id/txtTituloVPD"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:fontFamily="@font/poppins_medium"
-                android:text="VPDENUNCIADA:"
-                android:textStyle="bold"
-                app:layout_constraintBottom_toBottomOf="@+id/imgEstado"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toStartOf="@+id/txtTituloPolicia"
-                app:layout_constraintTop_toBottomOf="@+id/txtTituloPolicia"
-                app:layout_constraintVertical_bias="0.0" />
+                </RelativeLayout>
 
-            <TextView
-                android:id="@+id/txtTituloFechaRegistro"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:fontFamily="@font/poppins_medium"
-                android:text="FECHA REGISTRO:"
-                android:textStyle="bold"
-                app:layout_constraintBottom_toBottomOf="@+id/imgEstado"
-                app:layout_constraintEnd_toStartOf="@+id/txtNombreTipoDenuncia"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toStartOf="@+id/txtTituloVPD"
-                app:layout_constraintTop_toBottomOf="@+id/txtTituloVPD"
-                app:layout_constraintVertical_bias="0.0" />
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp">
 
-            <TextView
-                android:id="@+id/txtNombreCodDenuncia"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/poppins_regular"
-                android:text="D-4569-P"
-                app:layout_constraintBottom_toBottomOf="@+id/textView3"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/textView3"
-                app:layout_constraintTop_toTopOf="@+id/textView3" />
+                    <TextView
+                        android:id="@+id/textView3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/poppins_medium"
+                        android:text="CÓD-DENUNCIA:"
+                        android:textStyle="bold" />
 
-            <TextView
-                android:id="@+id/txtNombrePolicia"
-                android:layout_width="150dp"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/poppins_regular"
-                android:text="Eloy Klever Camacho Torres"
-                app:layout_constraintBottom_toBottomOf="@+id/txtTituloPolicia"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/txtTituloPolicia"
-                app:layout_constraintTop_toTopOf="@+id/txtTituloPolicia" />
+                    <TextView
+                        android:id="@+id/txtNombreCodDenuncia"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="5dp"
+                        android:layout_toEndOf="@id/textView3"
+                        android:fontFamily="@font/poppins_regular"
+                        android:text="D-4569-P" />
+                </RelativeLayout>
 
-            <TextView
-                android:id="@+id/txtNombreVPD"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/poppins_regular"
-                android:text="Familiar"
-                app:layout_constraintBottom_toBottomOf="@+id/txtTituloVPD"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/txtTituloVPD"
-                app:layout_constraintTop_toTopOf="@+id/txtTituloVPD" />
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp">
 
-            <TextView
-                android:id="@+id/txtNombreFechaDenuncia"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/poppins_regular"
-                android:text="23-04-2021"
-                app:layout_constraintBottom_toBottomOf="@+id/txtTituloFechaRegistro"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/txtTituloFechaRegistro"
-                app:layout_constraintTop_toTopOf="@+id/txtTituloFechaRegistro" />
+                    <TextView
+                        android:id="@+id/txtTituloFechaRegistro"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/poppins_medium"
+                        android:text="FECHA REGISTRO:"
+                        android:textStyle="bold" />
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
+                    <TextView
+                        android:id="@+id/txtNombreFechaDenuncia"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="5dp"
+                        android:layout_toEndOf="@id/txtTituloFechaRegistro"
+                        android:fontFamily="@font/poppins_regular"
+                        android:text="23-04-2021" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp">
+
+                    <TextView
+                        android:id="@+id/txtTituloVPD"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/poppins_medium"
+                        android:text="VPDENUNCIADA:"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/txtNombreVPD"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="5dp"
+                        android:layout_toEndOf="@id/txtTituloVPD"
+                        android:fontFamily="@font/poppins_regular"
+                        android:text="Familiar" />
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp">
+
+                    <TextView
+                        android:id="@+id/txtTituloPolicia"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/poppins_medium"
+                        android:text="POLICÍA:"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/txtNombrePolicia"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="5dp"
+                        android:layout_toEndOf="@id/txtTituloPolicia"
+                        android:fontFamily="@font/poppins_regular"
+                        android:text="Eloy Klever Camacho Torres" />
+                </RelativeLayout>
+            </LinearLayout>
+        </RelativeLayout>
     </com.google.android.material.card.MaterialCardView>
-
 </LinearLayout>

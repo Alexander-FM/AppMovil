@@ -65,6 +65,9 @@ public class SeccionArrayAdapter extends ArrayAdapter<GridSeccion> {
                 case 4:
                     destiny = ConsultarDenuncias.class;
                     break;
+                case 5:
+                    break;
+                case 6:
             }
             if (destiny != null) {
                 Intent i = new Intent(this.getContext(), destiny);

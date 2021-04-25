@@ -15,7 +15,7 @@
     <string name="referenciaD">Referencia al lugar de los hechos</string>
     <string name="direccionD">Direccón y/o lugar de los hechos</string>
     <string name="numIden">Núm. Identificación</string>
-    <string name="dirA">Ingresar dirección y referencias del domicilio real</string>
+    <string name="dirA">Dirección y referencias del domicilio real</string>
     <string name="relateP">Relate los detalles de protección</string>
     <string name="hechosD">Relate los hechos a denunciar</string>
     <string name="tituloDenunciado"><u>Datos del Denunciado(a)</u></string>

@@ -7,75 +7,59 @@
     android:orientation="vertical"
     tools:context=".activity.MenuActivity">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
-
-        <com.google.android.material.appbar.AppBarLayout
-            android:id="@+id/bar"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <androidx.appcompat.widget.Toolbar
-                android:id="@+id/toolbar"
-                android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize"
-                android:background="@color/colorPrimary"
-                app:menu="@menu/menu"
-                app:navigationIcon="@drawable/shr_menu"
-                app:title="@string/app_name"
-                app:titleTextAppearance="@style/MyStyle.Toolbar"
-                app:titleTextColor="@color/white" />
-        </com.google.android.material.appbar.AppBarLayout>
-    </LinearLayout>
-
-    <ScrollView
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/bar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <RelativeLayout
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="?attr/actionBarSize"
+            android:background="@color/colorPrimary"
+            app:menu="@menu/menu"
+            app:navigationIcon="@drawable/shr_menu"
+            app:title="@string/app_name"
+            app:titleTextAppearance="@style/MyStyle.Toolbar"
+            app:titleTextColor="@color/white" />
+    </com.google.android.material.appbar.AppBarLayout>
 
-            <LinearLayout
-                android:id="@+id/linear1"
+    <ScrollView
+        android:fillViewport="true"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <FrameLayout
+                android:id="@+id/frameTitulo"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="125dp"
+                android:background="@drawable/green_bg">
 
-                <FrameLayout
-                    android:id="@+id/frameTitulo"
-                    android:layout_width="match_parent"
-                    android:layout_height="125dp"
-                    android:layout_marginTop="55dp"
-                    android:background="@drawable/green_bg">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="50dp"
-                        android:layout_marginTop="30dp"
-                        android:text="NUESTROS SERVICIOS"
-                        android:textColor="#fff"
-                        android:textSize="30sp"
-                        android:textStyle="bold" />
-                </FrameLayout>
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="500dp"
-                android:layout_below="@+id/linear1">
-
-                <GridView
-                    android:id="@+id/grwSecciones"
-                    android:layout_width="match_parent"
+                <TextView
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:numColumns="2"
-                    android:padding="5dp"
-                    android:verticalSpacing="7dp" />
-            </LinearLayout>
-        </RelativeLayout>
+                    android:layout_marginLeft="50dp"
+                    android:layout_marginTop="30dp"
+                    android:text="NUESTROS SERVICIOS"
+                    android:textColor="#fff"
+                    android:textSize="30sp"
+                    android:textStyle="bold" />
+            </FrameLayout>
+
+            <GridView
+                android:id="@+id/grwSecciones"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:numColumns="2"
+                android:padding="5dp"
+                android:verticalSpacing="7dp" />
+        </LinearLayout>
     </ScrollView>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton

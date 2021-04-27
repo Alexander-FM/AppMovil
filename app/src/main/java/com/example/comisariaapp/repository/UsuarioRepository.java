@@ -60,4 +60,20 @@ public class UsuarioRepository {
         });
         return mld;
     }
+
+    public LiveData<GenericResponse<Boolean>> existByEmail(String email) {
+        final MutableLiveData<GenericResponse<Boolean>> mld = new MutableLiveData<>();
+        this.api.existByEmail(email).enqueue(new Callback<GenericResponse<Boolean>>() {
+            @Override
+            public void onResponse(Call<GenericResponse<Boolean>> call, Response<GenericResponse<Boolean>> response) {
+                mld.setValue(response.body());
+            }
+
+            @Override
+            public void onFailure(Call<GenericResponse<Boolean>> call, Throwable t) {
+                t.printStackTrace();
+            }
+        });
+        return mld;
+    }
 }

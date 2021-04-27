@@ -15,4 +15,8 @@ public interface UsuarioApi {
 
     @POST(base)
     Call<GenericResponse<Usuario>> save(@Body Usuario u);
+
+    @FormUrlEncoded
+    @POST(base + "/eByMail")
+    Call<GenericResponse<Boolean>> existByEmail(@Field("email") String email);
 }

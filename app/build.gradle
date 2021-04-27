@@ -69,4 +69,10 @@ dependencies {
 
     //Libreia Spinner
     implementation 'com.github.ganfra:material-spinner:2.0.0'
+
+    //Java Mail
+    //implementation 'javax.mail:mail:1.4.7'
+
+    implementation 'com.sun.mail:android-mail:1.6.3'
+    implementation 'com.sun.mail:android-activation:1.6.3'
 }

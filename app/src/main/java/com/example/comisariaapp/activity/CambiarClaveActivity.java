@@ -9,10 +9,12 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import com.example.comisariaapp.R;
+import com.example.comisariaapp.utils.EmailUtil;
 
 public class CambiarClaveActivity extends AppCompatActivity {
     private EditText edtNuevaClave1, edtNuevaClave2;
     private Button btnCambiarContraseña;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -29,5 +31,8 @@ public class CambiarClaveActivity extends AppCompatActivity {
     private void init() {
         edtNuevaClave1 = findViewById(R.id.edtNuevaClave1);
         edtNuevaClave2 = findViewById(R.id.edtNuevaClave2);
+        this.btnCambiarContraseña = findViewById(R.id.btnCambiarContraseña);
+        this.btnCambiarContraseña.setOnClickListener(v -> {
+        });
     }
 }

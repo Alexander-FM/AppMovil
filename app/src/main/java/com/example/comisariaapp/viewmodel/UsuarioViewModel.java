@@ -25,4 +25,8 @@ public class UsuarioViewModel extends AndroidViewModel {
     public LiveData<GenericResponse<Usuario>> save(Usuario u) {
         return repository.save(u);
     }
+
+    public LiveData<GenericResponse<Boolean>> existByEmail(String email) {
+        return repository.existByEmail(email);
+    }
 }

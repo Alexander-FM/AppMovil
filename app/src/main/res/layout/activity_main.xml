@@ -20,7 +20,6 @@
             android:layout_height="?attr/actionBarSize"
             android:background="@color/colorPrimary"
             app:menu="@menu/menu"
-            app:navigationIcon="@drawable/shr_menu"
             app:title="@string/app_name"
             app:titleTextAppearance="@style/MyStyle.Toolbar"
             app:titleTextColor="@color/white" />

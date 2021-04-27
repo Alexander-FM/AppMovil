@@ -111,6 +111,9 @@ public class MenuActivity extends AppCompatActivity implements MainCommunication
             case R.id.misTramites:
                 this.loadActivity(new Intent(this, MisTramitesActivity.class));
                 break;
+            case R.id.misSugerencias:
+                this.loadActivity(new Intent(this, MisSugerenciasActivity.class));
+                break;
         }
         return super.onOptionsItemSelected(item);
     }

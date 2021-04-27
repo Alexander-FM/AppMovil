@@ -35,6 +35,7 @@ public class ConfigApi {
     private static TramiteApi tApi;
     private static EstadoCivilApi ecApi;
     private static DenunciaApi dApi;
+    private static SugerenciaApi sApi;
 
     static {
         initClient();
@@ -47,7 +48,7 @@ public class ConfigApi {
                 .create();
 
         retrofit = new Retrofit.Builder()
-                .baseUrl(baseUrlD)
+                .baseUrl(baseUrlE)
                 .addConverterFactory(GsonConverterFactory.create(gson))
                 .client(getClient())
                 .build();
@@ -140,6 +141,13 @@ public class ConfigApi {
             dApi = retrofit.create(DenunciaApi.class);
         }
         return dApi;
+    }
+
+    public static SugerenciaApi getSugerenciaApi() {
+        if (sApi == null) {
+            sApi = retrofit.create(SugerenciaApi.class);
+        }
+        return sApi;
     }
 }
 

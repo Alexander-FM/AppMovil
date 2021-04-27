@@ -33,7 +33,7 @@ public class EmailUtil {
             message.setFrom(new InternetAddress(remitente));
             message.addRecipient(Message.RecipientType.TO, new InternetAddress(destinatario));   //Se podrían añadir varios de la misma manera
             message.setSubject("SOLICITUD DE CAMBIO DE CONTRASEÑA");
-            message.setText("Hola usuario,para restablecer tu contraseña \n  <a href=\"https://www.youtube.com\">Haz click aqui</a>", "UTF-8", "html");
+            message.setText("Hola usuario, para restablecer tu contraseña \n  <a href=\"https://www.youtube.com\">Haz click aqui</a>", "UTF-8", "html");
             Transport transport = session.getTransport("smtp");
             transport.connect("smtp.gmail.com", remitente, clave);
             transport.sendMessage(message, message.getAllRecipients());

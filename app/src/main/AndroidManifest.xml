@@ -13,7 +13,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.ComisariaApp">
-        <activity android:name=".activity.BuzonSugerenciasActivity"></activity>
+        <activity android:name=".activity.MisSugerenciasActivity"></activity>
+        <activity android:name=".activity.BuzonSugerenciasActivity" />
         <activity android:name=".activity.CambiarClaveActivity" />
         <activity android:name=".activity.OlvideClaveActivity" />
         <activity android:name=".activity.ConsultarDenuncias" />

@@ -17,6 +17,10 @@
                 android:icon="@drawable/ic_assigmente"
                 android:title="Mis Trámites" />
             <item
+                android:id="@+id/misSugerencias"
+                android:icon="@drawable/ic_baseline_checklist_24"
+                android:title="Mis Sugerencias" />
+            <item
                 android:id="@+id/contacto"
                 android:icon="@drawable/ic_baseline_contact_mail_24"
                 android:title="Acerca de Nostros" />

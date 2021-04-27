@@ -97,7 +97,7 @@
 
                 <Button
                     android:layout_below="@+id/txtSugerencia"
-                    android:id="@+id/btnContinuar"
+                    android:id="@+id/btnEnviarSugerencia"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Enviar Sugerencia"

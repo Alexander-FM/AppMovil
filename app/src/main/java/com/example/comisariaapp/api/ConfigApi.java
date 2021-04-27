@@ -21,7 +21,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class ConfigApi {
     private static final String baseUrlE = "http://10.0.2.2:9090", baseUrlD = "http://192.168.1.103:9090";
-    private static final String ipAlexander = "http://192.168.0.5:9090";
+    private static final String ipAlexander = "http://192.168.0.7:9090";
     private static final String ipLizbeth = "http://192.168.1.103:9090";
     private static Retrofit retrofit;
     private static String token = "";

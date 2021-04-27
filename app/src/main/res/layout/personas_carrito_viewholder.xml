@@ -1,91 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="5dp"
     android:orientation="vertical">
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:layout_height="wrap_content">
 
-        <LinearLayout
-            android:id="@+id/elementos"
-            android:layout_width="match_parent"
+        <TextView
+            android:id="@+id/txtItemNombres"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:layout_alignParentStart="true"
+            android:layout_toStartOf="@id/btnEliminar"
+            android:fontFamily="@font/poppins_regular"
+            android:text="Juan Jose Roberto Alfonso Sandoval Chuquilin" />
 
-            <RelativeLayout
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1">
-
-                <TextView
-                    android:id="@+id/txttitulonombre"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerHorizontal="true"
-                    android:fontFamily="@font/poppins_medium"
-                    android:text="Nombres Completos"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:id="@+id/txtItemNombres"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/txttitulonombre"
-                    android:layout_marginTop="5dp"
-                    android:fontFamily="@font/poppins_regular"
-                    android:text="Juan Jose Roberto Alfonso Sandoval Chuquilin"
-                    android:textAlignment="center" />
-            </RelativeLayout>
-
-            <RelativeLayout
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1">
-
-                <TextView
-                    android:id="@+id/txttituloacciones"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerHorizontal="true"
-                    android:fontFamily="@font/poppins_medium"
-                    android:text="Acciones"
-                    android:textStyle="bold" />
-
-                <ImageView
-                    android:id="@+id/btnEliminar"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/txttituloacciones"
-                    android:layout_centerHorizontal="true"
-                    android:layout_marginTop="20dp"
-                    android:src="@drawable/trash"
-                    app:iconTint="#FA0000" />
-            </RelativeLayout>
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_marginTop="5dp"
-            android:layout_width="match_parent"
+        <ImageView
+            android:id="@+id/btnEliminar"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="10dp"
+            android:src="@drawable/trash"
+            app:iconTint="#FA0000" />
+    </RelativeLayout>
 
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+    <View
+        android:id="@+id/separador"
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:layout_marginTop="5dp"
+        android:background="#114a39" />
 
-                <View
-                    android:id="@+id/separador"
-                    android:layout_width="match_parent"
-                    android:layout_height="2dp"
-                    android:background="#114a39" />
-            </RelativeLayout>
-        </LinearLayout>
-    </LinearLayout>
-
-
-</ScrollView>
+</LinearLayout>

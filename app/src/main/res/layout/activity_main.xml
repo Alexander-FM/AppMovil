@@ -1,16 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     tools:context=".activity.MenuActivity">
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/bar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
@@ -24,54 +26,51 @@
             app:titleTextColor="@color/white" />
     </com.google.android.material.appbar.AppBarLayout>
 
-    <ScrollView
-        android:fillViewport="true"
+    <FrameLayout
+        android:id="@+id/frameTitulo"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+        android:layout_height="150dp"
+        android:background="@drawable/green_bg"
+        app:layout_constraintTop_toBottomOf="@id/bar">
 
-        <LinearLayout
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="35dp"
+            android:layout_gravity="center_horizontal"
+            android:text="NUESTROS SERVICIOS"
+            android:textColor="#fff"
+            android:textSize="30sp"
+            android:textStyle="bold" />
+    </FrameLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:fillViewport="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/frameTitulo">
+
+        <GridView
+            android:id="@+id/grwSecciones"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical">
-
-            <FrameLayout
-                android:id="@+id/frameTitulo"
-                android:layout_width="match_parent"
-                android:layout_height="125dp"
-                android:background="@drawable/green_bg">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="50dp"
-                    android:layout_marginTop="30dp"
-                    android:text="NUESTROS SERVICIOS"
-                    android:textColor="#fff"
-                    android:textSize="30sp"
-                    android:textStyle="bold" />
-            </FrameLayout>
-
-            <GridView
-                android:id="@+id/grwSecciones"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:numColumns="2"
-                android:padding="5dp"
-                android:verticalSpacing="7dp" />
-        </LinearLayout>
+            android:numColumns="2"
+            android:padding="5dp"
+            android:verticalSpacing="7dp" />
     </ScrollView>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fabAgregar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="bottom|end"
         android:layout_marginEnd="10dp"
         android:layout_marginBottom="10dp"
         android:backgroundTint="#1de956"
         android:src="@drawable/whatsapp3"
         app:borderWidth="0dp"
-        app:elevation="6dp" />
+        app:elevation="6dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 
-</androidx.coordinatorlayout.widget.CoordinatorLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

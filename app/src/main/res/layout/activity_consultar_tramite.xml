@@ -21,44 +21,49 @@
             app:titleTextColor="@color/white" />
     </com.google.android.material.appbar.AppBarLayout>
 
-        <com.google.android.material.card.MaterialCardView
-            android:id="@+id/cardTramite"
-            android:layout_below="@+id/bar"
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/cardTramite"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/bar"
+        android:layout_margin="10dp"
+        app:cardElevation="5dp">
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            app:cardElevation="5dp">
+            android:orientation="vertical">
 
-            <androidx.constraintlayout.widget.ConstraintLayout
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="5dp">
+                android:layout_margin="5dp"
+                android:orientation="vertical">
 
                 <TextView
                     android:id="@+id/txttituloEstadoTrámite"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
                     android:fontFamily="@font/poppins_regular"
                     android:justificationMode="inter_word"
-                    android:layout_margin="5dp"
-                    android:text="@string/estadoTramite"
-                    app:layout_constraintBottom_toTopOf="@+id/textInputLayout"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="1.0"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    android:text="@string/estadoTramite" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginStart="5dp"
+                android:layout_marginEnd="5dp">
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/textInputLayout"
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                    android:layout_width="220dp"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_marginEnd="10dp"
                     android:layout_height="wrap_content"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.03"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintVertical_bias="0.9"
                     app:startIconDrawable="@drawable/dni">
 
                     <com.google.android.material.textfield.TextInputEditText
@@ -67,41 +72,39 @@
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/poppins_medium"
                         android:hint="Código trámite"
-                        android:maxLength="8" />
+                        android:maxLength="8"
+                        android:textSize="15sp"/>
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <Button
                     android:id="@+id/btnConsultarTramite"
                     style="@style/Widget.MaterialComponents.Button"
-                    android:layout_width="wrap_content"
-                    android:layout_height="65dp"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:textSize="15sp"
                     android:fontFamily="@font/poppins_medium"
-                    android:text="Buscar"
-                    app:icon="@drawable/shr_search"
-                    app:layout_constraintBottom_toBottomOf="@+id/textInputLayout"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.8"
-                    app:layout_constraintStart_toEndOf="@+id/textInputLayout"
-                    app:layout_constraintTop_toTopOf="@+id/textInputLayout"
-                    app:layout_constraintVertical_bias="0.0" />
+                    android:text="Consultar Trámite"
+                    app:icon="@drawable/shr_search"/>
 
-            </androidx.constraintlayout.widget.ConstraintLayout>
+            </LinearLayout>
+        </LinearLayout>
+    </com.google.android.material.card.MaterialCardView>
 
-        </com.google.android.material.card.MaterialCardView>
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayoutTramite"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/cardTramite"
+        android:visibility="invisible">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/constraintLayoutTramite"
+        <include
+            android:id="@+id/include"
+            layout="@layout/item_mis_tramites_activity"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:visibility="invisible"
-            android:layout_below="@+id/cardTramite">
+            android:layout_height="wrap_content" />
 
-            <include
-                android:id="@+id/include"
-                layout="@layout/item_mis_tramites_activity"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </RelativeLayout>

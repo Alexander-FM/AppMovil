@@ -33,4 +33,6 @@
         trámites realizados mediante esta aplicación.</string>
     <string name="titulodenuncias"><u>Mis Denuncias</u></string>
     <string name="titulotramites"><u>Mis Trámites</u></string>
+    <string name="colaboración">Hola, Usuario, Tú opinión es muy importante para nosotros, comentamos en que aspecto deberíamos mejorar
+    para ofrecerles una mejor experencia de usuario. Marca el número de estrellas para calificar la aplicación y dejanos un comentario..</string>
 </resources>

@@ -46,7 +46,8 @@
                     android:fontFamily="@font/poppins_medium"
                     android:text="Ingresar Denuncia"
                     android:textAlignment="center"
-                    app:icon="@drawable/ic_baseline_add_24" />
+                    app:icon="@drawable/ic_baseline_add_24"
+                    android:textSize="15sp"/>
             </LinearLayout>
         </LinearLayout>
 

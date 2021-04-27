@@ -14,6 +14,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.example.comisariaapp.R;
+import com.example.comisariaapp.activity.BuzonSugerenciasActivity;
 import com.example.comisariaapp.activity.ConsultarDenuncias;
 import com.example.comisariaapp.activity.ConsultarTramiteActivity;
 import com.example.comisariaapp.activity.RegistrarDenunciaActivity;
@@ -66,6 +67,7 @@ public class SeccionArrayAdapter extends ArrayAdapter<GridSeccion> {
                     destiny = ConsultarDenuncias.class;
                     break;
                 case 5:
+                    destiny = BuzonSugerenciasActivity.class;
                     break;
                 case 6:
             }

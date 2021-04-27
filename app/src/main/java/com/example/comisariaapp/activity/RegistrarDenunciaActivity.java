@@ -90,14 +90,12 @@ public class RegistrarDenunciaActivity extends AppCompatActivity {
         this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         super.onCreate(savedInstanceState);
         this.setContentView(R.layout.activity_registrar_denuncia);
-
         Toolbar toolbar = findViewById(R.id.toolbar);
         toolbar.setNavigationIcon(R.drawable.atras);
         toolbar.setNavigationOnClickListener(v -> {//Reemplazo con lamba
             startActivity(new Intent(getApplicationContext(), MenuActivity.class));
             overridePendingTransition(R.anim.rigth_in, R.anim.rigth_out);
         });
-
         ViewModelProvider vmp = new ViewModelProvider(this);
         this.distritoViewModel = vmp.get(DistritoViewModel.class);
         this.vpdViewModel = vmp.get(VinculoParteDenunciadaViewModel.class);
@@ -107,7 +105,7 @@ public class RegistrarDenunciaActivity extends AppCompatActivity {
         this.init();
         this.initAdapters();
         this.loadData();
-        this.setSupportActionBar(toolbar);
+
     }
 
 

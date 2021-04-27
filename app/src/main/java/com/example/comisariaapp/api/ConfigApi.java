@@ -47,7 +47,7 @@ public class ConfigApi {
                 .create();
 
         retrofit = new Retrofit.Builder()
-                .baseUrl(ipLizbeth)
+                .baseUrl(baseUrlE)
                 .addConverterFactory(GsonConverterFactory.create(gson))
                 .client(getClient())
                 .build();

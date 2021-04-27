@@ -10,6 +10,7 @@ import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.comisariaapp.utils.DateDeserializer;
@@ -24,7 +25,7 @@ import java.util.Date;
 public class LoginActivity extends AppCompatActivity {
     private Button btnRegistrarse, btnIniciarSesion;
     private UsuarioViewModel viewModel;
-
+    private TextView olvidePassword;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
@@ -33,6 +34,11 @@ public class LoginActivity extends AppCompatActivity {
         viewModel = new ViewModelProvider(this).get(UsuarioViewModel.class);
         btnRegistrarse = findViewById(R.id.btnRegistrarse);
         btnIniciarSesion = findViewById(R.id.btnIniciarSesion);
+        olvidePassword = findViewById(R.id.olvideContraseña);
+        olvidePassword.setOnClickListener(v -> {
+            startActivity(new Intent(this, OlvideClaveActivity.class));
+            overridePendingTransition(R.anim.left_in, R.anim.left_out);
+        });
         btnRegistrarse.setOnClickListener(v -> {
             startActivity(new Intent(this, RegistrarUsuarioActivity.class));
             overridePendingTransition(R.anim.left_in, R.anim.left_out);

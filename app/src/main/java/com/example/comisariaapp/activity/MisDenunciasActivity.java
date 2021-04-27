@@ -7,6 +7,7 @@ import androidx.preference.PreferenceManager;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Build;
 import android.os.Bundle;
 import android.widget.ListView;
 
@@ -73,7 +74,13 @@ public class MisDenunciasActivity extends AppCompatActivity implements MisDenunc
                 if (response.getRpta() == 1) {
                     denuncias.clear();
                     dtos.addAll(response.getBody());
-                    response.getBody().forEach(dto -> denuncias.add(dto.getDenuncia()));
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                        response.getBody().forEach(dto -> denuncias.add(dto.getDenuncia()));
+                    }else{
+                        for (DenunciaConDetallesDTO dto:response.getBody()){
+                            denuncias.add(dto.getDenuncia());
+                        }
+                    }
                     adapter.notifyDataSetChanged();
                 }
             });

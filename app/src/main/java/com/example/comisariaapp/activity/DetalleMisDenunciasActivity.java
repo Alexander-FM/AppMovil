@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 
 import com.example.comisariaapp.R;
@@ -69,12 +70,24 @@ public class DetalleMisDenunciasActivity extends AppCompatActivity {
         List<Agraviado> agraviados = g.fromJson(data.getString("agraviados"), new TypeToken<List<Agraviado>>() {
         }.getType());
         List<Persona> pAgraviados = new ArrayList<>();
-        agraviados.forEach(a -> pAgraviados.add(a));
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            agraviados.forEach(a -> pAgraviados.add(a));
+        } else {
+            for (Agraviado a : agraviados) {
+                pAgraviados.add(a);
+            }
+        }
 
         List<Denunciado> denunciados = g.fromJson(data.getString("denunciados"), new TypeToken<List<Denunciado>>() {
         }.getType());
         List<Persona> pDenunciados = new ArrayList<>();
-        denunciados.forEach(d -> pDenunciados.add(d));
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            denunciados.forEach(d -> pDenunciados.add(d));
+        } else {
+            for (Denunciado d : denunciados) {
+                pDenunciados.add(d);
+            }
+        }
         this.aDmdAdapter.updateItems(pAgraviados);
         this.dDmdAdapter.updateItems(pDenunciados);
         //Toast.makeText(this, "Hello", Toast.LENGTH_SHORT).show();

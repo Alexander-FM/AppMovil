@@ -5,6 +5,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -131,7 +132,13 @@ public class RegistrarUsuarioActivity extends AppCompatActivity {
                 this.estadosCiviles.clear();
                 this.estadosCiviles.addAll(response.getBody());
                 this.displayDistritos.clear();
-                this.estadosCiviles.forEach(e -> this.displayEstadosCiviles.add(e.getEstadoCivil()));
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                    this.estadosCiviles.forEach(e -> this.displayEstadosCiviles.add(e.getEstadoCivil()));
+                }else{
+                    for (EstadoCivil ec:this.estadosCiviles){
+                        this.displayEstadosCiviles.add(ec.getEstadoCivil());
+                    }
+                }
                 this.adapterEstadosCiviles.notifyDataSetChanged();
             }
         });

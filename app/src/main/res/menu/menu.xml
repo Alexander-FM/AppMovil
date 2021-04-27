@@ -3,27 +3,37 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
         android:id="@+id/more"
-        android:icon="@drawable/shr_more"
+        android:icon="@drawable/shr_menu"
         android:iconTint="@color/white"
         android:title="Contáctanos"
         app:showAsAction="always">
         <menu>
             <item
+                android:id="@+id/misDenuncias"
+                android:icon="@drawable/ic_baseline_content_paste_24"
+                android:title="Mis Denuncias" />
+            <item
+                android:id="@+id/misTramites"
+                android:icon="@drawable/ic_assigmente"
+                android:title="Mis Trámites" />
+            <item
                 android:id="@+id/contacto"
                 android:icon="@drawable/ic_baseline_contact_mail_24"
                 android:title="Acerca de Nostros" />
             <item
+                android:id="@+id/llamanos"
+                android:icon="@drawable/ic_baseline_contact_phone_24"
+                android:title="Contáctanos" />
+            <item
+                android:id="@+id/informate"
+                android:icon="@drawable/ic_baseline_info_24"
+                android:title="Informate aquí" />
+
+            <item
                 android:id="@+id/logout"
+                android:icon="@drawable/exit_app"
                 android:title="Cerrar Sesión"
-                android:icon="@drawable/exit_app"/>
-            <item
-                android:id="@+id/misDenuncias"
-                android:title="Mis Denuncias"
-                android:icon="@drawable/ic_baseline_content_paste_24"/>
-            <item
-                android:id="@+id/misTramites"
-                android:title="Mis Trámites"
-                android:icon="@drawable/ic_assigmente"/>
+                app:iconTint="@color/error_color" />
         </menu>
     </item>
 

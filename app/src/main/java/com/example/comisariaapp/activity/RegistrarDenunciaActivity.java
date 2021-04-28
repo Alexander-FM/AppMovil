@@ -75,7 +75,7 @@ public class RegistrarDenunciaActivity extends AppCompatActivity {
 
     private EditText edt_DocD, edt_NombresD, edt_ApellidoPaternoD, edt_ApellidoMaternoD, edt_FechaNacimientoD, edt_CelularD, edt_DireccionD, dtp_FechaNacD;
 
-    private Button btnSaveA, btnSaveD;
+    private Button btnSaveA, btnSaveD, btnCancelarA, btnCancelarD;
 
     private List<Distrito> distritos = new ArrayList<>(), allDistritos = new ArrayList<>();
     private List<VinculoParteDenunciada> vinculos = new ArrayList<>();
@@ -105,7 +105,7 @@ public class RegistrarDenunciaActivity extends AppCompatActivity {
         this.init();
         this.initAdapters();
         this.loadData();
-
+        setSupportActionBar(toolbar);
     }
 
 
@@ -218,7 +218,30 @@ public class RegistrarDenunciaActivity extends AppCompatActivity {
         drop_generoA.setSelection(0);
         edtCeluarA.setText("");
         edtReferenciaDomicilioReal.setText("");
+        edtHechoDenunciar.setText("");
 
+        drop_Juzgado.setSelection(0);
+        drop_infoAdicionalA.setSelection(0);
+        edtDetalleProtección.setText("");
+        drop_medidaProteccion.setSelection(0);
+        edtFechaEmisionProteccion.setText("");
+        mismaPersona.setChecked(false);
+    }
+
+    private void clearCamposDenunciado() {
+        edt_NombresD.setText("");
+        edt_ApellidoPaternoD.setText("");
+        edt_ApellidoMaternoD.setText("");
+        edt_CelularD.setText("");
+        dtp_FechaNacD.setText("");
+        edt_DocD.setText("");
+        edt_DireccionD.setText("");
+
+        sp_TipoIdentificacionD.setSelection(0);
+        sp_DistritoDenunciado.setSelection(0);
+        sp_InfoAdicionalD.setSelection(0);
+        sp_GeneroD.setSelection(0);
+        sp_EstadoCivilD.setSelection(0);
     }
 
     private void guardarAgraviado() {
@@ -289,13 +312,14 @@ public class RegistrarDenunciaActivity extends AppCompatActivity {
                 d.setDireccion(edt_DireccionD.getText().toString());
                 d.setSexo(sp_GeneroD.getSelectedItem().toString());
                 d.setEstadoCivil(new EstadoCivil());
-                d.getEstadoCivil().setId(2);
+                d.getEstadoCivil().setId(sp_EstadoCivilD.getSelectedItemPosition() - 1);
 
                 Toast.makeText(this, DenunciaManager.addDenunciado(d, this), Toast.LENGTH_SHORT).show();
             } catch (Exception e) {
                 Toast.makeText(this, "Error al intentar crear el objeto Denunciado:" + e.getMessage() + " 😥", Toast.LENGTH_LONG).show();
                 e.printStackTrace();
             }
+            this.clearCamposDenunciado();
         } else {
             Toast.makeText(this, "Por favor complete todos los campos 😑", Toast.LENGTH_SHORT).show();
         }
@@ -349,6 +373,15 @@ public class RegistrarDenunciaActivity extends AppCompatActivity {
         btnSaveA.setOnClickListener(v -> guardarAgraviado());
         btnSaveD = findViewById(R.id.btnSaveDenunciado);
         btnSaveD.setOnClickListener(v -> guardarDenunciado());
+        btnCancelarA = findViewById(R.id.btnCancelA);
+        btnCancelarD = findViewById(R.id.btnCancelD);
+
+        btnCancelarD.setOnClickListener(view -> {
+            this.clearCamposDenunciado();
+        });
+        btnCancelarA.setOnClickListener(view -> {
+            this.clearCamposAgraviado();
+        });
         //DENUNCIA
 
         edtLugarHechos = findViewById(R.id.edtDireccionHechos);

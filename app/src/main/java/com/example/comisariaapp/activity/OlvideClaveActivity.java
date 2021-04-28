@@ -56,12 +56,17 @@ public class OlvideClaveActivity extends AppCompatActivity {
                         b = response.getBody();
                     }
                     if (b) {
-                        EnviarCorreoTask task = new EnviarCorreoTask();
+                        Toast.makeText(this, "Correo Electrónico Válido.", Toast.LENGTH_SHORT).show();
+                        Intent i = new Intent(this, CambiarClaveActivity.class);
+                        i.putExtra("email", edtCorreoRecuperacion.getText().toString());
+                        startActivity(i);
+                        overridePendingTransition(R.anim.left_in, R.anim.left_out);
+                        /*EnviarCorreoTask task = new EnviarCorreoTask();
                         task.execute(edtCorreoRecuperacion.getText().toString());
                         Toast.makeText(this, task.get() ? "correo de recuperación enviado" : "no se ha podido enviar el correo de recuperación", Toast.LENGTH_SHORT).show();
-                        this.finish();
+                        this.finish();*/
                     } else {
-                        msje.set("el correo ingresado no está asociado a ningún usuario");
+                        msje.set("El correo ingresado no está asociado a ningún usuario");
                     }
                 } catch (Exception e) {
                     e.printStackTrace();

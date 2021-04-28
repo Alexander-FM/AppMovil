@@ -76,4 +76,20 @@ public class UsuarioRepository {
         });
         return mld;
     }
+
+    public LiveData<GenericResponse<Usuario>> changePassword(String email, String clave) {
+        final MutableLiveData<GenericResponse<Usuario>> mld = new MutableLiveData<>();
+        this.api.changePassword(email, clave).enqueue(new Callback<GenericResponse<Usuario>>() {
+            @Override
+            public void onResponse(Call<GenericResponse<Usuario>> call, Response<GenericResponse<Usuario>> response) {
+                mld.setValue(response.body());
+            }
+
+            @Override
+            public void onFailure(Call<GenericResponse<Usuario>> call, Throwable t) {
+                t.printStackTrace();
+            }
+        });
+        return mld;
+    }
 }

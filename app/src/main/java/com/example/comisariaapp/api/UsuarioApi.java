@@ -19,4 +19,8 @@ public interface UsuarioApi {
     @FormUrlEncoded
     @POST(base + "/eByMail")
     Call<GenericResponse<Boolean>> existByEmail(@Field("email") String email);
+
+    @FormUrlEncoded
+    @POST(base + "/changePassword")
+    Call<GenericResponse<Usuario>> changePassword(@Field("email") String email, @Field("clave") String clave);
 }

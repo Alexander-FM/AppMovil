@@ -29,4 +29,8 @@ public class UsuarioViewModel extends AndroidViewModel {
     public LiveData<GenericResponse<Boolean>> existByEmail(String email) {
         return repository.existByEmail(email);
     }
+
+    public LiveData<GenericResponse<Usuario>> changePassword(String email, String clave) {
+        return repository.changePassword(email, clave);
+    }
 }

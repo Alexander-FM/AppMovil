@@ -24,7 +24,7 @@ import com.example.comisariaapp.entity.service.Denunciado;
 import com.example.comisariaapp.entity.service.EstadoCivil;
 import com.example.comisariaapp.entity.service.Policia;
 import com.example.comisariaapp.entity.service.TipoIdentificacion;
-import com.example.comisariaapp.utils.DateDeserializer;
+import com.example.comisariaapp.utils.DateSerializer;
 import com.example.comisariaapp.utils.DatePickerFragment;
 import com.example.comisariaapp.R;
 import com.example.comisariaapp.entity.service.Agraviado;
@@ -35,6 +35,7 @@ import com.example.comisariaapp.entity.service.TipoDenuncia;
 import com.example.comisariaapp.entity.service.Usuario;
 import com.example.comisariaapp.entity.service.VinculoParteDenunciada;
 import com.example.comisariaapp.utils.DenunciaManager;
+import com.example.comisariaapp.utils.TimeSerializer;
 import com.example.comisariaapp.viewmodel.DistritoViewModel;
 import com.example.comisariaapp.viewmodel.EstadoCivilViewModel;
 import com.example.comisariaapp.viewmodel.InformacionAdicionalViewModel;
@@ -42,14 +43,16 @@ import com.example.comisariaapp.viewmodel.TipoDenunciaViewModel;
 import com.example.comisariaapp.viewmodel.VinculoParteDenunciadaViewModel;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.reflect.TypeToken;
 
+import java.sql.Time;
 import java.text.SimpleDateFormat;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
+import java.sql.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
 
@@ -170,14 +173,15 @@ public class RegistrarDenunciaActivity extends AppCompatActivity {
     }
 
     private void asignarDatosagraviadoSesion() {
-        Gson g = new GsonBuilder()
-                .setDateFormat("yyyy-MM-dd'T'HH:mm:ss")
-                //.registerTypeAdapter(Date.class, (JsonDeserializer<Date>) (json, typeOfT, context) -> new Date(json.getAsJsonPrimitive().getAsLong()))
+        final Gson g = new GsonBuilder()
+                .registerTypeAdapter(Date.class, new DateSerializer())
+                .registerTypeAdapter(Time.class, new TimeSerializer())
                 .create();
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
         String strU = preferences.getString("UsuarioJson", "");
         if (!strU.equals("")) {
-            Usuario us = g.fromJson(strU, Usuario.class);
+            Usuario us = g.fromJson(strU, new TypeToken<Usuario>() {
+            }.getType());
             this.drop_tipoIdentificacionA.setSelection((us.getTipoIdentificacion().getId() == 1 ? 0 : 1) + 1);
             this.edtDocA.setText(us.getNumeroIdentificacion());
             this.edtNombresA.setText(us.getNombres());
@@ -256,7 +260,7 @@ public class RegistrarDenunciaActivity extends AppCompatActivity {
                 a.setNombres(edtNombresA.getText().toString());
                 a.setApellidoPaterno(edtApellidoPaternoA.getText().toString());
                 a.setApellidoMaterno(edtApellidoMaternoA.getText().toString());
-                a.setFechaNacimiento(new SimpleDateFormat("dd-MM-yyyy").parse(edtFechaNacimientoA.getText().toString()));
+                a.setFechaNacimiento(new Date(new SimpleDateFormat("dd-MM-yyyy").parse(edtFechaNacimientoA.getText().toString()).getTime()));
                 a.setTelefono(edtCeluarA.getText().toString());
                 a.setDireccion(edtReferenciaDomicilioReal.getText().toString());
                 a.setRhd(edtHechoDenunciar.getText().toString());
@@ -267,13 +271,13 @@ public class RegistrarDenunciaActivity extends AppCompatActivity {
                 final int indexti = drop_tipoIdentificacionA.getSelectedItemPosition();
                 a.getTipoIdentificacion().setId(indexti);
                 a.setEstadoCivil(new EstadoCivil());
-                a.getEstadoCivil().setId(2);
+                a.getEstadoCivil().setId(1);
                 int indexIA = drop_infoAdicionalA.getSelectedItemPosition();
                 a.setInformacionAdicional(infosAdicional.get(indexIA - 1));
                 if (drop_medidaProteccion.getSelectedItemPosition() == 1) {
                     a.setMedidaProteccion(true);
                     a.setJuzgado(drop_Juzgado.getSelectedItem().toString());
-                    a.setFechaEmision(new SimpleDateFormat("dd-MM-yyyy").parse(edtFechaEmisionProteccion.getText().toString()));
+                    a.setFechaEmision(new Date(new SimpleDateFormat("dd-MM-yyyy").parse(edtFechaEmisionProteccion.getText().toString()).getTime()));
                     a.setDetalleProteccion(edtDetalleProtección.getText().toString());
                 }
                 Toast.makeText(this, DenunciaManager.addAgraviado(a, this), Toast.LENGTH_SHORT).show();
@@ -307,12 +311,12 @@ public class RegistrarDenunciaActivity extends AppCompatActivity {
                 d.setTelefono(edt_CelularD.getText().toString());
                 int indexIA = sp_InfoAdicionalD.getSelectedItemPosition() - 1;
                 d.setInformacionAdicional(infosAdicional.get(indexIA));
-                d.setFechaNacimiento(new SimpleDateFormat("dd-MM-yyyy").parse(dtp_FechaNacD.getText().toString()));
+                d.setFechaNacimiento(new Date(new SimpleDateFormat("dd-MM-yyyy").parse(dtp_FechaNacD.getText().toString()).getTime()));
                 d.setDistrito(distritos.get(sp_DistritoDenunciado.getSelectedItemPosition() - 1));
                 d.setDireccion(edt_DireccionD.getText().toString());
                 d.setSexo(sp_GeneroD.getSelectedItem().toString());
-                d.setEstadoCivil(new EstadoCivil());
-                d.getEstadoCivil().setId(sp_EstadoCivilD.getSelectedItemPosition() - 1);
+                d.setEstadoCivil(this.estadosCiviles.get((sp_EstadoCivilD.getSelectedItemPosition() - 1)));
+
 
                 Toast.makeText(this, DenunciaManager.addDenunciado(d, this), Toast.LENGTH_SHORT).show();
             } catch (Exception e) {
@@ -561,15 +565,18 @@ public class RegistrarDenunciaActivity extends AppCompatActivity {
         try {
             SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);//getPreferences(Context.MODE_PRIVATE);
             Gson g = new GsonBuilder()
-                    .setDateFormat("yyyy-MM-dd")
-                    .registerTypeAdapter(Date.class, new DateDeserializer())
+                    .registerTypeAdapter(Date.class, new DateSerializer())
+                    .registerTypeAdapter(Time.class, new TimeSerializer())
                     .create();
             d.setUsuario(g.fromJson(preferences.getString("UsuarioJson", null), Usuario.class));
             d.setCod_denuncia("? ? ?");
             d.setPolicia(new Policia());
             d.getPolicia().setId(1);
-            d.setFechaDenuncia(new Date());
-            d.setFechaHechos(new SimpleDateFormat("dd-MM-yyyy").parse(this.edtFechaHechos.getText().toString()));
+            java.util.Date date = new java.util.Date();
+            d.setFechaDenuncia(new Date(date.getTime()));
+            d.setHoraDenuncia(new Time(date.getTime()));
+            d.setFechaHechos(new Date(new SimpleDateFormat("dd-MM-yyyy").parse(this.edtFechaHechos.getText().toString()).getTime()));
+            d.setHoraHechos(new Time(date.getTime()));
             d.setDistrito(this.distritos.get(this.drop_distritoD.getSelectedItemPosition() - 1));
             d.setDireccion(this.edtLugarHechos.getText().toString());
             d.setReferenciaDireccion(this.edtReferenciaHechos.getText().toString());

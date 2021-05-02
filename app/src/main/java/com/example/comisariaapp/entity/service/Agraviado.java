@@ -1,6 +1,6 @@
 package com.example.comisariaapp.entity.service;
 
-import java.util.Date;
+import java.sql.Date;
 
 public final class Agraviado extends Persona {
     private boolean medidaProteccion;

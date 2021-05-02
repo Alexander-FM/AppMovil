@@ -12,14 +12,15 @@ import com.example.comisariaapp.entity.service.dto.DenunciaConDetallesDTO;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
-import java.util.Date;
+import java.sql.Date;
+import java.sql.Time;
 import java.util.Iterator;
 import java.util.List;
 
 public class DenunciaManager {
     private static final Gson g = new GsonBuilder()
-            .setDateFormat("yyyy-MM-dd")
-            .registerTypeAdapter(Date.class, new DateDeserializer())
+            .registerTypeAdapter(Date.class, new DateSerializer())
+            .registerTypeAdapter(Time.class, new TimeSerializer())
             .create();
     private static SharedPreferences sp;
 

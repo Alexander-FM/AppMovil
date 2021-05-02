@@ -13,14 +13,17 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.comisariaapp.utils.DateDeserializer;
 import com.example.comisariaapp.R;
 import com.example.comisariaapp.entity.service.Usuario;
+import com.example.comisariaapp.utils.DateSerializer;
+import com.example.comisariaapp.utils.TimeSerializer;
 import com.example.comisariaapp.viewmodel.UsuarioViewModel;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.reflect.TypeToken;
 
-import java.util.Date;
+import java.sql.Date;
+import java.sql.Time;
 
 public class LoginActivity extends AppCompatActivity {
     private Button btnRegistrarse, btnIniciarSesion;
@@ -52,11 +55,11 @@ public class LoginActivity extends AppCompatActivity {
                         Toast.makeText(this, "Bienvenido:" + u.getNombres() + " " + u.getApellidoPaterno() + " " + u.getApellidoMaterno(), Toast.LENGTH_SHORT).show();
                         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);//getPreferences(Context.MODE_PRIVATE);
                         SharedPreferences.Editor editor = preferences.edit();
-                        Gson g = new GsonBuilder()
-                                .setDateFormat("yyyy-MM-dd")
-                                .registerTypeAdapter(Date.class, new DateDeserializer())
+                        final Gson g = new GsonBuilder()
+                                .registerTypeAdapter(Date.class, new DateSerializer())
+                                .registerTypeAdapter(Time.class,new TimeSerializer())
                                 .create();
-                        editor.putString("UsuarioJson", g.toJson(u));
+                        editor.putString("UsuarioJson", g.toJson(u,new TypeToken<Usuario>(){}.getType()));
                         editor.apply();
 
                         startActivity(new Intent(this, MenuActivity.class));

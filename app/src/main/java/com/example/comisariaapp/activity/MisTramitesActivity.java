@@ -11,26 +11,25 @@ import android.os.Bundle;
 import android.widget.ListView;
 
 import com.example.comisariaapp.R;
-import com.example.comisariaapp.adapter.MisDenunciasAdapter;
 import com.example.comisariaapp.adapter.MisTramitesAdapter;
-import com.example.comisariaapp.entity.service.Denuncia;
-import com.example.comisariaapp.entity.service.Tramites;
+import com.example.comisariaapp.entity.service.Tramite;
 import com.example.comisariaapp.entity.service.Usuario;
-import com.example.comisariaapp.utils.DateDeserializer;
-import com.example.comisariaapp.viewmodel.DenunciaViewModel;
+import com.example.comisariaapp.utils.DateSerializer;
 import com.example.comisariaapp.viewmodel.TramiteViewModel;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.internal.bind.TimeTypeAdapter;
 
+import java.sql.Date;
+import java.sql.Time;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 public class MisTramitesActivity extends AppCompatActivity {
     private TramiteViewModel tramiteViewModel;
     private ListView lsvMisTramites;
     private MisTramitesAdapter adapter;
-    private List<Tramites> tramites = new ArrayList<>();
+    private List<Tramite> tramites = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,8 +59,8 @@ public class MisTramitesActivity extends AppCompatActivity {
     private void loadData() {
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);//getPreferences(Context.MODE_PRIVATE);
         Gson g = new GsonBuilder()
-                .setDateFormat("yyyy-MM-dd")
-                .registerTypeAdapter(Date.class, new DateDeserializer())
+                .registerTypeAdapter(Date.class, new DateSerializer())
+                .registerTypeAdapter(Time.class, new TimeTypeAdapter())
                 .create();
         String user = preferences.getString("UsuarioJson", null);
         if (user != null) {

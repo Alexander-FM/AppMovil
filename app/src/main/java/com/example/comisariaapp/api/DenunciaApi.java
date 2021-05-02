@@ -1,8 +1,6 @@
 package com.example.comisariaapp.api;
 
 import com.example.comisariaapp.entity.GenericResponse;
-import com.example.comisariaapp.entity.service.Denuncia;
-import com.example.comisariaapp.entity.service.Tramites;
 import com.example.comisariaapp.entity.service.dto.DenunciaConDetallesDTO;
 
 import java.util.List;

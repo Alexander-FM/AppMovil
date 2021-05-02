@@ -5,7 +5,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -13,10 +12,7 @@ import androidx.annotation.Nullable;
 
 import com.example.comisariaapp.R;
 import com.example.comisariaapp.entity.service.Sugerencia;
-import com.example.comisariaapp.entity.service.Tramites;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.List;
 
 public class MisSugerenciasAdapter extends ArrayAdapter<Sugerencia> {

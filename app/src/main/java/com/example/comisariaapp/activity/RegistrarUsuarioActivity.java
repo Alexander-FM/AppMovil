@@ -24,6 +24,7 @@ import com.example.comisariaapp.entity.service.Usuario;
 import com.example.comisariaapp.viewmodel.*;
 import com.google.android.material.textfield.TextInputLayout;
 
+import java.sql.Date;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
@@ -134,8 +135,8 @@ public class RegistrarUsuarioActivity extends AppCompatActivity {
                 this.displayDistritos.clear();
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
                     this.estadosCiviles.forEach(e -> this.displayEstadosCiviles.add(e.getEstadoCivil()));
-                }else{
-                    for (EstadoCivil ec:this.estadosCiviles){
+                } else {
+                    for (EstadoCivil ec : this.estadosCiviles) {
                         this.displayEstadosCiviles.add(ec.getEstadoCivil());
                     }
                 }
@@ -195,7 +196,7 @@ public class RegistrarUsuarioActivity extends AppCompatActivity {
             u.setApellidoPaterno(edtApellidoPaterno.getText().toString());
             u.setApellidoMaterno(edtApellidoMaterno.getText().toString());
             String fn = edtFechaNacimiento.getText().toString();
-            u.setFechaNacimiento(new SimpleDateFormat("dd-MM-yyyy").parse(fn));
+            u.setFechaNacimiento(new Date(new SimpleDateFormat("dd-MM-yyyy").parse(fn).getTime()));
             u.setVigencia(true);
             u.setCorreo(edtEmail.getText().toString());
             u.setContraseña(edtContraseña.getText().toString());

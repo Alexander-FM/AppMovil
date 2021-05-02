@@ -20,18 +20,18 @@ import com.example.comisariaapp.R;
 import com.example.comisariaapp.entity.service.Agraviado;
 import com.example.comisariaapp.entity.service.Denuncia;
 import com.example.comisariaapp.entity.service.Denunciado;
-import com.example.comisariaapp.entity.service.Tramites;
 import com.example.comisariaapp.entity.service.Usuario;
 import com.example.comisariaapp.entity.service.dto.DenunciaConDetallesDTO;
-import com.example.comisariaapp.utils.DateDeserializer;
+import com.example.comisariaapp.utils.DateSerializer;
+import com.example.comisariaapp.utils.TimeSerializer;
 import com.example.comisariaapp.viewmodel.DenunciaViewModel;
-import com.example.comisariaapp.viewmodel.TramiteViewModel;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
+import java.sql.Time;
+import java.sql.Date;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
 
 public class ConsultarDenuncias extends AppCompatActivity {
@@ -73,7 +73,7 @@ public class ConsultarDenuncias extends AppCompatActivity {
                 final SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);//getPreferences(Context.MODE_PRIVATE);
                 final Gson g = new GsonBuilder()
                         .setDateFormat("yyyy-MM-dd")
-                        .registerTypeAdapter(Date.class, new DateDeserializer())
+                        .registerTypeAdapter(Date.class, new DateSerializer())
                         .create();
                 final String user = preferences.getString("UsuarioJson", null);
                 if (user != null) {
@@ -117,8 +117,8 @@ public class ConsultarDenuncias extends AppCompatActivity {
     private void asignarListenerConstraintLayout(DenunciaConDetallesDTO dto) {
         this.constraintLayoutDenuncia.setOnClickListener(v -> {
             final Gson g = new GsonBuilder()
-                    .setDateFormat("yyyy-MM-dd")
-                    .registerTypeAdapter(Date.class, new DateDeserializer())
+                    .registerTypeAdapter(Date.class, new DateSerializer())
+                    .registerTypeAdapter(Time.class,new TimeSerializer())
                     .create();
             final List<Agraviado> agraviados = dto.getAgraviados();
             final List<Denunciado> denunciados = dto.getDenunciados();

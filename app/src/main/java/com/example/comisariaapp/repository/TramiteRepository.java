@@ -6,8 +6,7 @@ import androidx.lifecycle.MutableLiveData;
 import com.example.comisariaapp.api.ConfigApi;
 import com.example.comisariaapp.api.TramiteApi;
 import com.example.comisariaapp.entity.GenericResponse;
-import com.example.comisariaapp.entity.service.Denuncia;
-import com.example.comisariaapp.entity.service.Tramites;
+import com.example.comisariaapp.entity.service.Tramite;
 
 import java.util.List;
 
@@ -30,32 +29,32 @@ public class TramiteRepository {
         return repository;
     }
 
-    public LiveData<GenericResponse<Tramites>> save(Tramites t) {
+    public LiveData<GenericResponse<Tramite>> save(Tramite t) {
         MutableLiveData mld = new MutableLiveData();
-        this.api.save(t).enqueue(new Callback<GenericResponse<Tramites>>() {
+        this.api.save(t).enqueue(new Callback<GenericResponse<Tramite>>() {
             @Override
-            public void onResponse(Call<GenericResponse<Tramites>> call, Response<GenericResponse<Tramites>> response) {
+            public void onResponse(Call<GenericResponse<Tramite>> call, Response<GenericResponse<Tramite>> response) {
                 mld.setValue(response.body());
             }
 
             @Override
-            public void onFailure(Call<GenericResponse<Tramites>> call, Throwable t) {
+            public void onFailure(Call<GenericResponse<Tramite>> call, Throwable t) {
                 System.out.println("error al intentar registrar el Trámite:" + t.getMessage());
             }
         });
         return mld;
     }
 
-    public LiveData<GenericResponse<List<Tramites>>> devolverMisTramites(int idUsu) {
-        MutableLiveData<GenericResponse<List<Tramites>>> mld = new MutableLiveData<>();
-        this.api.devolverMisTramites(idUsu).enqueue(new Callback<GenericResponse<List<Tramites>>>() {
+    public LiveData<GenericResponse<List<Tramite>>> devolverMisTramites(int idUsu) {
+        MutableLiveData<GenericResponse<List<Tramite>>> mld = new MutableLiveData<>();
+        this.api.devolverMisTramites(idUsu).enqueue(new Callback<GenericResponse<List<Tramite>>>() {
             @Override
-            public void onResponse(Call<GenericResponse<List<Tramites>>> call, Response<GenericResponse<List<Tramites>>> response) {
+            public void onResponse(Call<GenericResponse<List<Tramite>>> call, Response<GenericResponse<List<Tramite>>> response) {
                 mld.setValue(response.body());
             }
 
             @Override
-            public void onFailure(Call<GenericResponse<List<Tramites>>> call, Throwable t) {
+            public void onFailure(Call<GenericResponse<List<Tramite>>> call, Throwable t) {
                 mld.setValue(new GenericResponse<>());
                 t.printStackTrace();
             }
@@ -63,16 +62,16 @@ public class TramiteRepository {
         return mld;
     }
 
-    public LiveData<GenericResponse<Tramites>> consultarTramites(String codTramite, int idUsu) {
-        MutableLiveData<GenericResponse<Tramites>> mld = new MutableLiveData<>();
-        this.api.consultarTramites(codTramite, idUsu).enqueue(new Callback<GenericResponse<Tramites>>() {
+    public LiveData<GenericResponse<Tramite>> consultarTramites(String codTramite, int idUsu) {
+        MutableLiveData<GenericResponse<Tramite>> mld = new MutableLiveData<>();
+        this.api.consultarTramites(codTramite, idUsu).enqueue(new Callback<GenericResponse<Tramite>>() {
             @Override
-            public void onResponse(Call<GenericResponse<Tramites>> call, Response<GenericResponse<Tramites>> response) {
+            public void onResponse(Call<GenericResponse<Tramite>> call, Response<GenericResponse<Tramite>> response) {
                 mld.setValue(response.body());
             }
 
             @Override
-            public void onFailure(Call<GenericResponse<Tramites>> call, Throwable t) {
+            public void onFailure(Call<GenericResponse<Tramite>> call, Throwable t) {
                 mld.setValue(new GenericResponse<>());
                 t.printStackTrace();
             }

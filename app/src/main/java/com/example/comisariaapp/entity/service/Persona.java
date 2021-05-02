@@ -1,6 +1,6 @@
 package com.example.comisariaapp.entity.service;
 
-import java.util.Date;
+import java.sql.Date;
 
 public abstract class Persona {
     private int id;
@@ -56,7 +56,6 @@ public abstract class Persona {
     public void setApellidoMaterno(String apellidoMaterno) {
         this.apellidoMaterno = apellidoMaterno;
     }
-
     public Date getFechaNacimiento() {
         return fechaNacimiento;
     }

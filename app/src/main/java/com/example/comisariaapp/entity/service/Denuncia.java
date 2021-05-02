@@ -1,14 +1,18 @@
 package com.example.comisariaapp.entity.service;
 
-import java.util.Date;
+import java.sql.Date;
+import java.sql.Time;
 
 public final class Denuncia {
+
     private int id;
     private Date fechaDenuncia;
+    private Time horaDenuncia;
     private String cod_denuncia;
     private String direccion;
     private String referenciaDireccion;
     private Date fechaHechos;
+    private Time horaHechos;
     private boolean estadoDenuncia;
     private TipoDenuncia tipoDenuncia;
     private Distrito distrito;
@@ -24,14 +28,6 @@ public final class Denuncia {
         this.id = id;
     }
 
-    public Policia getPolicia() {
-        return policia;
-    }
-
-    public void setPolicia(Policia policia) {
-        this.policia = policia;
-    }
-
     public Date getFechaDenuncia() {
         return fechaDenuncia;
     }
@@ -40,29 +36,20 @@ public final class Denuncia {
         this.fechaDenuncia = fechaDenuncia;
     }
 
-
-    public boolean isEstadoDenuncia() {
-        return estadoDenuncia;
+    public Time getHoraDenuncia() {
+        return horaDenuncia;
     }
 
-    public void setEstadoDenuncia(boolean estadoDenuncia) {
-        this.estadoDenuncia = estadoDenuncia;
+    public void setHoraDenuncia(Time horaDenuncia) {
+        this.horaDenuncia = horaDenuncia;
     }
 
-    public TipoDenuncia getTipoDenuncia() {
-        return tipoDenuncia;
+    public String getCod_denuncia() {
+        return cod_denuncia;
     }
 
-    public void setTipoDenuncia(TipoDenuncia tipoDenuncia) {
-        this.tipoDenuncia = tipoDenuncia;
-    }
-
-    public Distrito getDistrito() {
-        return distrito;
-    }
-
-    public void setDistrito(Distrito distrito) {
-        this.distrito = distrito;
+    public void setCod_denuncia(String cod_denuncia) {
+        this.cod_denuncia = cod_denuncia;
     }
 
     public String getDireccion() {
@@ -89,6 +76,38 @@ public final class Denuncia {
         this.fechaHechos = fechaHechos;
     }
 
+    public Time getHoraHechos() {
+        return horaHechos;
+    }
+
+    public void setHoraHechos(Time horaHechos) {
+        this.horaHechos = horaHechos;
+    }
+
+    public boolean isEstadoDenuncia() {
+        return estadoDenuncia;
+    }
+
+    public void setEstadoDenuncia(boolean estadoDenuncia) {
+        this.estadoDenuncia = estadoDenuncia;
+    }
+
+    public TipoDenuncia getTipoDenuncia() {
+        return tipoDenuncia;
+    }
+
+    public void setTipoDenuncia(TipoDenuncia tipoDenuncia) {
+        this.tipoDenuncia = tipoDenuncia;
+    }
+
+    public Distrito getDistrito() {
+        return distrito;
+    }
+
+    public void setDistrito(Distrito distrito) {
+        this.distrito = distrito;
+    }
+
     public VinculoParteDenunciada getVinculoParteDenunciada() {
         return vinculoParteDenunciada;
     }
@@ -97,30 +116,12 @@ public final class Denuncia {
         this.vinculoParteDenunciada = vinculoParteDenunciada;
     }
 
-    public String getCod_denuncia() {
-        return cod_denuncia;
+    public Policia getPolicia() {
+        return policia;
     }
 
-    public void setCod_denuncia(String cod_denuncia) {
-        this.cod_denuncia = cod_denuncia;
-    }
-
-    public String getNombreCompletoPolicia() {
-        /*this.nombreCompletoPolicia = policia != null ? this.policia.getNombres() + " " + this.policia.getApellidos() : " - - - ";
-        return nombreCompletoPolicia;*/
-        return this.policia != null ? this.policia.getNombres() + " " + this.policia.getApellidoPaterno() + " " + this.policia.getApellidoMaterno() : " - - - ";
-    }
-
-    public String getNombreDistrito() {
-        return this.distrito != null ? this.distrito.getDistrito() : "- - - ";
-    }
-
-    public String getNombreTipoDenuncia() {
-        return this.tipoDenuncia != null ? this.tipoDenuncia.getTipoDenuncia() : "- - - ";
-    }
-
-    public String getNombreVPD() {
-        return this.vinculoParteDenunciada != null ? this.vinculoParteDenunciada.getNombre() : "- - - ";
+    public void setPolicia(Policia policia) {
+        this.policia = policia;
     }
 
     public Usuario getUsuario() {
@@ -130,4 +131,5 @@ public final class Denuncia {
     public void setUsuario(Usuario usuario) {
         this.usuario = usuario;
     }
+
 }

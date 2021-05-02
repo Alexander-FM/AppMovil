@@ -12,16 +12,15 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.example.comisariaapp.R;
-import com.example.comisariaapp.entity.service.Denuncia;
-import com.example.comisariaapp.entity.service.Tramites;
+import com.example.comisariaapp.entity.service.Tramite;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.List;
 
-public class MisTramitesAdapter extends ArrayAdapter<Tramites> {
+public class MisTramitesAdapter extends ArrayAdapter<Tramite> {
 
-    public MisTramitesAdapter(@NonNull Context context, int resource, @NonNull List<Tramites> objects) {
+    public MisTramitesAdapter(@NonNull Context context, int resource, @NonNull List<Tramite> objects) {
         super(context, resource, objects);
     }
 
@@ -31,7 +30,7 @@ public class MisTramitesAdapter extends ArrayAdapter<Tramites> {
         if (convertView == null) {
             convertView = LayoutInflater.from(this.getContext()).inflate(R.layout.item_mis_tramites_activity, parent, false);
         }
-        Tramites t = getItem(position);
+        Tramite t = getItem(position);
         TextView txtNombreTipoTramite = convertView.findViewById(R.id.txtNombreTipoTramite),
                 txtNombreCodTramite = convertView.findViewById(R.id.txtNombreCodTramite),
                 txtNombrePoliciaTramite = convertView.findViewById(R.id.txtNombrePoliciaTramite),
@@ -42,7 +41,7 @@ public class MisTramitesAdapter extends ArrayAdapter<Tramites> {
         txtNombrePoliciaTramite.setText(t.getPolicia().getNombres() + " " + t.getPolicia().getApellidoPaterno() + " " + t.getPolicia().getApellidoMaterno());
         txtNombreCodTramite.setText(t.getCodTramite());
         DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
-        String strDate = dateFormat.format(t.getFechaDenuncia());
+        String strDate = dateFormat.format(t.getFechaTramite());
         txtNombreFechaDenunciaTramite.setText(strDate);
 
         return convertView;

@@ -7,8 +7,6 @@ import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 
 import com.example.comisariaapp.entity.GenericResponse;
-import com.example.comisariaapp.entity.service.Denuncia;
-import com.example.comisariaapp.entity.service.Tramites;
 import com.example.comisariaapp.entity.service.dto.DenunciaConDetallesDTO;
 import com.example.comisariaapp.repository.DenunciaRepository;
 

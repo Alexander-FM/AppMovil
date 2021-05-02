@@ -11,22 +11,24 @@ import android.os.Bundle;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
-import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.comisariaapp.R;
 import com.example.comisariaapp.entity.service.Policia;
 import com.example.comisariaapp.entity.service.TipoTramite;
-import com.example.comisariaapp.entity.service.Tramites;
+import com.example.comisariaapp.entity.service.Tramite;
 import com.example.comisariaapp.entity.service.Usuario;
+import com.example.comisariaapp.utils.DateSerializer;
+import com.example.comisariaapp.utils.TimeSerializer;
 import com.example.comisariaapp.viewmodel.TipoTramiteViewModel;
 import com.example.comisariaapp.viewmodel.TramiteViewModel;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
+import java.sql.Date;
+import java.sql.Time;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import fr.ganfra.materialspinner.MaterialSpinner;
@@ -66,7 +68,7 @@ public class RegistrarTramiteActivity extends AppCompatActivity {
         chkmismoCorreo.setOnCheckedChangeListener((buttonView, isChecked) -> {
             if (isChecked) {
                 getCorreoUsuario();//asigna a la caja de texto el correo del usuario en sesión.
-            }else{
+            } else {
                 correoUsuarioTramite.setText("");//limpia la caja de texto si esta desmarcada
             }
         });
@@ -82,13 +84,14 @@ public class RegistrarTramiteActivity extends AppCompatActivity {
     }
 
     private void getCorreoUsuario() {
+        //.registerTypeAdapter(Date.class, (JsonDeserializer<Date>) (json, typeOfT, context) -> new Date(json.getAsJsonPrimitive().getAsLong()))
         Gson g = new GsonBuilder()
-                .setDateFormat("yyyy-MM-dd'T'HH:mm:ss")
-                //.registerTypeAdapter(Date.class, (JsonDeserializer<Date>) (json, typeOfT, context) -> new Date(json.getAsJsonPrimitive().getAsLong()))
+                .registerTypeAdapter(Date.class, new DateSerializer())
+                .registerTypeAdapter(Time.class, new TimeSerializer())
                 .create();
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
         String strU = preferences.getString("UsuarioJson", "");
-        if(!strU.equals("")){
+        if (!strU.equals("")) {
             Usuario us = g.fromJson(strU, Usuario.class);
             this.correoUsuarioTramite.setText(us.getCorreo());
         }
@@ -110,17 +113,19 @@ public class RegistrarTramiteActivity extends AppCompatActivity {
     }
 
     private void save() {
-        Tramites t = new Tramites();
+        java.util.Date date = new java.util.Date();
+        Tramite t = new Tramite();
         t.setEstadoTramite(false);
-        t.setFechaDenuncia(new Date());
+        t.setFechaTramite(new Date(date.getTime()));
+        t.setHoraTramite(new Time(date.getTime()));
         t.setTipoTramite(tiposTramite.get(sp_tipoTramite.getSelectedItemPosition() - 1));
         t.setPolicia(new Policia());
         t.getPolicia().setId(1);
         t.setCodTramite("---");
         t.setCorreo(correoUsuarioTramite.getText().toString());
         final Gson g = new GsonBuilder()
-                .setDateFormat("yyyy-MM-dd'T'HH:mm:ss")
-                //.registerTypeAdapter(Date.class, (JsonDeserializer<Date>) (json, typeOfT, context) -> new Date(json.getAsJsonPrimitive().getAsLong()))
+                .registerTypeAdapter(Date.class, new DateSerializer())
+                .registerTypeAdapter(Time.class, new TimeSerializer())
                 .create();
         t.setUsuario(g.fromJson(PreferenceManager.getDefaultSharedPreferences(this).getString("UsuarioJson", ""), Usuario.class));
         viewModel.save(t).observe(this, response -> {

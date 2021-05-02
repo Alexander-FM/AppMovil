@@ -3,24 +3,15 @@ package com.example.comisariaapp.activity;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.preference.PreferenceManager;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.comisariaapp.R;
-import com.example.comisariaapp.entity.service.Usuario;
-import com.example.comisariaapp.utils.DateDeserializer;
-import com.example.comisariaapp.utils.EmailUtil;
 import com.example.comisariaapp.viewmodel.UsuarioViewModel;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-
-import java.util.Date;
 
 public class CambiarClaveActivity extends AppCompatActivity {
     private EditText edtNuevaClave1, edtNuevaClave2;

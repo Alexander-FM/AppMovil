@@ -16,12 +16,14 @@ import android.widget.Toast;
 import com.example.comisariaapp.R;
 import com.example.comisariaapp.entity.service.Sugerencia;
 import com.example.comisariaapp.entity.service.Usuario;
-import com.example.comisariaapp.utils.DateDeserializer;
+import com.example.comisariaapp.utils.DateSerializer;
+import com.example.comisariaapp.utils.TimeSerializer;
 import com.example.comisariaapp.viewmodel.SugerenciaViewModel;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
-import java.util.Date;
+import java.sql.Time;
+import java.sql.Date;
 
 public class BuzonSugerenciasActivity extends AppCompatActivity {
     private EditText edtSugerencia;
@@ -56,8 +58,8 @@ public class BuzonSugerenciasActivity extends AppCompatActivity {
             sugerencia.setEstrellas(ratingBar.getRating());
             SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);//getPreferences(Context.MODE_PRIVATE);
             Gson g = new GsonBuilder()
-                    .setDateFormat("yyyy-MM-dd")
-                    .registerTypeAdapter(Date.class, new DateDeserializer())
+                    .registerTypeAdapter(Date.class, new DateSerializer())
+                    .registerTypeAdapter(Time.class,new TimeSerializer())
                     .create();
             String user = preferences.getString("UsuarioJson", null);
             Usuario usuario = g.fromJson(user, Usuario.class);

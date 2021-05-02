@@ -6,16 +6,13 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.preference.PreferenceManager;
 
 import android.content.ComponentName;
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.telephony.PhoneNumberUtils;
 import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.Button;
 import android.widget.GridView;
 import android.widget.Toast;
@@ -25,13 +22,15 @@ import com.example.comisariaapp.adapter.SeccionArrayAdapter;
 import com.example.comisariaapp.communication.MainCommunication;
 import com.example.comisariaapp.entity.GridSeccion;
 import com.example.comisariaapp.entity.service.Usuario;
-import com.example.comisariaapp.utils.DateDeserializer;
+import com.example.comisariaapp.utils.DateSerializer;
+import com.example.comisariaapp.utils.TimeSerializer;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
+import java.sql.Date;
+import java.sql.Time;
 import java.util.ArrayList;
-import java.util.Date;
 
 public class MenuActivity extends AppCompatActivity implements MainCommunication {
     public Button btnVioFamiliar;
@@ -56,8 +55,8 @@ public class MenuActivity extends AppCompatActivity implements MainCommunication
         Toolbar toolbar = findViewById(R.id.toolbar);
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);//getPreferences(Context.MODE_PRIVATE);
         Gson g = new GsonBuilder()
-                .setDateFormat("yyyy-MM-dd")
-                .registerTypeAdapter(Date.class, new DateDeserializer())
+                .registerTypeAdapter(Date.class, new DateSerializer())
+                .registerTypeAdapter(Time.class,new TimeSerializer())
                 .create();
         String user = preferences.getString("UsuarioJson", null);
         if (user != null) {

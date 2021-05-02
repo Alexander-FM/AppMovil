@@ -1,11 +1,13 @@
 package com.example.comisariaapp.entity.service;
 
-import java.util.Date;
+import java.sql.Date;
+import java.sql.Time;
 
-public final class Tramites {
+public final class Tramite {
     private int id;
     private String codTramite;
-    private Date fechaDenuncia;
+    private Date fechaTramite;
+    private Time horaTramite;
     private TipoTramite tipoTramite;
     private boolean estadoTramite;
     private String correo;
@@ -28,12 +30,20 @@ public final class Tramites {
         this.codTramite = codTramite;
     }
 
-    public Date getFechaDenuncia() {
-        return fechaDenuncia;
+    public Date getFechaTramite() {
+        return fechaTramite;
     }
 
-    public void setFechaDenuncia(Date fechaDenuncia) {
-        this.fechaDenuncia = fechaDenuncia;
+    public void setFechaTramite(Date fechaTramite) {
+        this.fechaTramite = fechaTramite;
+    }
+
+    public Time getHoraTramite() {
+        return horaTramite;
+    }
+
+    public void setHoraTramite(Time horaTramite) {
+        this.horaTramite = horaTramite;
     }
 
     public TipoTramite getTipoTramite() {

@@ -40,10 +40,10 @@ dependencies {
 
     implementation 'androidx.preference:preference:1.1.1'
 
-    // Room components
+    /* Room components
     implementation "androidx.room:room-runtime:2.2.6"
     annotationProcessor "androidx.room:room-compiler:2.2.6"
-
+*/
     // Lifecycle components
     implementation "androidx.lifecycle:lifecycle-extensions:2.2.0"
     annotationProcessor "androidx.lifecycle:lifecycle-compiler:2.3.1"

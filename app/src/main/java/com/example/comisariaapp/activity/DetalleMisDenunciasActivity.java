@@ -10,27 +10,27 @@ import android.os.Build;
 import android.os.Bundle;
 
 import com.example.comisariaapp.R;
-import com.example.comisariaapp.adapter.AgraviadoAdapter;
-import com.example.comisariaapp.adapter.DenunciadoAdapter;
 import com.example.comisariaapp.adapter.DetalleMiDenunciaAdapter;
 import com.example.comisariaapp.entity.service.Agraviado;
 import com.example.comisariaapp.entity.service.Denunciado;
 import com.example.comisariaapp.entity.service.Persona;
-import com.example.comisariaapp.utils.DateDeserializer;
+import com.example.comisariaapp.utils.DateSerializer;
+import com.example.comisariaapp.utils.TimeSerializer;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 
+import java.sql.Date;
+import java.sql.Time;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 public class DetalleMisDenunciasActivity extends AppCompatActivity {
     private DetalleMiDenunciaAdapter aDmdAdapter, dDmdAdapter;
     private RecyclerView rcvAgraviados, rcvDenunciados;
-    final Gson g = new GsonBuilder()
-            .setDateFormat("yyyy-MM-dd")
-            .registerTypeAdapter(Date.class, new DateDeserializer())
+    private final Gson g = new GsonBuilder()
+            .registerTypeAdapter(Date.class, new DateSerializer())
+            .registerTypeAdapter(Time.class,new TimeSerializer())
             .create();
 
     @Override

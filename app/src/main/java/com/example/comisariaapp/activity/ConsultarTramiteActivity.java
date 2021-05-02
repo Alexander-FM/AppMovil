@@ -17,17 +17,18 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.comisariaapp.R;
-import com.example.comisariaapp.entity.service.Tramites;
+import com.example.comisariaapp.entity.service.Tramite;
 import com.example.comisariaapp.entity.service.Usuario;
-import com.example.comisariaapp.utils.DateDeserializer;
+import com.example.comisariaapp.utils.DateSerializer;
+import com.example.comisariaapp.utils.TimeSerializer;
 import com.example.comisariaapp.viewmodel.TramiteViewModel;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.Date;
-
+import java.sql.Date;
+import java.sql.Time;
 public class ConsultarTramiteActivity extends AppCompatActivity {
     private Button btnConsultar;
     private EditText edtCodTramite;
@@ -65,8 +66,8 @@ public class ConsultarTramiteActivity extends AppCompatActivity {
             if (!edtCodTramite.getText().toString().equals("")) {
                 SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);//getPreferences(Context.MODE_PRIVATE);
                 Gson g = new GsonBuilder()
-                        .setDateFormat("yyyy-MM-dd")
-                        .registerTypeAdapter(Date.class, new DateDeserializer())
+                        .registerTypeAdapter(Date.class, new DateSerializer())
+                        .registerTypeAdapter(Time.class,new TimeSerializer())
                         .create();
                 String user = preferences.getString("UsuarioJson", null);
                 if (user != null) {
@@ -93,13 +94,13 @@ public class ConsultarTramiteActivity extends AppCompatActivity {
         });
     }
 
-    private void showTramite(Tramites t) {
+    private void showTramite(Tramite t) {
         imgEstadoTramite.setImageResource(t.isEstadoTramite() ? R.drawable.cheque : R.drawable.reloj);
         txtNombreTipoTramite.setText(t.getTipoTramite().getTipoTramite());
         txtNombrePoliciaTramite.setText(t.getPolicia().getNombres() + " " + t.getPolicia().getApellidoPaterno() + " " + t.getPolicia().getApellidoMaterno());
         txtNombreCodTramite.setText(t.getCodTramite());
         DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
-        String strDate = dateFormat.format(t.getFechaDenuncia());
+        String strDate = dateFormat.format(t.getFechaTramite());
         txtNombreFechaDenunciaTramite.setText(strDate);
     }
 }

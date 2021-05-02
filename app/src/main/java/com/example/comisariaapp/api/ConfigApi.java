@@ -1,20 +1,16 @@
 package com.example.comisariaapp.api;
 
-import com.example.comisariaapp.utils.DateDeserializer;
+import com.example.comisariaapp.utils.DateSerializer;
+import com.example.comisariaapp.utils.TimeSerializer;
 import com.facebook.stetho.okhttp3.StethoInterceptor;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
-import org.jetbrains.annotations.NotNull;
-
-import java.io.IOException;
-import java.util.Date;
+import java.sql.Date;
+import java.sql.Time;
 import java.util.concurrent.TimeUnit;
 
-import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.Response;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -43,12 +39,12 @@ public class ConfigApi {
 
     private static void initClient() {
         Gson gson = new GsonBuilder()
-                .setDateFormat("yyyy-MM-dd")
-                .registerTypeAdapter(Date.class, new DateDeserializer())
+                .registerTypeAdapter(Date.class,new DateSerializer())
+                .registerTypeAdapter(Time.class,new TimeSerializer())
                 .create();
 
         retrofit = new Retrofit.Builder()
-                .baseUrl(ipAlexander)
+                .baseUrl(baseUrlE)
                 .addConverterFactory(GsonConverterFactory.create(gson))
                 .client(getClient())
                 .build();

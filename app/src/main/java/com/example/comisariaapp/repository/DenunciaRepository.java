@@ -6,8 +6,6 @@ import androidx.lifecycle.MutableLiveData;
 import com.example.comisariaapp.api.ConfigApi;
 import com.example.comisariaapp.api.DenunciaApi;
 import com.example.comisariaapp.entity.GenericResponse;
-import com.example.comisariaapp.entity.service.Denuncia;
-import com.example.comisariaapp.entity.service.Tramites;
 import com.example.comisariaapp.entity.service.dto.DenunciaConDetallesDTO;
 
 import java.util.List;

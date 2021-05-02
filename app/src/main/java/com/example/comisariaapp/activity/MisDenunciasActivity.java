@@ -19,13 +19,14 @@ import com.example.comisariaapp.entity.service.Denuncia;
 import com.example.comisariaapp.entity.service.Denunciado;
 import com.example.comisariaapp.entity.service.Usuario;
 import com.example.comisariaapp.entity.service.dto.DenunciaConDetallesDTO;
-import com.example.comisariaapp.utils.DateDeserializer;
+import com.example.comisariaapp.utils.DateSerializer;
 import com.example.comisariaapp.viewmodel.DenunciaViewModel;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-
+import com.google.gson.internal.bind.TimeTypeAdapter;
+import java.sql.Date;
+import java.sql.Time;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 public class MisDenunciasActivity extends AppCompatActivity implements MisDenunciasCommunication {
@@ -64,8 +65,8 @@ public class MisDenunciasActivity extends AppCompatActivity implements MisDenunc
     private void loadData() {
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);//getPreferences(Context.MODE_PRIVATE);
         Gson g = new GsonBuilder()
-                .setDateFormat("yyyy-MM-dd")
-                .registerTypeAdapter(Date.class, new DateDeserializer())
+                .registerTypeAdapter(Date.class, new DateSerializer())
+                .registerTypeAdapter(Time.class,new TimeTypeAdapter())
                 .create();
         String user = preferences.getString("UsuarioJson", null);
         if (user != null) {
@@ -92,8 +93,7 @@ public class MisDenunciasActivity extends AppCompatActivity implements MisDenunc
     @Override
     public void showDetalles(int index) {
         final Gson g = new GsonBuilder()
-                .setDateFormat("yyyy-MM-dd")
-                .registerTypeAdapter(Date.class, new DateDeserializer())
+                .registerTypeAdapter(Date.class, new DateSerializer())
                 .create();
         final List<Agraviado> agraviados = dtos.get(index).getAgraviados();
         final List<Denunciado> denunciados = dtos.get(index).getDenunciados();

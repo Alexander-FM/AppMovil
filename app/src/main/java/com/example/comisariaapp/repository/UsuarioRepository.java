@@ -39,6 +39,7 @@ public class UsuarioRepository {
             public void onFailure(Call<GenericResponse<Usuario>> call, Throwable t) {
                 mld.setValue(new GenericResponse<Usuario>());
                 System.out.println("se ha producido un error al inetntar loguearte:" + t.getMessage());
+                t.printStackTrace();
             }
         });
         return mld;

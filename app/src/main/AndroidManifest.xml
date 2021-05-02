@@ -3,6 +3,8 @@
     package="com.example.comisariaapp">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
 
     <application
         android:name=".App"
@@ -13,7 +15,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.ComisariaApp">
-        <activity android:name=".activity.MisSugerenciasActivity"></activity>
+        <activity android:name=".activity.AcercaDeNosotrosActivity"></activity>
+        <activity android:name=".activity.MisSugerenciasActivity" />
         <activity android:name=".activity.BuzonSugerenciasActivity" />
         <activity android:name=".activity.CambiarClaveActivity" />
         <activity android:name=".activity.OlvideClaveActivity" />

@@ -119,12 +119,16 @@
             android:layout_toEndOf="@id/textView7"
             android:fontFamily="@font/poppins_regular"
             android:text="Calle Sucre N.º 903" />
+    </RelativeLayout>
 
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp">
         <View
             android:id="@+id/separador"
             android:layout_width="match_parent"
             android:layout_height="2dp"
-            android:layout_below="@+id/textView7"
             android:layout_marginTop="10dp"
             android:background="#114a39" />
     </RelativeLayout>

@@ -21,9 +21,9 @@
                 android:icon="@drawable/ic_baseline_checklist_24"
                 android:title="Mis Sugerencias" />
             <item
-                android:id="@+id/contacto"
-                android:icon="@drawable/ic_baseline_contact_mail_24"
-                android:title="Acerca de Nostros" />
+                android:id="@+id/ubicanos"
+                android:icon="@drawable/ic_baseline_location_on_24"
+                android:title="Ubícanos" />
             <item
                 android:id="@+id/llamanos"
                 android:icon="@drawable/ic_baseline_contact_phone_24"

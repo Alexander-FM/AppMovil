@@ -37,4 +37,8 @@
     para ofrecerles una mejor experencia de usuario. Marca el número de estrellas para calificar la aplicación y dejanos un comentario..</string>
     <string name="sugerenciatxt">Me gusta está aplicación, es muy buena y satisface todas mis necesidades, me gustaría que la experiencia de usuario mejorará un poco más. Excelente a los desarrolladores.</string>
     <string name="ubicanosResource">Primero que nada queremos agradecerte por descargarte esta app, con ella podrás realizar y gestionar tus denuncias y trámites</string>
+    <string name="emerPolC">Emergencia Policía Carreteras</string>
+    <string name="correo_comisaria_jlo">rplambayeque.comdelafamilia@pnp.gob.pe</string>
+    <string name="direccion_comisaria">4 De Noviembre 186-110, José Leonardo Ortiz 14004</string>
+    <string name="tituloPagInf">¿Qué deseas leer Hoy?</string>
 </resources>

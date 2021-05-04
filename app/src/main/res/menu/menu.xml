@@ -25,7 +25,7 @@
                 android:icon="@drawable/ic_baseline_location_on_24"
                 android:title="Ubícanos" />
             <item
-                android:id="@+id/llamanos"
+                android:id="@+id/contactanos"
                 android:icon="@drawable/ic_baseline_contact_phone_24"
                 android:title="Contáctanos" />
             <item

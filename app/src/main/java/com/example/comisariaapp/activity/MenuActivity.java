@@ -46,7 +46,7 @@ public class MenuActivity extends AppCompatActivity implements MainCommunication
             if (this.estaInstaladoWhatsapp()) {
                 Intent _intencion = new Intent("android.intent.action.MAIN");
                 _intencion.setComponent(new ComponentName("com.whatsapp", "com.whatsapp.Conversation"));
-                _intencion.putExtra("jid", PhoneNumberUtils.stripSeparators("51" + "917967148") + "@s.whatsapp.net");
+                _intencion.putExtra("jid", PhoneNumberUtils.stripSeparators("51" + "942450657") + "@s.whatsapp.net");
                 this.startActivity(_intencion);
             } else {
                 Toast.makeText(this, "No se puede completar la acción,no tienes whatsapp instalado 😥", Toast.LENGTH_SHORT).show();
@@ -115,6 +115,12 @@ public class MenuActivity extends AppCompatActivity implements MainCommunication
                 break;
             case R.id.ubicanos:
                 this.loadActivity(new Intent(this, AcercaDeNosotrosActivity.class));
+                break;
+            case R.id.informate:
+                this.loadActivity(new Intent(this, InformateAqui1Activity.class));
+                break;
+            case R.id.contactanos:
+                this.loadActivity(new Intent(this, ContactanosActivity.class));
                 break;
         }
         return super.onOptionsItemSelected(item);

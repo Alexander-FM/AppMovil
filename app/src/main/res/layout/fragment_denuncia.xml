@@ -1,0 +1,243 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".fragments.DenunciaFragment">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp">
+
+        <LinearLayout
+            android:id="@+id/layout_titulo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="10dp">
+
+            <TextView
+                android:id="@+id/txtTituloDenuncia"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/poppins_regular"
+                android:gravity="center|center_horizontal"
+                android:text="@string/tituloDenuncia"
+                android:textColor="@color/black"
+                android:textSize="18sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/linearDenuncia"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/layout_titulo"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="10dp"
+            android:orientation="vertical"
+            android:paddingStart="5dp"
+            android:paddingEnd="5dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="70dp"
+                android:layout_marginTop="5dp"
+                android:orientation="horizontal">
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/text_input_fecha"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginEnd="10dp"
+                    android:layout_weight="1"
+                    app:startIconDrawable="@drawable/date">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/dtpFechaHechos"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:clickable="false"
+                        android:focusable="false"
+                        android:fontFamily="@font/poppins_medium"
+                        android:hint="@string/fechaHechos"
+                        android:inputType="date"
+                        android:maxLines="1"
+                        android:textSize="15sp" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/text_input_hora"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    app:startIconDrawable="@drawable/ic_baseline_access_time_24">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/dtpHoraHechos"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:clickable="false"
+                        android:focusable="false"
+                        android:fontFamily="@font/poppins_medium"
+                        android:hint="Hora Hechos"
+                        android:inputType="time"
+                        android:maxLines="1"
+                        android:textSize="15sp" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="70dp"
+                android:layout_marginTop="5dp"
+                android:orientation="horizontal">
+
+                <fr.ganfra.materialspinner.MaterialSpinner
+                    android:id="@+id/sp_distritoDenuncia"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    app:ms_alignLabels="false"
+                    app:ms_arrowColor="@color/colorPrimary"
+                    app:ms_arrowSize="15dp"
+                    app:ms_baseColor="@color/colorPrimary"
+                    app:ms_enableFloatingLabel="true"
+                    app:ms_floatingLabelColor="@color/black"
+                    app:ms_floatingLabelText="Distrito"
+                    app:ms_hint="Seleccionar Distrito"
+                    app:ms_hintColor="@color/black"
+                    app:ms_multiline="false"
+                    app:ms_thickness="1dp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:orientation="horizontal">
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/text_input_direccion_hechos"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:startIconDrawable="@drawable/streetview">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/edtDireccionHechos"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/poppins_medium"
+                        android:hint="@string/direccionD"
+                        android:textSize="15sp" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:orientation="horizontal">
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/text_input_referencia_hechos"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:startIconDrawable="@drawable/streetview">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/edtreferenciahechos"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/poppins_medium"
+                        android:hint="@string/referenciaD"
+                        android:textSize="15sp" />
+                </com.google.android.material.textfield.TextInputLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="70dp"
+                android:layout_marginTop="5dp"
+                android:orientation="horizontal">
+
+                <fr.ganfra.materialspinner.MaterialSpinner
+                    android:id="@+id/sp_vinculoParteDenunciada"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginEnd="10dp"
+                    android:layout_weight="1"
+                    app:ms_alignLabels="false"
+                    app:ms_arrowColor="@color/colorPrimary"
+                    app:ms_arrowSize="15dp"
+                    app:ms_baseColor="@color/colorPrimary"
+                    app:ms_enableFloatingLabel="true"
+                    app:ms_floatingLabelColor="@color/black"
+                    app:ms_floatingLabelText="Vínculo Parte Denunciada"
+                    app:ms_hint="Vínculo Parte Denunciada"
+                    app:ms_hintColor="@color/black"
+                    app:ms_multiline="true"
+                    app:ms_thickness="1dp" />
+
+                <fr.ganfra.materialspinner.MaterialSpinner
+                    android:id="@+id/sp_tipodenuncia"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    app:ms_alignLabels="false"
+                    app:ms_arrowColor="@color/colorPrimary"
+                    app:ms_arrowSize="15dp"
+                    app:ms_baseColor="@color/colorPrimary"
+                    app:ms_enableFloatingLabel="true"
+                    app:ms_floatingLabelColor="@color/black"
+                    app:ms_floatingLabelText="Tipo Denuncia"
+                    app:ms_hint="Tipo Denuncia"
+                    app:ms_hintColor="@color/black"
+                    app:ms_multiline="true"
+                    app:ms_thickness="1dp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/btnLimpiarDenunciaF"
+                    style="@style/Widget.MaterialComponents.Button.OutlinedButton.Icon"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginEnd="10dp"
+                    android:layout_weight="1"
+                    android:backgroundTint="#D52A2A"
+                    android:text="Limpiar Campos"
+                    android:textColor="@color/white"
+                    app:icon="@drawable/ic_clean"
+                    app:iconTint="@color/white" />
+
+                <Button
+                    android:id="@+id/btnGuardarDenunciaF"
+                    style="@style/Widget.MaterialComponents.Button.OutlinedButton.Icon"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:backgroundTint="@color/shadow"
+                    android:text="Guardar Denuncia"
+                    android:textColor="@color/white"
+                    app:icon="@drawable/ic_baseline_save_24"
+                    app:iconTint="@color/white" />
+            </LinearLayout>
+        </LinearLayout>
+    </RelativeLayout>
+
+</LinearLayout>

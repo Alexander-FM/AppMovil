@@ -70,7 +70,7 @@ public class MenuActivity extends AppCompatActivity implements MainCommunication
         seccions.add(new GridSeccion(3, R.drawable.consulta_tramite, "Consultar Trámite"));
         seccions.add(new GridSeccion(4, R.drawable.consulta_denuncia, "Consultar Denuncia"));
         seccions.add(new GridSeccion(5, R.drawable.buzon_sugerencias, "Ingresar"));
-        seccions.add(new GridSeccion(6, R.drawable.solicitudes, "Solicitar"));
+        seccions.add(new GridSeccion(6, R.drawable.denunciasonline, "Ingresar"));
 
         GridView grwSecciones = findViewById(R.id.grwSecciones);
         SeccionArrayAdapter adapter = new SeccionArrayAdapter(this, R.layout.gridview_seccion, seccions, this);

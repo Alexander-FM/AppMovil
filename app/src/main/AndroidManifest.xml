@@ -15,7 +15,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.ComisariaApp">
-        <activity android:name=".activity.InformateAqui1Activity"></activity>
+        <activity android:name=".activity.IngresarDenunciaActivity"></activity>
+        <activity android:name=".activity.InformateAqui1Activity" />
         <activity android:name=".activity.ContactanosActivity" />
         <activity android:name=".activity.AcercaDeNosotrosActivity" />
         <activity android:name=".activity.MisSugerenciasActivity" />

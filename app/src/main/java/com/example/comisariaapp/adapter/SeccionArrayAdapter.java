@@ -17,6 +17,7 @@ import com.example.comisariaapp.R;
 import com.example.comisariaapp.activity.BuzonSugerenciasActivity;
 import com.example.comisariaapp.activity.ConsultarDenuncias;
 import com.example.comisariaapp.activity.ConsultarTramiteActivity;
+import com.example.comisariaapp.activity.IngresarDenunciaActivity;
 import com.example.comisariaapp.activity.RegistrarDenunciaActivity;
 import com.example.comisariaapp.activity.RegistrarTramiteActivity;
 import com.example.comisariaapp.communication.MainCommunication;
@@ -70,6 +71,8 @@ public class SeccionArrayAdapter extends ArrayAdapter<GridSeccion> {
                     destiny = BuzonSugerenciasActivity.class;
                     break;
                 case 6:
+                    destiny = IngresarDenunciaActivity.class;
+                    break;
             }
             if (destiny != null) {
                 Intent i = new Intent(this.getContext(), destiny);

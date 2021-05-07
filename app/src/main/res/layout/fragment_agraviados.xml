@@ -1,0 +1,454 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".fragments.AgraviadosFragment">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp">
+
+            <LinearLayout
+                android:id="@+id/layout_tituloAgraviado"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp">
+
+                <TextView
+                    android:id="@+id/txtTituloAgraviado"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/poppins_regular"
+                    android:gravity="center|center_horizontal"
+                    android:text="@string/tituloAgraviado"
+                    android:textColor="@color/black"
+                    android:textSize="18sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_marginTop="10dp"
+                android:id="@+id/linearAgraviado"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/layout_tituloAgraviado"
+                android:orientation="vertical"
+                android:paddingStart="5dp"
+                android:paddingEnd="5dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp"
+                    android:layout_marginTop="5dp"
+                    android:orientation="horizontal">
+
+                    <CheckBox
+                        android:id="@+id/chkSoyLaMismaPesona"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:fontFamily="@font/poppins_medium"
+                        android:text="Yo soy la misma persona"
+                        android:textSize="15sp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="70dp"
+                    android:layout_marginTop="5dp"
+                    android:orientation="horizontal">
+
+                    <fr.ganfra.materialspinner.MaterialSpinner
+                        android:id="@+id/sp_tipoIdentificacionA"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginEnd="10dp"
+                        android:layout_weight="1"
+                        app:ms_alignLabels="false"
+                        app:ms_arrowColor="@color/colorPrimary"
+                        app:ms_arrowSize="16dp"
+                        app:ms_baseColor="@color/colorPrimary"
+                        app:ms_enableFloatingLabel="true"
+                        app:ms_floatingLabelColor="@color/black"
+                        app:ms_floatingLabelText="Tipo Identificación"
+                        app:ms_hint="Tipo Identificación"
+                        app:ms_hintColor="@color/black"
+                        app:ms_multiline="true"
+                        app:ms_thickness="1dp" />
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/text_input_numero_doc"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        app:startIconDrawable="@drawable/dni">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/edtNumeroIdentificacionA"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/poppins_medium"
+                            android:hint="@string/numIden"
+                            android:inputType="number"
+                            android:textSize="15sp" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="70dp"
+                    android:layout_marginTop="5dp"
+                    android:orientation="horizontal">
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/text_input_nombresA"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        app:startIconDrawable="@drawable/ic_baseline_person">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/edt_nombresA"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/poppins_medium"
+                            android:hint="Nombres del Agraviado"
+                            android:textSize="15sp" />
+                    </com.google.android.material.textfield.TextInputLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="70dp"
+                    android:layout_marginTop="5dp"
+                    android:orientation="horizontal">
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/txtInputApellidoMaternoAgraviado"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginEnd="10dp"
+                        android:layout_weight="1"
+                        app:startIconDrawable="@drawable/ic_baseline_person">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/edt_ApellidoMaternoA"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/poppins_medium"
+                            android:hint="Apellido Materno"
+                            android:textSize="15sp" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/txtInputApellidoPaternoAgraviado"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        app:startIconDrawable="@drawable/ic_baseline_person">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/edt_apellidoPaternoA"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/poppins_medium"
+                            android:hint="Apellido Paterno"
+                            android:textSize="15sp" />
+                    </com.google.android.material.textfield.TextInputLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="70dp"
+                    android:layout_marginTop="5dp"
+                    android:orientation="horizontal">
+
+                    <fr.ganfra.materialspinner.MaterialSpinner
+                        android:id="@+id/dropdown_generoA"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginEnd="10dp"
+                        android:layout_weight="1"
+                        app:ms_alignLabels="false"
+                        app:ms_arrowColor="@color/colorPrimary"
+                        app:ms_arrowSize="16dp"
+                        app:ms_baseColor="@color/colorPrimary"
+                        app:ms_enableFloatingLabel="true"
+                        app:ms_floatingLabelColor="@color/black"
+                        app:ms_floatingLabelText="Género"
+                        app:ms_hint="Género"
+                        app:ms_hintColor="@color/black"
+                        app:ms_multiline="true"
+                        app:ms_thickness="1dp" />
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/text_input_fechaNacimientoA"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        app:startIconDrawable="@drawable/date">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/edt_FechaNacA"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:clickable="false"
+                            android:focusable="false"
+                            android:fontFamily="@font/poppins_medium"
+                            android:hint="Fecha Nacimiento"
+                            android:inputType="date"
+                            android:maxLines="1"
+                            android:textSize="15sp" />
+                    </com.google.android.material.textfield.TextInputLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="70dp"
+                    android:layout_marginTop="5dp"
+                    android:orientation="horizontal">
+
+                    <fr.ganfra.materialspinner.MaterialSpinner
+                        android:id="@+id/dropdown_distritoA"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginEnd="10dp"
+                        android:layout_weight="1"
+                        app:ms_alignLabels="false"
+                        app:ms_arrowColor="@color/colorPrimary"
+                        app:ms_arrowSize="16dp"
+                        app:ms_baseColor="@color/colorPrimary"
+                        app:ms_enableFloatingLabel="true"
+                        app:ms_floatingLabelColor="@color/black"
+                        app:ms_floatingLabelText="Distrito"
+                        app:ms_hint="Distrito"
+                        app:ms_hintColor="@color/black"
+                        app:ms_multiline="true"
+                        app:ms_thickness="1dp" />
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/text_input_celularA"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        app:startIconDrawable="@drawable/ic_phone">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/edt_celularA"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/poppins_medium"
+                            android:hint="N.º Celular"
+                            android:inputType="phone"
+                            android:textSize="15sp" />
+                    </com.google.android.material.textfield.TextInputLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:orientation="horizontal">
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/text_input_direccionA"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:startIconDrawable="@drawable/ic_baseline_person">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/edt_DireccionA"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/poppins_medium"
+                            android:hint="@string/dirA"
+                            android:textSize="15sp" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="70dp"
+                    android:layout_marginTop="5dp"
+                    android:orientation="horizontal">
+
+                    <fr.ganfra.materialspinner.MaterialSpinner
+                        android:id="@+id/sp_infAdicionalA"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginEnd="10dp"
+                        android:layout_weight="1"
+                        app:ms_alignLabels="false"
+                        app:ms_arrowColor="@color/colorPrimary"
+                        app:ms_arrowSize="16dp"
+                        app:ms_baseColor="@color/colorPrimary"
+                        app:ms_enableFloatingLabel="true"
+                        app:ms_floatingLabelColor="@color/black"
+                        app:ms_floatingLabelText="Inf. Adic."
+                        app:ms_hint="Inf. Adic."
+                        app:ms_hintColor="@color/black"
+                        app:ms_multiline="true"
+                        app:ms_thickness="1dp" />
+
+                    <fr.ganfra.materialspinner.MaterialSpinner
+                        android:id="@+id/dropdown_medida_proteccion_A"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        app:ms_alignLabels="false"
+                        app:ms_arrowColor="@color/colorPrimary"
+                        app:ms_arrowSize="16dp"
+                        app:ms_baseColor="@color/colorPrimary"
+                        app:ms_enableFloatingLabel="true"
+                        app:ms_floatingLabelColor="@color/black"
+                        app:ms_floatingLabelText="Medida Protección"
+                        app:ms_hint="Medida Protección"
+                        app:ms_hintColor="@color/black"
+                        app:ms_multiline="true"
+                        app:ms_thickness="1dp" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="70dp"
+                    android:layout_marginTop="5dp"
+                    android:orientation="horizontal">
+
+                    <fr.ganfra.materialspinner.MaterialSpinner
+                        android:id="@+id/dropdown_juzgadoA"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginEnd="10dp"
+                        android:layout_weight="1"
+                        app:ms_alignLabels="false"
+                        app:ms_arrowColor="@color/colorPrimary"
+                        app:ms_arrowSize="16dp"
+                        app:ms_baseColor="@color/colorPrimary"
+                        app:ms_enableFloatingLabel="true"
+                        app:ms_floatingLabelColor="@color/black"
+                        app:ms_floatingLabelText="Qué Juzgado"
+                        app:ms_hint="Qué Juzgado"
+                        app:ms_hintColor="@color/black"
+                        app:ms_multiline="true"
+                        app:ms_thickness="1dp" />
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/text_input_fechaEmisionP"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:hint="Fecha Emisión"
+                        app:startIconDrawable="@drawable/date">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/edtFechaEmisionP"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:clickable="false"
+                            android:focusable="false"
+                            android:fontFamily="@font/poppins_medium"
+                            android:inputType="date"
+                            android:maxLines="1"
+                            android:textSize="15sp" />
+                    </com.google.android.material.textfield.TextInputLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:orientation="horizontal">
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/text_input_detalle_proteccion_juez"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:startIconDrawable="@drawable/ic_baseline_edit">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/edtdetalleproteccion_juez"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/poppins_medium"
+                            android:hint="@string/relateP"
+                            android:textSize="15sp" />
+                    </com.google.android.material.textfield.TextInputLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:orientation="horizontal">
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/text_input_relate_hechos_denuncia"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:startIconDrawable="@drawable/ic_baseline_edit">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/edtrelateHechosDenuncia"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/poppins_medium"
+                            android:hint="@string/hechosD" />
+                    </com.google.android.material.textfield.TextInputLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:layout_marginTop="5dp"
+                    android:orientation="horizontal">
+
+                    <Button
+                        android:id="@+id/btnCancelA"
+                        style="@style/Widget.MaterialComponents.Button.OutlinedButton.Icon"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginEnd="10dp"
+                        android:layout_weight="1"
+                        android:backgroundTint="#D52A2A"
+                        android:text="Limpiar Campos"
+                        android:textColor="@color/white"
+                        app:icon="@drawable/ic_clean"
+                        app:iconTint="@color/white" />
+
+                    <Button
+                        android:id="@+id/btnSaveA"
+                        style="@style/Widget.MaterialComponents.Button.OutlinedButton.Icon"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:backgroundTint="@color/stone"
+                        android:text="Guardar Agraviado"
+                        android:textColor="@color/white"
+                        app:icon="@drawable/ic_baseline_save_24"
+                        app:iconTint="@color/white" />
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </RelativeLayout>
+    </ScrollView>
+
+</LinearLayout>

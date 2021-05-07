@@ -18,7 +18,6 @@ import com.example.comisariaapp.activity.BuzonSugerenciasActivity;
 import com.example.comisariaapp.activity.ConsultarDenuncias;
 import com.example.comisariaapp.activity.ConsultarTramiteActivity;
 import com.example.comisariaapp.activity.IngresarDenunciaActivity;
-import com.example.comisariaapp.activity.RegistrarDenunciaActivity;
 import com.example.comisariaapp.activity.RegistrarTramiteActivity;
 import com.example.comisariaapp.communication.MainCommunication;
 import com.example.comisariaapp.entity.GridSeccion;
@@ -56,7 +55,7 @@ public class SeccionArrayAdapter extends ArrayAdapter<GridSeccion> {
             Class<?> destiny = null;
             switch (seccion.getId()) {
                 case 1:
-                    destiny = RegistrarDenunciaActivity.class;
+                    destiny = IngresarDenunciaActivity.class;
                     break;
                 case 2:
                     destiny = RegistrarTramiteActivity.class;
@@ -69,9 +68,6 @@ public class SeccionArrayAdapter extends ArrayAdapter<GridSeccion> {
                     break;
                 case 5:
                     destiny = BuzonSugerenciasActivity.class;
-                    break;
-                case 6:
-                    destiny = IngresarDenunciaActivity.class;
                     break;
             }
             if (destiny != null) {

@@ -62,8 +62,8 @@ public class DetalleMiDenunciaAdapter extends RecyclerView.Adapter<DetalleMiDenu
             this.txtIdent.setText(p.getTipoIdentificacion().getTipoIdentificacion() + " - " + p.getNumeroIdentificacion());
             this.txtInfAdicional.setText(p instanceof Agraviado ? ((Agraviado) p).getInformacionAdicional().getNombre() :
                     ((Denunciado) p).getInformacionAdicional().getNombre());
-            this.txtDistrito.setText(p.getDistrito().getDistrito());
-            this.txtDomicilio.setText(p.getDireccion());
+            //this.txtDistrito.setText(p.getDistrito().getDistrito());
+            //this.txtDomicilio.setText(p.getDireccion());
         }
     }
 }

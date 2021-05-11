@@ -29,12 +29,13 @@ import com.example.comisariaapp.viewmodel.DenunciaViewModel;
 
 public class DetalleDenunciaFragment extends Fragment implements AgraviadoCommunication, DenunciadoCommunication {
 
-    private Button btnSaveDenuncia;
+    private Button btnSaveDenuncia, btnActualizarData;
     private CheckBox chkTerminosyCondiciones;
     private AgraviadoAdapter agraviadosAdapter;
     private DenunciadoAdapter denunciadosAdapter;
     private RecyclerView rcvAgraviados, rcvDenunciados;
     private DenunciaViewModel viewModel;
+    DenunciaConDetallesDTO dto;
 
     public DetalleDenunciaFragment() {
         // Required empty public constructor
@@ -56,7 +57,11 @@ public class DetalleDenunciaFragment extends Fragment implements AgraviadoCommun
 
     private void init(View view){
         viewModel = new ViewModelProvider(this).get(DenunciaViewModel.class);
-
+        btnActualizarData = view.findViewById(R.id.btnActualizarData);
+        btnActualizarData.setOnClickListener(view1 -> {
+            this.agraviadosAdapter.updateItems(DenunciaManager.getDto(getContext()).getAgraviados());
+            this.denunciadosAdapter.updateItems(DenunciaManager.getDto(getContext()).getDenunciados());
+        });
         btnSaveDenuncia = view.findViewById(R.id.btnGuardarDenuncia);
         btnSaveDenuncia.setOnClickListener(v -> {
             DenunciaConDetallesDTO dto = DenunciaManager.getDto(getContext());
@@ -80,7 +85,7 @@ public class DetalleDenunciaFragment extends Fragment implements AgraviadoCommun
     }
 
     private void initAdapters() {
-        DenunciaConDetallesDTO dto = DenunciaManager.getDto(getContext());
+        dto = DenunciaManager.getDto(getContext());
         this.agraviadosAdapter = new AgraviadoAdapter(this, dto.getAgraviados());
         this.rcvAgraviados.setAdapter(this.agraviadosAdapter);
 
@@ -100,11 +105,11 @@ public class DetalleDenunciaFragment extends Fragment implements AgraviadoCommun
         this.denunciadosAdapter.updateItems(DenunciaManager.getDto(getContext()).getDenunciados());
     }
 
-    @Override
+    /* @Override
     public void onResume() {
+        dto = DenunciaManager.getDto(getContext());
+        this.agraviadosAdapter.updateItems(DenunciaManager.getDto(getContext()).getAgraviados());
+        this.denunciadosAdapter.updateItems(DenunciaManager.getDto(getContext()).getDenunciados());
         super.onResume();
-        agraviadosAdapter.notifyDataSetChanged();
-        denunciadosAdapter.notifyDataSetChanged();
-    }
-
+    } */
 }

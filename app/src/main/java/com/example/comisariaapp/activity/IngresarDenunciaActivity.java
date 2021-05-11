@@ -17,6 +17,7 @@ import com.example.comisariaapp.fragments.AgraviadosFragment;
 import com.example.comisariaapp.fragments.DenunciaFragment;
 import com.example.comisariaapp.fragments.DenunciadosFragment;
 import com.example.comisariaapp.fragments.DetalleDenunciaFragment;
+import com.example.comisariaapp.utils.DenunciaManager;
 import com.google.android.material.badge.BadgeDrawable;
 import com.google.android.material.tabs.TabLayout;
 
@@ -70,7 +71,7 @@ public class IngresarDenunciaActivity extends AppCompatActivity {
         badgeDrawable.setNumber(7);*/
     }
 
-    private class ViewPagerAdapter extends FragmentPagerAdapter {
+    public class ViewPagerAdapter extends FragmentPagerAdapter {
 
         private List<Fragment> fragments = new ArrayList<>();
         private List<String> fragmentTitle = new ArrayList<>();
@@ -101,4 +102,6 @@ public class IngresarDenunciaActivity extends AppCompatActivity {
             return fragmentTitle.get(position);
         }
     }
+
+
 }

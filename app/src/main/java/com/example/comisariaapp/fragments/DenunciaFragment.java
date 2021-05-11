@@ -226,5 +226,4 @@ public class DenunciaFragment extends Fragment {
                 && drop_vpd.getSelectedItemPosition() != -1
                 && drop_td.getSelectedItemPosition() != -1;
     }
-
 }

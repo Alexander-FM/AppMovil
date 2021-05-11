@@ -1,15 +1,20 @@
-package com.example.comisariaapp.activity;
-
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.lifecycle.ViewModelProvider;
-import androidx.preference.PreferenceManager;
+package com.example.comisariaapp.fragments;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.widget.Toolbar;
+import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.preference.PreferenceManager;
+
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -17,6 +22,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.comisariaapp.R;
+import com.example.comisariaapp.activity.DetalleMisDenunciasActivity;
+import com.example.comisariaapp.activity.MenuActivity;
 import com.example.comisariaapp.entity.service.Agraviado;
 import com.example.comisariaapp.entity.service.Denuncia;
 import com.example.comisariaapp.entity.service.Denunciado;
@@ -25,16 +32,18 @@ import com.example.comisariaapp.entity.service.dto.DenunciaConDetallesDTO;
 import com.example.comisariaapp.utils.DateSerializer;
 import com.example.comisariaapp.utils.TimeSerializer;
 import com.example.comisariaapp.viewmodel.DenunciaViewModel;
+import com.example.comisariaapp.viewmodel.TramiteViewModel;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
-import java.sql.Time;
 import java.sql.Date;
+import java.sql.Time;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.List;
 
-public class ConsultarDenuncias extends AppCompatActivity {
+public class ConsultarDenunciaFragment extends Fragment {
+
     private Button btnConsultarDenuncia;
     private EditText edtCodDenuncia;
     private DenunciaViewModel denunciaViewModel;
@@ -44,33 +53,35 @@ public class ConsultarDenuncias extends AppCompatActivity {
             txtNombreVPD, txtNombreFechaDenuncia;
     private ImageView imgEstado;
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_consultar_denuncias);
-        denunciaViewModel = new ViewModelProvider(this).get(DenunciaViewModel.class);
-        init();
+    public ConsultarDenunciaFragment() {
     }
 
-    private void init() {
-        Toolbar toolbar = this.findViewById(R.id.toolbar);
-        toolbar.setNavigationIcon(R.drawable.atras);
-        toolbar.setNavigationOnClickListener(v -> {//Reemplazo con lamba
-            this.startActivity(new Intent(getApplicationContext(), MenuActivity.class));
-            this.overridePendingTransition(R.anim.rigth_in, R.anim.rigth_out);
-        });
-        btnConsultarDenuncia = findViewById(R.id.btnConsultarDenuncia);
-        edtCodDenuncia = findViewById(R.id.edtCodDenuncia);
-        constraintLayoutDenuncia = findViewById(R.id.constraintLayoutDenuncia);
-        txtNombreCodDenuncia = findViewById(R.id.txtNombreCodDenuncia);
-        txtNombreTipoDenuncia = findViewById(R.id.txtNombreTipoDenuncia);
-        txtNombrePolicia = findViewById(R.id.txtNombrePolicia);
-        txtNombreFechaDenuncia = findViewById(R.id.txtNombreFechaDenuncia);
-        txtNombreVPD = findViewById(R.id.txtNombreVPD);
-        imgEstado = findViewById(R.id.imgEstado);
-        btnConsultarDenuncia.setOnClickListener(v -> {
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        return inflater.inflate(R.layout.fragment_consultar_denuncia, container, false);
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        denunciaViewModel = new ViewModelProvider(this).get(DenunciaViewModel.class);
+        init(view);
+    }
+
+    private void init(View v) {
+        btnConsultarDenuncia = v.findViewById(R.id.btnConsultarDenuncia);
+        edtCodDenuncia = v.findViewById(R.id.edtCodDenuncia);
+        constraintLayoutDenuncia = v.findViewById(R.id.constraintLayoutDenuncia);
+        txtNombreCodDenuncia = v.findViewById(R.id.txtNombreCodDenuncia);
+        txtNombreTipoDenuncia = v.findViewById(R.id.txtNombreTipoDenuncia);
+        txtNombrePolicia = v.findViewById(R.id.txtNombrePolicia);
+        txtNombreFechaDenuncia = v.findViewById(R.id.txtNombreFechaDenuncia);
+        txtNombreVPD = v.findViewById(R.id.txtNombreVPD);
+        imgEstado = v.findViewById(R.id.imgEstado);
+        btnConsultarDenuncia.setOnClickListener(vi -> {
             if (!edtCodDenuncia.getText().toString().equals("")) {
-                final SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);//getPreferences(Context.MODE_PRIVATE);
+                final SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getContext());//getPreferences(Context.MODE_PRIVATE);
                 final Gson g = new GsonBuilder()
                         .setDateFormat("yyyy-MM-dd")
                         .registerTypeAdapter(Date.class, new DateSerializer())
@@ -78,26 +89,26 @@ public class ConsultarDenuncias extends AppCompatActivity {
                 final String user = preferences.getString("UsuarioJson", null);
                 if (user != null) {
                     final Usuario usuario = g.fromJson(user, Usuario.class);
-                    this.denunciaViewModel.consultarDenuncias(edtCodDenuncia.getText().toString(), usuario.getId()).observe(this, response -> {
+                    this.denunciaViewModel.consultarDenuncias(edtCodDenuncia.getText().toString(), usuario.getId()).observe(getViewLifecycleOwner(), response -> {
                         if (response.getRpta() == 1) {
                             if (response.getBody().getDenuncia().getId() != 0) {
-                                Toast.makeText(this, "Excelente, se encontro una denuncia", Toast.LENGTH_LONG).show();
+                                Toast.makeText(getContext(), "Excelente, se encontro una denuncia", Toast.LENGTH_LONG).show();
                                 this.constraintLayoutDenuncia.setVisibility(View.VISIBLE);
                                 final DenunciaConDetallesDTO dto = response.getBody();
                                 this.showDenuncia(dto.getDenuncia());
                                 this.asignarListenerConstraintLayout(dto);
                             } else {
-                                Toast.makeText(this, "Denuncia no encontrada", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(getContext(), "Denuncia no encontrada", Toast.LENGTH_SHORT).show();
                                 this.constraintLayoutDenuncia.setVisibility(View.INVISIBLE);
                             }
 
                         } else {
-                            Toast.makeText(this, "Se ha producido un error en el servidor", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getContext(), "Se ha producido un error en el servidor", Toast.LENGTH_SHORT).show();
                         }
                     });
                 }
             } else {
-                Toast.makeText(this, "Complete los campos, por favor!", Toast.LENGTH_LONG).show();
+                Toast.makeText(getContext(), "Complete los campos, por favor!", Toast.LENGTH_LONG).show();
             }
         });
     }
@@ -122,7 +133,7 @@ public class ConsultarDenuncias extends AppCompatActivity {
                     .create();
             final List<Agraviado> agraviados = dto.getAgraviados();
             final List<Denunciado> denunciados = dto.getDenunciados();
-            final Intent i = new Intent(this, DetalleMisDenunciasActivity.class);
+            final Intent i = new Intent(getContext(), DetalleMisDenunciasActivity.class);
             i.putExtra("agraviados", g.toJson(agraviados));
             i.putExtra("denunciados", g.toJson(denunciados));
             this.startActivity(i);

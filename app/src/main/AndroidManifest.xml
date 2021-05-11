@@ -15,7 +15,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.ComisariaApp">
-        <activity android:name=".activity.IngresarDenunciaActivity"></activity>
+        <activity android:name=".activity.ConsultarTramitesDenunciasActivity"></activity>
+        <activity android:name=".activity.IngresarDenunciaActivity" />
         <activity android:name=".activity.InformateAqui1Activity" />
         <activity android:name=".activity.ContactanosActivity" />
         <activity android:name=".activity.AcercaDeNosotrosActivity" />
@@ -23,7 +24,6 @@
         <activity android:name=".activity.BuzonSugerenciasActivity" />
         <activity android:name=".activity.CambiarClaveActivity" />
         <activity android:name=".activity.OlvideClaveActivity" />
-        <activity android:name=".activity.ConsultarDenuncias" />
         <activity android:name=".activity.DetalleMisDenunciasActivity" />
         <activity android:name=".activity.MisTramitesActivity" />
         <activity android:name=".activity.MisDenunciasActivity" />
@@ -34,7 +34,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activity.ConsultarTramiteActivity" />
         <activity android:name=".activity.RegistrarTramiteActivity" />
         <activity android:name=".activity.RegistrarUsuarioActivity" />
         <activity android:name=".activity.MenuActivity" />

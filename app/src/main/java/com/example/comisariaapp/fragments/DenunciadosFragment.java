@@ -61,8 +61,14 @@ public class DenunciadosFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         init(view);
+        initViewModels();
         initAdapter();
         loadData();
+    }
+
+    private void initViewModels() {
+        ViewModelProvider vmp = new ViewModelProvider(this);
+        this.infoAdicViewModel = vmp.get(InformacionAdicionalViewModel.class);
     }
 
     private void loadData() {
@@ -80,8 +86,6 @@ public class DenunciadosFragment extends Fragment {
     }
 
     private void initAdapter() {
-        ViewModelProvider vmp = new ViewModelProvider(this);
-        this.infoAdicViewModel = vmp.get(InformacionAdicionalViewModel.class);
         sp_TipoIdentificacionD.setAdapter(new ArrayAdapter<>(getContext(), android.R.layout.simple_spinner_dropdown_item, new String[]{
                 "Natural",
                 "Jurídica"

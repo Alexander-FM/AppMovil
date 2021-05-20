@@ -19,6 +19,7 @@ public class ConfigApi {
     private static final String baseUrlE = "http://10.0.2.2:9090", baseUrlD = "http://192.168.1.103:9090";
     private static final String ipAlexander = "http://192.168.0.9:9090";
     private static final String ipLizbeth = "http://192.168.1.103:9090";
+    private static final String ipComisaria = "http://172.16.10.27:9090";
     private static Retrofit retrofit;
     private static String token = "";
 

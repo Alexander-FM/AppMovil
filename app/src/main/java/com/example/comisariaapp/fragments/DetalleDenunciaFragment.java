@@ -55,7 +55,7 @@ public class DetalleDenunciaFragment extends Fragment implements AgraviadoCommun
         this.initAdapters();
     }
 
-    private void init(View view){
+    private void init(View view) {
         viewModel = new ViewModelProvider(this).get(DenunciaViewModel.class);
         btnActualizarData = view.findViewById(R.id.btnActualizarData);
         btnActualizarData.setOnClickListener(view1 -> {
@@ -69,7 +69,8 @@ public class DetalleDenunciaFragment extends Fragment implements AgraviadoCommun
                 Toast.makeText(getContext(), response.getBody(), Toast.LENGTH_LONG).show();
                 if (response.getRpta() == 1) {
                     DenunciaManager.clear(getContext());
-                    this.getActivity().startActivity(new Intent(getContext(), MenuActivity.class));
+                    //this.getActivity().startActivity(new Intent(getContext(), MenuActivity.class));
+                    this.getActivity().finish();
                     this.getActivity().overridePendingTransition(R.anim.down_in, R.anim.down_out);
 
                 }
@@ -104,12 +105,10 @@ public class DetalleDenunciaFragment extends Fragment implements AgraviadoCommun
         Toast.makeText(getContext(), DenunciaManager.removeDenunciado(numeroidentificacion, getContext()), Toast.LENGTH_SHORT).show();
         this.denunciadosAdapter.updateItems(DenunciaManager.getDto(getContext()).getDenunciados());
     }
-
-    /* @Override
     public void onResume() {
+        super.onResume();
         dto = DenunciaManager.getDto(getContext());
         this.agraviadosAdapter.updateItems(DenunciaManager.getDto(getContext()).getAgraviados());
         this.denunciadosAdapter.updateItems(DenunciaManager.getDto(getContext()).getDenunciados());
-        super.onResume();
-    } */
+    }
 }

@@ -14,7 +14,8 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.ComisariaApp">
+        android:theme="@style/Theme.ComisariaApp"
+        android:usesCleartextTraffic="true">
         <activity android:name=".activity.ConsultarTramitesDenunciasActivity"></activity>
         <activity android:name=".activity.IngresarDenunciaActivity" />
         <activity android:name=".activity.InformateAqui1Activity" />

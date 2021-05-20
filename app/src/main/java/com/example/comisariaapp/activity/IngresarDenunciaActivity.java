@@ -7,6 +7,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
+import androidx.fragment.app.FragmentStatePagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
 import android.content.Intent;
@@ -50,10 +51,10 @@ public class IngresarDenunciaActivity extends AppCompatActivity {
         agraviadosFragment = new AgraviadosFragment();
         denunciadosFragment = new DenunciadosFragment();
         detalleDenunciaFragment = new DetalleDenunciaFragment();
+        ViewPagerAdapter viewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager(), FragmentStatePagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
 
         tabLayout.setupWithViewPager(viewPager);
 
-        ViewPagerAdapter viewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager(), 0);
         viewPagerAdapter.addFragment(denunciaFragment, "Denuncia");
         viewPagerAdapter.addFragment(agraviadosFragment, "Agraviados");
         viewPagerAdapter.addFragment(denunciadosFragment, "Denunciados");
@@ -65,7 +66,6 @@ public class IngresarDenunciaActivity extends AppCompatActivity {
         tabLayout.getTabAt(1).setIcon(R.drawable.ic_baseline_group_add_24);
         tabLayout.getTabAt(2).setIcon(R.drawable.ic_grupo_denunciados);
         tabLayout.getTabAt(3).setIcon(R.drawable.ic_assigmente);
-
         /*BadgeDrawable badgeDrawable = tabLayout.getTabAt(0).getOrCreateBadge();
         badgeDrawable.setVisible(true);
         badgeDrawable.setNumber(7);*/
@@ -102,6 +102,5 @@ public class IngresarDenunciaActivity extends AppCompatActivity {
             return fragmentTitle.get(position);
         }
     }
-
 
 }

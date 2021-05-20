@@ -9,7 +9,7 @@ android {
     defaultConfig {
         applicationId "com.example.comisariaapp"
         minSdkVersion 22
-        targetSdkVersion 26
+        targetSdkVersion 29
         versionCode 1
         versionName "1.0"
 
@@ -54,7 +54,7 @@ dependencies {
     implementation "com.squareup.okhttp3:logging-interceptor:5.0.0-alpha.2"
 
     // Dagger
-    implementation "com.google.dagger:dagger-android:2.33"
+    implementation "com.google.dagger:dagger-android:2.35.1"
     annotationProcessor "com.google.dagger:dagger-android-processor:2.33"
 
     // Material Design

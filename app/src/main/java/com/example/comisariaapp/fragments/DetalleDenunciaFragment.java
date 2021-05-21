@@ -57,11 +57,6 @@ public class DetalleDenunciaFragment extends Fragment implements AgraviadoCommun
 
     private void init(View view) {
         viewModel = new ViewModelProvider(this).get(DenunciaViewModel.class);
-        btnActualizarData = view.findViewById(R.id.btnActualizarData);
-        btnActualizarData.setOnClickListener(view1 -> {
-            this.agraviadosAdapter.updateItems(DenunciaManager.getDto(getContext()).getAgraviados());
-            this.denunciadosAdapter.updateItems(DenunciaManager.getDto(getContext()).getDenunciados());
-        });
         btnSaveDenuncia = view.findViewById(R.id.btnGuardarDenuncia);
         btnSaveDenuncia.setOnClickListener(v -> {
             DenunciaConDetallesDTO dto = DenunciaManager.getDto(getContext());
@@ -108,7 +103,7 @@ public class DetalleDenunciaFragment extends Fragment implements AgraviadoCommun
     public void onResume() {
         super.onResume();
         dto = DenunciaManager.getDto(getContext());
-        this.agraviadosAdapter.updateItems(DenunciaManager.getDto(getContext()).getAgraviados());
-        this.denunciadosAdapter.updateItems(DenunciaManager.getDto(getContext()).getDenunciados());
+        this.agraviadosAdapter.updateItems(dto.getAgraviados());
+        this.denunciadosAdapter.updateItems(dto.getDenunciados());
     }
 }

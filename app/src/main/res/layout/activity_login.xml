@@ -7,6 +7,7 @@
     tools:context=".activity.LoginActivity">
 
     <LinearLayout
+        android:id="@+id/linearParte1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
@@ -101,7 +102,7 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="60dp"
+            android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
             android:paddingStart="8dp"
             android:paddingEnd="8dp">
@@ -137,4 +138,258 @@
             android:textColor="@color/colorPrimary"
             android:textSize="15sp" />
     </LinearLayout>
+
+    <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+        android:id="@+id/fabWhatsapps"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="24dp"
+        android:layout_marginBottom="24dp"
+        android:backgroundTint="@color/colorPrimary"
+        android:clickable="true"
+        android:focusable="true"
+        android:textColor="@color/white"
+        app:icon="@drawable/ic_add"
+        app:iconTint="@color/white" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fabComisariaFamilia"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/fabWhatsapps"
+        android:layout_alignEnd="@+id/fabWhatsapps"
+        android:layout_marginBottom="10dp"
+        android:backgroundTint="#1de956"
+        android:clickable="true"
+        android:focusable="true"
+        android:src="@drawable/whatsapp3"
+        android:visibility="invisible"
+        app:borderWidth="0dp"
+        app:elevation="6dp" />
+
+    <TextView
+        android:id="@+id/textcomisariofamilia"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/fabComisariaFamilia"
+        android:layout_marginEnd="15dp"
+        android:layout_marginTop="10dp"
+        android:layout_toStartOf="@+id/fabComisariaFamilia"
+        android:background="@drawable/fab_bg_text"
+        android:fontFamily="@font/poppins_medium"
+        android:paddingStart="16dp"
+        android:paddingTop="8dp"
+        android:paddingEnd="16dp"
+        android:paddingBottom="8dp"
+        android:text="Comisaría de la Familia JLO"
+        android:textSize="15sp"
+        android:textStyle="bold"
+        android:visibility="invisible" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fabComisariaChiclayo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/fabComisariaFamilia"
+        android:layout_alignEnd="@+id/fabComisariaFamilia"
+        android:layout_marginBottom="10dp"
+        android:backgroundTint="#1de956"
+        android:clickable="true"
+        android:focusable="true"
+        android:src="@drawable/whatsapp3"
+        android:visibility="invisible"
+        app:borderWidth="0dp"
+        app:elevation="6dp" />
+
+    <TextView
+        android:id="@+id/textcomisarioChiclayo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/fabComisariaChiclayo"
+        android:layout_marginEnd="15dp"
+        android:layout_marginTop="10dp"
+        android:layout_toStartOf="@+id/fabComisariaChiclayo"
+        android:background="@drawable/fab_bg_text"
+        android:fontFamily="@font/poppins_medium"
+        android:paddingStart="16dp"
+        android:paddingTop="8dp"
+        android:paddingEnd="16dp"
+        android:paddingBottom="8dp"
+        android:text="Comisaría Chiclayo"
+        android:textSize="15sp"
+        android:textStyle="bold"
+        android:visibility="invisible" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fabComisariaVictoria"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/fabComisariaChiclayo"
+        android:layout_alignEnd="@+id/fabComisariaChiclayo"
+        android:layout_marginBottom="10dp"
+        android:backgroundTint="#1de956"
+        android:clickable="true"
+        android:focusable="true"
+        android:src="@drawable/whatsapp3"
+        android:visibility="invisible"
+        app:borderWidth="0dp"
+        app:elevation="6dp" />
+
+    <TextView
+        android:id="@+id/textcomisarioVictoria"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/fabComisariaVictoria"
+        android:layout_marginEnd="15dp"
+        android:layout_marginTop="10dp"
+        android:layout_toStartOf="@+id/fabComisariaVictoria"
+        android:background="@drawable/fab_bg_text"
+        android:fontFamily="@font/poppins_medium"
+        android:paddingStart="16dp"
+        android:paddingTop="8dp"
+        android:paddingEnd="16dp"
+        android:paddingBottom="8dp"
+        android:text="Comisaría La Victoria"
+        android:textSize="15sp"
+        android:textStyle="bold"
+        android:visibility="invisible" />
+
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fabComisariaElPorvenir"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/fabComisariaVictoria"
+        android:layout_alignEnd="@+id/fabComisariaVictoria"
+        android:layout_marginBottom="10dp"
+        android:backgroundTint="#1de956"
+        android:clickable="true"
+        android:focusable="true"
+        android:src="@drawable/whatsapp3"
+        android:visibility="invisible"
+        app:borderWidth="0dp"
+        app:elevation="6dp" />
+
+    <TextView
+        android:id="@+id/textcomisarioElPorvenir"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/fabComisariaElPorvenir"
+        android:layout_marginEnd="15dp"
+        android:layout_marginTop="10dp"
+        android:layout_toStartOf="@+id/fabComisariaElPorvenir"
+        android:background="@drawable/fab_bg_text"
+        android:fontFamily="@font/poppins_medium"
+        android:paddingStart="16dp"
+        android:paddingTop="8dp"
+        android:paddingEnd="16dp"
+        android:paddingBottom="8dp"
+        android:text="Comisaría El Porvenir"
+        android:textSize="15sp"
+        android:textStyle="bold"
+        android:visibility="invisible" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fabComisariaCesarLlatas"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/fabComisariaElPorvenir"
+        android:layout_alignEnd="@+id/fabComisariaElPorvenir"
+        android:layout_marginBottom="10dp"
+        android:backgroundTint="#1de956"
+        android:clickable="true"
+        android:focusable="true"
+        android:src="@drawable/whatsapp3"
+        android:visibility="invisible"
+        app:borderWidth="0dp"
+        app:elevation="6dp" />
+
+    <TextView
+        android:id="@+id/textcomisarioCesarLlatas"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/fabComisariaCesarLlatas"
+        android:layout_marginEnd="15dp"
+        android:layout_marginTop="10dp"
+        android:layout_toStartOf="@+id/fabComisariaCesarLlatas"
+        android:background="@drawable/fab_bg_text"
+        android:fontFamily="@font/poppins_medium"
+        android:paddingStart="16dp"
+        android:paddingTop="8dp"
+        android:paddingEnd="16dp"
+        android:paddingBottom="8dp"
+        android:text="Comisaría Cesar Llatas Castro"
+        android:textSize="15sp"
+        android:textStyle="bold"
+        android:visibility="invisible" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fabComisariaAtusparias"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/fabComisariaCesarLlatas"
+        android:layout_alignEnd="@+id/fabComisariaCesarLlatas"
+        android:layout_marginBottom="10dp"
+        android:backgroundTint="#1de956"
+        android:clickable="true"
+        android:focusable="true"
+        android:src="@drawable/whatsapp3"
+        android:visibility="invisible"
+        app:borderWidth="0dp"
+        app:elevation="6dp" />
+
+    <TextView
+        android:id="@+id/textcomisarioAtusparias"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/fabComisariaAtusparias"
+        android:layout_marginEnd="15dp"
+        android:layout_marginTop="10dp"
+        android:layout_toStartOf="@+id/fabComisariaAtusparias"
+        android:background="@drawable/fab_bg_text"
+        android:fontFamily="@font/poppins_medium"
+        android:paddingStart="16dp"
+        android:paddingTop="8dp"
+        android:paddingEnd="16dp"
+        android:paddingBottom="8dp"
+        android:text="Comisaría Atusparias"
+        android:textSize="15sp"
+        android:textStyle="bold"
+        android:visibility="invisible" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fabComisariaSectorialMonsefu"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/fabComisariaAtusparias"
+        android:layout_alignEnd="@+id/fabComisariaAtusparias"
+        android:layout_marginBottom="10dp"
+        android:backgroundTint="#1de956"
+        android:clickable="true"
+        android:focusable="true"
+        android:src="@drawable/whatsapp3"
+        android:visibility="invisible"
+        app:borderWidth="0dp"
+        app:elevation="6dp" />
+
+    <TextView
+        android:id="@+id/textcomisarioMonsefu"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/fabComisariaSectorialMonsefu"
+        android:layout_marginEnd="15dp"
+        android:layout_marginTop="10dp"
+        android:layout_toStartOf="@+id/fabComisariaSectorialMonsefu"
+        android:background="@drawable/fab_bg_text"
+        android:fontFamily="@font/poppins_medium"
+        android:paddingStart="16dp"
+        android:paddingTop="8dp"
+        android:paddingEnd="16dp"
+        android:paddingBottom="8dp"
+        android:text="Comisaría Sectorial Monsefu"
+        android:textSize="15sp"
+        android:textStyle="bold"
+        android:visibility="invisible" />
 </RelativeLayout>

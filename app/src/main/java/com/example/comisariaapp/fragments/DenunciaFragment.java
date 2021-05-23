@@ -8,6 +8,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.preference.PreferenceManager;
 
@@ -52,7 +53,6 @@ public class DenunciaFragment extends Fragment {
     private DistritoViewModel distritoViewModel;
     private VinculoParteDenunciadaViewModel vpdViewModel;
     private TipoDenunciaViewModel tdViewModel;
-
     private MaterialSpinner drop_distritoD, drop_vpd, drop_td;
     private EditText edtFechaHechos, edtLugarHechos, edtReferenciaHechos, edtHoraHechos;
 
@@ -208,7 +208,7 @@ public class DenunciaFragment extends Fragment {
         }
     }
 
-    public void limpiarCamposDenuncia(){
+    public void limpiarCamposDenuncia() {
         edtFechaHechos.setText("");
         edtHoraHechos.setText("");
         drop_distritoD.setSelection(0);

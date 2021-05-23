@@ -7,12 +7,17 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.comisariaapp.R;
@@ -30,6 +35,7 @@ import com.example.comisariaapp.viewmodel.EstadoCivilViewModel;
 import com.example.comisariaapp.viewmodel.InformacionAdicionalViewModel;
 import com.example.comisariaapp.viewmodel.TipoDenunciaViewModel;
 import com.example.comisariaapp.viewmodel.VinculoParteDenunciadaViewModel;
+import com.google.android.material.textfield.TextInputLayout;
 
 import java.sql.Date;
 import java.text.SimpleDateFormat;
@@ -43,10 +49,13 @@ public class DenunciadosFragment extends Fragment {
     private MaterialSpinner sp_TipoIdentificacionD, sp_InfoAdicionalD, sp_GeneroD;
     private EditText edt_DocD, edt_NombresD, edt_ApellidoPaternoD, edt_ApellidoMaternoD;
     private Button btnSaveD, btnCancelarD;
+    private CheckBox unknowPerson;
+    private TextInputLayout text_input_nombresD, txtInputApellidoPaternoDenunciado, txtInputApellidoMaternoDenunciado;
 
     private List<InformacionAdicional> infosAdicional = new ArrayList<>();
     private ArrayAdapter<String> adapterInfAdic;
     private List<String> displayInfAdic = new ArrayList<>();
+    private String messageToast = " Por favor complete todos los campos 😑";
 
     public DenunciadosFragment() {
     }
@@ -87,8 +96,8 @@ public class DenunciadosFragment extends Fragment {
 
     private void initAdapter() {
         sp_TipoIdentificacionD.setAdapter(new ArrayAdapter<>(getContext(), android.R.layout.simple_spinner_dropdown_item, new String[]{
-                "Natural",
-                "Jurídica"
+                "DNI",
+                "OTRO DOCUMENTO"
         }));
         sp_GeneroD.setAdapter(new ArrayAdapter<>(getContext(), android.R.layout.simple_spinner_dropdown_item, new String[]{
                 "Masculino",
@@ -113,6 +122,43 @@ public class DenunciadosFragment extends Fragment {
         btnCancelarD.setOnClickListener(vi -> {
             this.clearCamposDenunciado();
         });
+        txtInputApellidoMaternoDenunciado = view.findViewById(R.id.txtInputApellidoMaternoDenunciado);
+        txtInputApellidoPaternoDenunciado = view.findViewById(R.id.txtInputApellidoPaternoDenunciado);
+        text_input_nombresD = view.findViewById(R.id.text_input_nombresD);
+        unknowPerson = view.findViewById(R.id.unknowPerson);
+        unknowPerson.setOnCheckedChangeListener((button, isChecked) -> {
+            bloquearCampos(!isChecked);
+        });
+    }
+
+    private void bloquearCampos(boolean b) {
+        sp_TipoIdentificacionD.setEnabled(b);
+        edt_DocD.setEnabled(b);
+    }
+
+    private boolean validar() {
+        boolean retorno = true;
+        String nombreD, apellidoPaternoD, apellidoMaternoD;
+        nombreD = edt_NombresD.getText().toString();
+        apellidoPaternoD = edt_ApellidoPaternoD.getText().toString();
+        apellidoMaternoD = edt_ApellidoMaternoD.getText().toString();
+        if (nombreD.isEmpty() || apellidoPaternoD.isEmpty() || apellidoMaternoD.isEmpty()) {
+            text_input_nombresD.setError("Ingresa tus nombres completos.");
+            txtInputApellidoPaternoDenunciado.setError("Ingresa tu apellido paterno.");
+            txtInputApellidoMaternoDenunciado.setError("Ingresa tu apellido materno.");
+            retorno = false;
+        }else{
+            text_input_nombresD.setErrorEnabled(false);
+            txtInputApellidoPaternoDenunciado.setErrorEnabled(false);
+            txtInputApellidoMaternoDenunciado.setErrorEnabled(false);
+            txtInputApellidoMaternoDenunciado.setError(null);
+            txtInputApellidoPaternoDenunciado.setError(null);
+            text_input_nombresD.setError(null);
+            edt_NombresD.setError(null);
+            edt_ApellidoMaternoD.setError(null);
+            edt_ApellidoPaternoD.setError(null);
+        }
+        return retorno;
     }
 
     private void clearCamposDenunciado() {
@@ -123,14 +169,18 @@ public class DenunciadosFragment extends Fragment {
         sp_TipoIdentificacionD.setSelection(0);
         sp_InfoAdicionalD.setSelection(0);
         sp_GeneroD.setSelection(0);
+        text_input_nombresD.setErrorEnabled(false);
+        txtInputApellidoPaternoDenunciado.setErrorEnabled(false);
+        txtInputApellidoMaternoDenunciado.setErrorEnabled(false);
     }
+
+    /*edt_NombresD.getText().toString().equals("")
+                && edt_ApellidoPaternoD.getText().toString().equals("")
+                && edt_ApellidoMaternoD.getText().toString().equals("")*/
 
     private void guardarDenunciado() {
         Denunciado d;
-        if (!edt_DocD.getText().toString().equals("")
-                && !edt_NombresD.getText().toString().equals("")
-                && !edt_ApellidoPaternoD.getText().toString().equals("")
-                && !edt_ApellidoMaternoD.getText().toString().equals("")) {
+        if (validar()) {
             d = new Denunciado();
             try {
                 d.setTipoIdentificacion(new TipoIdentificacion());
@@ -153,4 +203,18 @@ public class DenunciadosFragment extends Fragment {
             Toast.makeText(getContext(), "Por favor complete todos los campos 😑", Toast.LENGTH_LONG).show();
         }
     }
+
+    /*public void mostrarToast(String texto, View v) {
+        LayoutInflater layoutInflater = getLayoutInflater();
+        View layouView = layoutInflater.inflate(R.layout.custom_toast, (ViewGroup) v.findViewById(R.id.layout_base_1));
+        TextView textView = layouView.findViewById(R.id.textoinfo);
+        textView.setText(texto);
+
+        Toast toast = new Toast(getContext());
+        toast.setGravity(Gravity.CENTER_VERTICAL | Gravity.BOTTOM, 0, 200);
+        toast.setDuration(Toast.LENGTH_LONG);
+        toast.setView(layouView);
+        toast.show();
+
+    }*/
 }

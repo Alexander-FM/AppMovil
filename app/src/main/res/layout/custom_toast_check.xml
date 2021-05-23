@@ -20,7 +20,8 @@
         android:layout_height="wrap_content"
         android:fontFamily="@font/poppins_medium"
         android:textStyle="bold"
+        android:paddingStart="10dp"
         android:textColor="@color/white"
-        android:text=" Excelente, Acción Correctamente."/>
+        android:text="Excelente, Acción Correctamente."/>
 
 </LinearLayout>

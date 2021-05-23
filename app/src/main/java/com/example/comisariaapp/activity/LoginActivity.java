@@ -1,6 +1,7 @@
 package com.example.comisariaapp.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.preference.PreferenceManager;
 
@@ -9,6 +10,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.telephony.PhoneNumberUtils;
 import android.view.Gravity;
@@ -51,6 +53,8 @@ public class LoginActivity extends AppCompatActivity {
             textcomisarioAtusparias, textcomisarioMonsefu;
     private Animation rotateOpen, rotateClose, fromBottom, toBottom;
     private Boolean clicked = false;
+    private EditText edtEmail, edtPassword;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -82,29 +86,33 @@ public class LoginActivity extends AppCompatActivity {
         });
         btnIniciarSesion.setOnClickListener(v -> {
             try {
-                EditText edtEmail = findViewById(R.id.username_input), edtPassword = findViewById(R.id.password_input);
-                viewModel.login(edtEmail.getText().toString(), edtPassword.getText().toString()).observe(this, response -> {
-                    Usuario u = response.getBody();
-                    if (response.getRpta() == 1) {
-                        Toast.makeText(this, "Bienvenido:" + u.getNombres() + " " + u.getApellidoPaterno() + " " + u.getApellidoMaterno(), Toast.LENGTH_SHORT).show();
-                        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);//getPreferences(Context.MODE_PRIVATE);
-                        SharedPreferences.Editor editor = preferences.edit();
-                        final Gson g = new GsonBuilder()
-                                .registerTypeAdapter(Date.class, new DateSerializer())
-                                .registerTypeAdapter(Time.class, new TimeSerializer())
-                                .create();
-                        editor.putString("UsuarioJson", g.toJson(u, new TypeToken<Usuario>() {
-                        }.getType()));
-                        editor.apply();
+                if (validar()) {
+                    viewModel.login(edtEmail.getText().toString(), edtPassword.getText().toString()).observe(this, response -> {
+                        Usuario u = response.getBody();
+                        if (response.getRpta() == 1) {
+                            mostrarToastOk(" Bienvenido: " + u.getNombres() + " " + u.getApellidoPaterno() + " " + u.getApellidoMaterno());
+                            SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);//getPreferences(Context.MODE_PRIVATE);
+                            SharedPreferences.Editor editor = preferences.edit();
+                            final Gson g = new GsonBuilder()
+                                    .registerTypeAdapter(Date.class, new DateSerializer())
+                                    .registerTypeAdapter(Time.class, new TimeSerializer())
+                                    .create();
+                            editor.putString("UsuarioJson", g.toJson(u, new TypeToken<Usuario>() {
+                            }.getType()));
+                            editor.apply();
 
-                        startActivity(new Intent(this, MenuActivity.class));
-                    } else {
-                        Toast.makeText(this, "Crendeciales incorrectas :(", Toast.LENGTH_SHORT).show();
-                    }
-                });
+                            startActivity(new Intent(this, MenuActivity.class));
+                        } else {
+                            mostrarToast(" Credenciales Incorrectas");
+                        }
+                    });
+                } else {
+                    mostrarToast("Completa todos los campos, por favor.");
+                }
             } catch (Exception e) {
                 e.printStackTrace();
-                Toast.makeText(this, "se ha producido un error al intentar loguearte:" + e.getMessage(), Toast.LENGTH_LONG).show();
+                mostrarToast(" Se ha producido un error al intentar loguearte:" + e.getMessage());
+                //Toast.makeText(this, "se ha producido un error al intentar loguearte:" + e.getMessage(), Toast.LENGTH_LONG).show();
             }
         });
     }
@@ -229,6 +237,8 @@ public class LoginActivity extends AppCompatActivity {
         textcomisarioCesarLlatas = findViewById(R.id.textcomisarioCesarLlatas);
         textcomisarioAtusparias = findViewById(R.id.textcomisarioAtusparias);
         textcomisarioMonsefu = findViewById(R.id.textcomisarioMonsefu);
+        edtEmail = findViewById(R.id.username_input);
+        edtPassword = findViewById(R.id.password_input);
 
     }
 
@@ -242,7 +252,7 @@ public class LoginActivity extends AppCompatActivity {
         }
     }
 
-    private void mostrarToast(String texto) {
+    public void mostrarToast(String texto) {
         LayoutInflater layoutInflater = getLayoutInflater();
         View layouView = layoutInflater.inflate(R.layout.custom_toast, (ViewGroup) findViewById(R.id.layout_base_1));
         TextView textView = layouView.findViewById(R.id.textoinfo);
@@ -268,5 +278,19 @@ public class LoginActivity extends AppCompatActivity {
         toast.setView(layouView);
         toast.show();
 
+    }
+
+    private boolean validar() {
+        boolean retorno = true;
+        Drawable customErrorDrawable = ContextCompat.getDrawable(this, R.drawable.ic_error);
+        customErrorDrawable.setBounds(0, 0, customErrorDrawable.getIntrinsicWidth(), customErrorDrawable.getIntrinsicHeight());
+        String email = edtEmail.getText().toString();
+        String passwordUser = edtPassword.getText().toString();
+        if (email.isEmpty() || passwordUser.isEmpty()) {
+            edtEmail.setError("Este campo no puede quedar vacío.", customErrorDrawable);
+            edtPassword.setError("Este campo no puede quedar vacio", customErrorDrawable);
+            retorno = false;
+        }
+        return retorno;
     }
 }

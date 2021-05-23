@@ -49,4 +49,5 @@
     <string name="resumen">Resumen</string>
     <string name="faltan_datos">Faltan datos ?</string>
     <string name="alerta_refresh">Si no visualiza los datos de agraviados o denunciados agregados recientemente en las listas haga clic en el boton forzar actualización.</string>
+    <string name="no_recuerdo_denunciado">No recuerdo el tipo, ni el número del documento.</string>
 </resources>

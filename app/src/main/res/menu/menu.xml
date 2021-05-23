@@ -30,6 +30,7 @@
                 android:title="Contáctanos" />
             <item
                 android:id="@+id/informate"
+                app:iconTint="#4CAF50"
                 android:icon="@drawable/ic_baseline_info_24"
                 android:title="Informate aquí" />
 

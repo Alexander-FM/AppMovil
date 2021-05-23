@@ -45,14 +45,32 @@
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="70dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:orientation="horizontal">
+
+                    <CheckBox
+                        android:id="@+id/unknowPerson"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/san_francisco"
+                        android:text="@string/no_recuerdo_denunciado"
+                        android:textColorHighlight="#0B66AE"
+                        android:textColorLink="#0B66AE"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
                     android:orientation="horizontal">
 
                     <fr.ganfra.materialspinner.MaterialSpinner
                         android:id="@+id/sp_tipoIdentificacionD"
                         android:layout_width="0dp"
-                        android:layout_height="match_parent"
+                        android:layout_height="70dp"
                         android:layout_marginEnd="10dp"
                         android:layout_weight="1"
                         app:ms_alignLabels="false"
@@ -71,8 +89,9 @@
                         android:id="@+id/text_input_numero_docD"
                         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                         android:layout_width="0dp"
-                        android:layout_height="match_parent"
+                        android:layout_height="wrap_content"
                         android:layout_weight="1"
+                        app:errorIconDrawable="@drawable/ic_error"
                         app:startIconDrawable="@drawable/dni">
 
                         <com.google.android.material.textfield.TextInputEditText
@@ -88,8 +107,7 @@
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="70dp"
-                    android:layout_marginTop="5dp"
+                    android:layout_height="wrap_content"
                     android:orientation="horizontal">
 
                     <com.google.android.material.textfield.TextInputLayout
@@ -97,6 +115,7 @@
                         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
+                        app:errorIconDrawable="@drawable/ic_error"
                         app:startIconDrawable="@drawable/ic_baseline_person">
 
                         <com.google.android.material.textfield.TextInputEditText
@@ -111,7 +130,7 @@
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="70dp"
+                    android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
                     android:orientation="horizontal">
 
@@ -119,9 +138,10 @@
                         android:id="@+id/txtInputApellidoPaternoDenunciado"
                         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                         android:layout_width="0dp"
-                        android:layout_height="match_parent"
+                        android:layout_height="wrap_content"
                         android:layout_marginEnd="10dp"
                         android:layout_weight="1"
+                        app:errorIconDrawable="@drawable/ic_error"
                         app:startIconDrawable="@drawable/ic_baseline_person">
 
                         <com.google.android.material.textfield.TextInputEditText
@@ -137,8 +157,9 @@
                         android:id="@+id/txtInputApellidoMaternoDenunciado"
                         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                         android:layout_width="0dp"
-                        android:layout_height="match_parent"
+                        android:layout_height="wrap_content"
                         android:layout_weight="1"
+                        app:errorIconDrawable="@drawable/ic_error"
                         app:startIconDrawable="@drawable/ic_baseline_person">
 
                         <com.google.android.material.textfield.TextInputEditText

@@ -102,9 +102,11 @@
 
                 <fr.ganfra.materialspinner.MaterialSpinner
                     android:id="@+id/sp_distritoDenuncia"
-                    android:layout_width="match_parent"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
                     android:layout_height="match_parent"
                     app:ms_alignLabels="false"
+                    android:layout_marginEnd="10dp"
                     app:ms_arrowColor="@color/colorPrimary"
                     app:ms_arrowSize="15dp"
                     app:ms_baseColor="@color/colorPrimary"
@@ -112,6 +114,22 @@
                     app:ms_floatingLabelColor="@color/black"
                     app:ms_floatingLabelText="Distrito"
                     app:ms_hint="Seleccionar Distrito"
+                    app:ms_hintColor="@color/black"
+                    app:ms_multiline="false"
+                    app:ms_thickness="1dp" />
+                <fr.ganfra.materialspinner.MaterialSpinner
+                    android:id="@+id/sp_comisarias"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="match_parent"
+                    app:ms_alignLabels="false"
+                    app:ms_arrowColor="@color/colorPrimary"
+                    app:ms_arrowSize="15dp"
+                    app:ms_baseColor="@color/colorPrimary"
+                    app:ms_enableFloatingLabel="true"
+                    app:ms_floatingLabelColor="@color/black"
+                    app:ms_floatingLabelText="Comisaría Destino"
+                    app:ms_hint="Seleccionar Comisaría"
                     app:ms_hintColor="@color/black"
                     app:ms_multiline="false"
                     app:ms_thickness="1dp" />

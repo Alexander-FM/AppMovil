@@ -1,7 +1,9 @@
 package com.example.comisariaapp.fragments;
 
+import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 
@@ -21,6 +23,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.comisariaapp.R;
+import com.example.comisariaapp.activity.SeleccioneUbicacionActivity;
 import com.example.comisariaapp.entity.service.Comisarias;
 import com.example.comisariaapp.entity.service.Denuncia;
 import com.example.comisariaapp.entity.service.Distrito;
@@ -57,9 +60,9 @@ public class DenunciaFragment extends Fragment {
     private TipoDenunciaViewModel tdViewModel;
     private ComisariasViewModel comisariasViewModel;
     private MaterialSpinner drop_distritoD, drop_vpd, drop_td, drop_Comisarias;
-    private EditText edtFechaHechos, edtLugarHechos, edtReferenciaHechos, edtHoraHechos;
+    private EditText edtFechaHechos, edtLugarHechos, edtReferenciaHechos, edtHoraHechos, edtLatitud, edtLongitud;
 
-    private Button btnLimpiarDenunciaF, btnGuardarDenunciaF;
+    private Button btnLimpiarDenunciaF, btnGuardarDenunciaF, btnGoMaps;
 
     private List<Distrito> distritos = new ArrayList<>();
     private List<VinculoParteDenunciada> vinculos = new ArrayList<>();
@@ -113,8 +116,14 @@ public class DenunciaFragment extends Fragment {
         btnLimpiarDenunciaF = v.findViewById(R.id.btnLimpiarDenunciaF);
         btnGuardarDenunciaF = v.findViewById(R.id.btnGuardarDenunciaF);
 
+        edtLatitud = v.findViewById(R.id.edtlatitud);
+        edtLongitud = v.findViewById(R.id.edtlongitud);
         btnGuardarDenunciaF.setOnClickListener(view -> save()); //Guardamos la denuncia
         btnLimpiarDenunciaF.setOnClickListener(view -> limpiarCamposDenuncia());
+        this.btnGoMaps = v.findViewById(R.id.btnGoMaps);
+        btnGoMaps.setOnClickListener(v1 -> {
+            startActivityForResult(new Intent(getActivity(), SeleccioneUbicacionActivity.class), 1);
+        });
 
         this.edtFechaHechos = v.findViewById(R.id.dtpFechaHechos);
         edtFechaHechos.setOnClickListener(vi -> showDatePickerDialog((view, year, month, dayOfMonth) -> {
@@ -132,6 +141,7 @@ public class DenunciaFragment extends Fragment {
         drop_vpd = v.findViewById(R.id.sp_vinculoParteDenunciada);
         drop_td = v.findViewById(R.id.sp_tipodenuncia);
         drop_Comisarias = v.findViewById(R.id.sp_comisarias);
+
     }
 
     public void loadData() {
@@ -250,5 +260,13 @@ public class DenunciaFragment extends Fragment {
                 && !edtReferenciaHechos.getText().toString().equals("")
                 && drop_vpd.getSelectedItemPosition() != -1
                 && drop_td.getSelectedItemPosition() != -1;
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable @org.jetbrains.annotations.Nullable Intent data) {
+        if (resultCode == Activity.RESULT_OK)
+            edtLatitud.setText(Double.toString(data.getDoubleExtra("latitud", 0)));
+        edtLongitud.setText(Double.toString(data.getDoubleExtra("longitud", 0)));
+
     }
 }

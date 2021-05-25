@@ -16,7 +16,16 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.ComisariaApp"
         android:usesCleartextTraffic="true">
-        <activity android:name=".activity.ConsultarTramitesDenunciasActivity"></activity>
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyBiqYBElQofWcQGkoH1A2gF9SEuzFyrtNk" />
+
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version" />
+
+        <activity android:name=".activity.SeleccioneUbicacionActivity"/>
+        <activity android:name=".activity.ConsultarTramitesDenunciasActivity" />
         <activity android:name=".activity.IngresarDenunciaActivity" />
         <activity android:name=".activity.InformateAqui1Activity" />
         <activity android:name=".activity.ContactanosActivity" />

@@ -90,7 +90,7 @@ public class LoginActivity extends AppCompatActivity {
                     viewModel.login(edtEmail.getText().toString(), edtPassword.getText().toString()).observe(this, response -> {
                         Usuario u = response.getBody();
                         if (response.getRpta() == 1) {
-                            mostrarToastOk(" Bienvenido: " + u.getNombres() + " " + u.getApellidoPaterno() + " " + u.getApellidoMaterno());
+                            mostrarToastOk("Bienvenido: " + u.getNombres() + " " + u.getApellidoPaterno() + " " + u.getApellidoMaterno());
                             SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);//getPreferences(Context.MODE_PRIVATE);
                             SharedPreferences.Editor editor = preferences.edit();
                             final Gson g = new GsonBuilder()
@@ -103,7 +103,7 @@ public class LoginActivity extends AppCompatActivity {
 
                             startActivity(new Intent(this, MenuActivity.class));
                         } else {
-                            mostrarToast(" Credenciales Incorrectas");
+                            mostrarToast("Credenciales Incorrectas");
                         }
                     });
                 } else {
@@ -111,7 +111,7 @@ public class LoginActivity extends AppCompatActivity {
                 }
             } catch (Exception e) {
                 e.printStackTrace();
-                mostrarToast(" Se ha producido un error al intentar loguearte:" + e.getMessage());
+                mostrarToast("Se ha producido un error al intentar loguearte:" + e.getMessage());
                 //Toast.makeText(this, "se ha producido un error al intentar loguearte:" + e.getMessage(), Toast.LENGTH_LONG).show();
             }
         });
@@ -206,7 +206,8 @@ public class LoginActivity extends AppCompatActivity {
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
         String pref = preferences.getString("UsuarioJson", "");
         if (!pref.equals("")) {
-            Toast.makeText(this, "se detectó una sesion activa,login omitido", Toast.LENGTH_SHORT).show();
+            mostrarToastOk("Se detectó una sesion activa, el login será omitido!");
+            //Toast.makeText(this, "se detectó una sesion activa,login omitido", Toast.LENGTH_SHORT).show();
             this.startActivity(new Intent(this, MenuActivity.class));
             this.overridePendingTransition(R.anim.left_in, R.anim.left_out);
         }

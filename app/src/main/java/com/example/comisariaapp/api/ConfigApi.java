@@ -33,6 +33,7 @@ public class ConfigApi {
     private static EstadoCivilApi ecApi;
     private static DenunciaApi dApi;
     private static SugerenciaApi sApi;
+    private static ComisariasApi cApi;
 
     static {
         initClient();
@@ -40,8 +41,8 @@ public class ConfigApi {
 
     private static void initClient() {
         Gson gson = new GsonBuilder()
-                .registerTypeAdapter(Date.class,new DateSerializer())
-                .registerTypeAdapter(Time.class,new TimeSerializer())
+                .registerTypeAdapter(Date.class, new DateSerializer())
+                .registerTypeAdapter(Time.class, new TimeSerializer())
                 .create();
 
         retrofit = new Retrofit.Builder()
@@ -145,6 +146,13 @@ public class ConfigApi {
             sApi = retrofit.create(SugerenciaApi.class);
         }
         return sApi;
+    }
+
+    public static ComisariasApi getComisariaApi() {
+        if (cApi == null) {
+            cApi = retrofit.create(ComisariasApi.class);
+        }
+        return cApi;
     }
 }
 

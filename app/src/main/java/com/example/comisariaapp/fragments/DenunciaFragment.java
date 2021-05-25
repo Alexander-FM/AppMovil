@@ -21,6 +21,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.comisariaapp.R;
+import com.example.comisariaapp.entity.service.Comisarias;
 import com.example.comisariaapp.entity.service.Denuncia;
 import com.example.comisariaapp.entity.service.Distrito;
 import com.example.comisariaapp.entity.service.Policia;
@@ -32,6 +33,7 @@ import com.example.comisariaapp.utils.DateSerializer;
 import com.example.comisariaapp.utils.DenunciaManager;
 import com.example.comisariaapp.utils.TimePickerFragment;
 import com.example.comisariaapp.utils.TimeSerializer;
+import com.example.comisariaapp.viewmodel.ComisariasViewModel;
 import com.example.comisariaapp.viewmodel.DistritoViewModel;
 import com.example.comisariaapp.viewmodel.InformacionAdicionalViewModel;
 import com.example.comisariaapp.viewmodel.TipoDenunciaViewModel;
@@ -53,16 +55,19 @@ public class DenunciaFragment extends Fragment {
     private DistritoViewModel distritoViewModel;
     private VinculoParteDenunciadaViewModel vpdViewModel;
     private TipoDenunciaViewModel tdViewModel;
-    private MaterialSpinner drop_distritoD, drop_vpd, drop_td;
+    private ComisariasViewModel comisariasViewModel;
+    private MaterialSpinner drop_distritoD, drop_vpd, drop_td, drop_Comisarias;
     private EditText edtFechaHechos, edtLugarHechos, edtReferenciaHechos, edtHoraHechos;
 
     private Button btnLimpiarDenunciaF, btnGuardarDenunciaF;
 
     private List<Distrito> distritos = new ArrayList<>();
     private List<VinculoParteDenunciada> vinculos = new ArrayList<>();
+    private List<Comisarias> comisarias = new ArrayList<>();
     private List<TipoDenuncia> tiposDenuncia = new ArrayList<>();
-    private ArrayAdapter<String> adapterDistritos, adapterVinculos, adapterTd;
-    private List<String> displayDistritos = new ArrayList<>(), displayVinculos = new ArrayList<>(), displayTd = new ArrayList<>(), displayInfAdic;
+    private ArrayAdapter<String> adapterDistritos, adapterVinculos, adapterTd, adapterComisarias;
+    private List<String> displayDistritos = new ArrayList<>(), displayVinculos = new ArrayList<>(),
+            displayTd = new ArrayList<>(), displayComisarias = new ArrayList<>();
 
     public DenunciaFragment() {
         // Required empty public constructor
@@ -89,6 +94,7 @@ public class DenunciaFragment extends Fragment {
         this.distritoViewModel = vmp.get(DistritoViewModel.class);
         this.vpdViewModel = vmp.get(VinculoParteDenunciadaViewModel.class);
         this.tdViewModel = vmp.get(TipoDenunciaViewModel.class);
+        this.comisariasViewModel = vmp.get(ComisariasViewModel.class);
     }
 
     private void showDatePickerDialog(DatePickerDialog.OnDateSetListener listener) {
@@ -125,6 +131,7 @@ public class DenunciaFragment extends Fragment {
         drop_distritoD = v.findViewById(R.id.sp_distritoDenuncia);
         drop_vpd = v.findViewById(R.id.sp_vinculoParteDenunciada);
         drop_td = v.findViewById(R.id.sp_tipodenuncia);
+        drop_Comisarias = v.findViewById(R.id.sp_comisarias);
     }
 
     public void loadData() {
@@ -137,6 +144,17 @@ public class DenunciaFragment extends Fragment {
                     displayDistritos.add(d.getDistrito());
                 }
                 adapterDistritos.notifyDataSetChanged();
+            }
+        });
+        this.comisariasViewModel.list().observe(getViewLifecycleOwner(), response -> {
+            if (response.getRpta() == 1) {
+                this.comisarias.clear();
+                this.comisarias.addAll(response.getBody());
+                displayComisarias.clear();
+                for (Comisarias c : comisarias) {
+                    displayComisarias.add(c.getNombreComisaria());
+                }
+                adapterComisarias.notifyDataSetChanged();
             }
         });
         this.vpdViewModel.list().observe(getViewLifecycleOwner(), response -> {
@@ -168,6 +186,10 @@ public class DenunciaFragment extends Fragment {
         adapterDistritos.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         drop_distritoD.setAdapter(adapterDistritos);
 
+        adapterComisarias = new ArrayAdapter<>(getContext(), android.R.layout.simple_spinner_dropdown_item, displayComisarias);
+        adapterComisarias.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        drop_Comisarias.setAdapter(adapterComisarias);
+
         adapterVinculos = new ArrayAdapter<>(getContext(), android.R.layout.simple_spinner_dropdown_item, displayVinculos);
         adapterVinculos.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         drop_vpd.setAdapter(adapterVinculos);
@@ -195,6 +217,7 @@ public class DenunciaFragment extends Fragment {
             d.setFechaHechos(new Date(new SimpleDateFormat("dd-MM-yyyy").parse(this.edtFechaHechos.getText().toString()).getTime()));
             d.setHoraHechos(new Time(new SimpleDateFormat("hh:mm").parse(edtHoraHechos.getText().toString()).getTime()));
             d.setDistrito(this.distritos.get(this.drop_distritoD.getSelectedItemPosition() - 1));
+            d.setComisarias(this.comisarias.get(this.drop_Comisarias.getSelectedItemPosition() - 1));
             d.setDireccion(this.edtLugarHechos.getText().toString());
             d.setReferenciaDireccion(this.edtReferenciaHechos.getText().toString());
             d.setVinculoParteDenunciada(this.vinculos.get(this.drop_vpd.getSelectedItemPosition() - 1));
@@ -212,6 +235,7 @@ public class DenunciaFragment extends Fragment {
         edtFechaHechos.setText("");
         edtHoraHechos.setText("");
         drop_distritoD.setSelection(0);
+        drop_Comisarias.setSelection(0);
         drop_td.setSelection(0);
         drop_vpd.setSelection(0);
         edtLugarHechos.setText("");
@@ -221,6 +245,7 @@ public class DenunciaFragment extends Fragment {
     private boolean validarDatosDenuncia() {
         return !edtFechaHechos.getText().toString().equals("")
                 && drop_distritoD.getSelectedItemPosition() != -1
+                && drop_Comisarias.getSelectedItemPosition() != -1
                 && !edtLugarHechos.getText().toString().equals("")
                 && !edtReferenciaHechos.getText().toString().equals("")
                 && drop_vpd.getSelectedItemPosition() != -1

@@ -19,6 +19,7 @@ public final class Denuncia {
     private VinculoParteDenunciada vinculoParteDenunciada;
     private Policia policia;
     private Usuario usuario;
+    private Comisarias comisarias;
 
     public int getId() {
         return id;
@@ -132,4 +133,11 @@ public final class Denuncia {
         this.usuario = usuario;
     }
 
+    public Comisarias getComisarias() {
+        return comisarias;
+    }
+
+    public void setComisarias(Comisarias comisarias) {
+        this.comisarias = comisarias;
+    }
 }

@@ -200,6 +200,7 @@ public class DenunciadosFragment extends Fragment {
             }
             this.clearCamposDenunciado();
         } else {
+            //mostrarToast(messageToast, getView());
             Toast.makeText(getContext(), "Por favor complete todos los campos 😑", Toast.LENGTH_LONG).show();
         }
     }

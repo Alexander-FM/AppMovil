@@ -34,6 +34,7 @@ public class ConfigApi {
     private static DenunciaApi dApi;
     private static SugerenciaApi sApi;
     private static ComisariasApi cApi;
+    private static TipoIdentificacionApi tiApi;
 
     static {
         initClient();
@@ -153,6 +154,13 @@ public class ConfigApi {
             cApi = retrofit.create(ComisariasApi.class);
         }
         return cApi;
+    }
+
+    public static TipoIdentificacionApi getTipoIdentificacionApi() {
+        if (tiApi == null) {
+            tiApi = retrofit.create(TipoIdentificacionApi.class);
+        }
+        return tiApi;
     }
 }
 

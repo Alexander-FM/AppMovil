@@ -2,6 +2,7 @@ package com.example.comisariaapp.fragments;
 
 import android.os.Bundle;
 
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
@@ -34,6 +35,7 @@ import com.example.comisariaapp.viewmodel.DistritoViewModel;
 import com.example.comisariaapp.viewmodel.EstadoCivilViewModel;
 import com.example.comisariaapp.viewmodel.InformacionAdicionalViewModel;
 import com.example.comisariaapp.viewmodel.TipoDenunciaViewModel;
+import com.example.comisariaapp.viewmodel.TipoIdentificacionViewModel;
 import com.example.comisariaapp.viewmodel.VinculoParteDenunciadaViewModel;
 import com.google.android.material.textfield.TextInputLayout;
 
@@ -43,9 +45,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import fr.ganfra.materialspinner.MaterialSpinner;
+import cn.pedant.SweetAlert.SweetAlertDialog;
 
 public class DenunciadosFragment extends Fragment {
     private InformacionAdicionalViewModel infoAdicViewModel;
+    private TipoIdentificacionViewModel tipoViewModel;
     private MaterialSpinner sp_TipoIdentificacionD, sp_InfoAdicionalD, sp_GeneroD;
     private EditText edt_DocD, edt_NombresD, edt_ApellidoPaternoD, edt_ApellidoMaternoD;
     private Button btnSaveD, btnCancelarD;
@@ -53,8 +57,9 @@ public class DenunciadosFragment extends Fragment {
     private TextInputLayout text_input_nombresD, txtInputApellidoPaternoDenunciado, txtInputApellidoMaternoDenunciado;
 
     private List<InformacionAdicional> infosAdicional = new ArrayList<>();
-    private ArrayAdapter<String> adapterInfAdic;
-    private List<String> displayInfAdic = new ArrayList<>();
+    private List<TipoIdentificacion> tiposIdentificacion = new ArrayList<>();
+    private ArrayAdapter<String> adapterInfAdic, adapterTipoIden;
+    private List<String> displayInfAdic = new ArrayList<>(), displayTipoIdent = new ArrayList<>();
     private String messageToast = " Por favor complete todos los campos 😑";
 
     public DenunciadosFragment() {
@@ -78,6 +83,7 @@ public class DenunciadosFragment extends Fragment {
     private void initViewModels() {
         ViewModelProvider vmp = new ViewModelProvider(this);
         this.infoAdicViewModel = vmp.get(InformacionAdicionalViewModel.class);
+        this.tipoViewModel = vmp.get((TipoIdentificacionViewModel.class));
     }
 
     private void loadData() {
@@ -92,13 +98,22 @@ public class DenunciadosFragment extends Fragment {
                 this.adapterInfAdic.notifyDataSetChanged();
             }
         });
+
+        this.tipoViewModel.list().observe(getViewLifecycleOwner(), response -> {
+            if (response.getRpta() == 1) {
+                this.tiposIdentificacion.clear();
+                this.tiposIdentificacion.addAll(response.getBody());
+                this.displayTipoIdent.clear();
+                for (TipoIdentificacion i : this.tiposIdentificacion) {
+                    this.displayTipoIdent.add(i.getTipoIdentificacion());
+                }
+                this.adapterTipoIden.notifyDataSetChanged();
+            }
+        });
+
     }
 
     private void initAdapter() {
-        sp_TipoIdentificacionD.setAdapter(new ArrayAdapter<>(getContext(), android.R.layout.simple_spinner_dropdown_item, new String[]{
-                "DNI",
-                "OTRO DOCUMENTO"
-        }));
         sp_GeneroD.setAdapter(new ArrayAdapter<>(getContext(), android.R.layout.simple_spinner_dropdown_item, new String[]{
                 "Masculino",
                 "Femenino"
@@ -106,6 +121,10 @@ public class DenunciadosFragment extends Fragment {
         adapterInfAdic = new ArrayAdapter<>(getContext(), android.R.layout.simple_spinner_dropdown_item, displayInfAdic);
         adapterInfAdic.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         sp_InfoAdicionalD.setAdapter(adapterInfAdic);
+
+        adapterTipoIden = new ArrayAdapter<>(getContext(), android.R.layout.simple_spinner_dropdown_item, displayTipoIdent);
+        adapterTipoIden.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        sp_TipoIdentificacionD.setAdapter(adapterTipoIden);
     }
 
     private void init(View view) {
@@ -129,6 +148,54 @@ public class DenunciadosFragment extends Fragment {
         unknowPerson.setOnCheckedChangeListener((button, isChecked) -> {
             bloquearCampos(!isChecked);
         });
+        edt_NombresD.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                text_input_nombresD.setErrorEnabled(false);
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                text_input_nombresD.setErrorEnabled(false);
+            }
+        });
+        edt_ApellidoPaternoD.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                txtInputApellidoPaternoDenunciado.setErrorEnabled(false);
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                txtInputApellidoPaternoDenunciado.setErrorEnabled(false);
+            }
+        });
+        edt_ApellidoMaternoD.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                txtInputApellidoMaternoDenunciado.setErrorEnabled(false);
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                txtInputApellidoMaternoDenunciado.setErrorEnabled(false);
+            }
+        });
     }
 
     private void bloquearCampos(boolean b) {
@@ -142,21 +209,23 @@ public class DenunciadosFragment extends Fragment {
         nombreD = edt_NombresD.getText().toString();
         apellidoPaternoD = edt_ApellidoPaternoD.getText().toString();
         apellidoMaternoD = edt_ApellidoMaternoD.getText().toString();
-        if (nombreD.isEmpty() || apellidoPaternoD.isEmpty() || apellidoMaternoD.isEmpty()) {
+        if (nombreD.isEmpty() || apellidoPaternoD.isEmpty() || apellidoMaternoD.isEmpty() ||
+                sp_TipoIdentificacionD.getSelectedItemPosition() == -1 || sp_InfoAdicionalD.getSelectedItemPosition() == -1 ||
+                sp_GeneroD.getSelectedItemPosition() == -1) {
             text_input_nombresD.setError("Ingresa tus nombres completos.");
             txtInputApellidoPaternoDenunciado.setError("Ingresa tu apellido paterno.");
             txtInputApellidoMaternoDenunciado.setError("Ingresa tu apellido materno.");
+            ((TextView) sp_TipoIdentificacionD.getSelectedView()).setError("Seleccione");
+            ((TextView) sp_GeneroD.getSelectedView()).setError("Seleccione");
+            ((TextView) sp_InfoAdicionalD.getSelectedView()).setError("Seleccione");
             retorno = false;
-        }else{
-            text_input_nombresD.setErrorEnabled(false);
+        } else {
             txtInputApellidoPaternoDenunciado.setErrorEnabled(false);
             txtInputApellidoMaternoDenunciado.setErrorEnabled(false);
-            txtInputApellidoMaternoDenunciado.setError(null);
-            txtInputApellidoPaternoDenunciado.setError(null);
-            text_input_nombresD.setError(null);
-            edt_NombresD.setError(null);
-            edt_ApellidoMaternoD.setError(null);
-            edt_ApellidoPaternoD.setError(null);
+            text_input_nombresD.setErrorEnabled(false);
+            ((TextView) sp_TipoIdentificacionD.getSelectedView()).setError(null);
+            ((TextView) sp_GeneroD.getSelectedView()).setError(null);
+            ((TextView) sp_InfoAdicionalD.getSelectedView()).setError(null);
         }
         return retorno;
     }
@@ -172,6 +241,9 @@ public class DenunciadosFragment extends Fragment {
         text_input_nombresD.setErrorEnabled(false);
         txtInputApellidoPaternoDenunciado.setErrorEnabled(false);
         txtInputApellidoMaternoDenunciado.setErrorEnabled(false);
+        sp_GeneroD.setError(null);
+        sp_TipoIdentificacionD.setError(null);
+        sp_InfoAdicionalD.setError(null);
     }
 
     /*edt_NombresD.getText().toString().equals("")
@@ -184,28 +256,29 @@ public class DenunciadosFragment extends Fragment {
             d = new Denunciado();
             try {
                 d.setTipoIdentificacion(new TipoIdentificacion());
-                d.getTipoIdentificacion().setId(sp_TipoIdentificacionD.getSelectedItemPosition() - 1);
-                d.getTipoIdentificacion().setId(1);
                 d.setNumeroIdentificacion(edt_DocD.getText().toString());
                 d.setNombres(edt_NombresD.getText().toString());
                 d.setApellidoPaterno(edt_ApellidoPaternoD.getText().toString());
                 d.setApellidoMaterno(edt_ApellidoMaternoD.getText().toString());
-                int indexIA = sp_InfoAdicionalD.getSelectedItemPosition() - 1;
-                d.setInformacionAdicional(infosAdicional.get(indexIA));
+                d.setInformacionAdicional(this.infosAdicional.get(this.sp_InfoAdicionalD.getSelectedItemPosition() - 1));
+                d.setTipoIdentificacion(this.tiposIdentificacion.get(this.sp_TipoIdentificacionD.getSelectedItemPosition() - 1));
                 d.setSexo(sp_GeneroD.getSelectedItem().toString());
-                Toast.makeText(getContext(), DenunciaManager.addDenunciado(d, getContext()), Toast.LENGTH_SHORT).show();
+                successMessage(DenunciaManager.addDenunciado(d, getContext()));
+                //mostrarToastOk(DenunciaManager.addDenunciado(d, getContext()), getView());
+                //Toast.makeText(getContext(), DenunciaManager.addDenunciado(d, getContext()), Toast.LENGTH_SHORT).show();
             } catch (Exception e) {
-                Toast.makeText(getContext(), "Error al intentar crear el objeto Denunciado:" + e.getMessage() + " 😥", Toast.LENGTH_LONG).show();
+                mostrarToast("Error al intentar crear el objeto Denunciado:" + e.getMessage(), getView());
+                //Toast.makeText(getContext(), "Error al intentar crear el objeto Denunciado:" + e.getMessage() + " 😥", Toast.LENGTH_LONG).show();
                 e.printStackTrace();
             }
             this.clearCamposDenunciado();
         } else {
-            //mostrarToast(messageToast, getView());
-            Toast.makeText(getContext(), "Por favor complete todos los campos 😑", Toast.LENGTH_LONG).show();
+            mostrarToast(messageToast, getView());
+            //Toast.makeText(getContext(), "Por favor complete todos los campos 😑", Toast.LENGTH_LONG).show();
         }
     }
 
-    /*public void mostrarToast(String texto, View v) {
+    public void mostrarToast(String texto, View v) {
         LayoutInflater layoutInflater = getLayoutInflater();
         View layouView = layoutInflater.inflate(R.layout.custom_toast, (ViewGroup) v.findViewById(R.id.layout_base_1));
         TextView textView = layouView.findViewById(R.id.textoinfo);
@@ -217,5 +290,25 @@ public class DenunciadosFragment extends Fragment {
         toast.setView(layouView);
         toast.show();
 
-    }*/
+    }
+
+    public void mostrarToastOk(String texto, View v) {
+        LayoutInflater layoutInflater = getLayoutInflater();
+        View layouView = layoutInflater.inflate(R.layout.custom_toast_check, (ViewGroup) v.findViewById(R.id.layout_base_2));
+        TextView textView = layouView.findViewById(R.id.textoinfo2);
+        textView.setText(texto);
+
+        Toast toast = new Toast(getContext());
+        toast.setGravity(Gravity.CENTER_VERTICAL | Gravity.BOTTOM, 0, 200);
+        toast.setDuration(Toast.LENGTH_LONG);
+        toast.setView(layouView);
+        toast.show();
+
+    }
+
+    public void successMessage(String message) {
+        new SweetAlertDialog(getContext(),
+                SweetAlertDialog.SUCCESS_TYPE).setTitleText("Buen Trabajo!")
+                .setContentText(message).show();
+    }
 }

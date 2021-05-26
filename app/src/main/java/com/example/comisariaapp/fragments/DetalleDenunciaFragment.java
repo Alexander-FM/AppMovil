@@ -1,5 +1,6 @@
 package com.example.comisariaapp.fragments;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -10,11 +11,13 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.comisariaapp.R;
@@ -26,6 +29,8 @@ import com.example.comisariaapp.communication.DenunciadoCommunication;
 import com.example.comisariaapp.entity.service.dto.DenunciaConDetallesDTO;
 import com.example.comisariaapp.utils.DenunciaManager;
 import com.example.comisariaapp.viewmodel.DenunciaViewModel;
+
+import cn.pedant.SweetAlert.SweetAlertDialog;
 
 public class DetalleDenunciaFragment extends Fragment implements AgraviadoCommunication, DenunciadoCommunication {
 
@@ -91,19 +96,39 @@ public class DetalleDenunciaFragment extends Fragment implements AgraviadoCommun
 
     @Override
     public void deleteA(String numeroIdentificacion) {
-        Toast.makeText(getContext(), DenunciaManager.removeAgraviado(numeroIdentificacion, getContext()), Toast.LENGTH_SHORT).show();
+        sweetAlertWithButtons(numeroIdentificacion, 'A');
+        //Toast.makeText(getContext(), DenunciaManager.removeAgraviado(numeroIdentificacion, getContext()), Toast.LENGTH_SHORT).show();
         this.agraviadosAdapter.updateItems(DenunciaManager.getDto(getContext()).getAgraviados());
     }
 
     @Override
     public void deleteD(String numeroidentificacion) {
-        Toast.makeText(getContext(), DenunciaManager.removeDenunciado(numeroidentificacion, getContext()), Toast.LENGTH_SHORT).show();
+        sweetAlertWithButtons(numeroidentificacion, 'D');
         this.denunciadosAdapter.updateItems(DenunciaManager.getDto(getContext()).getDenunciados());
     }
+
     public void onResume() {
         super.onResume();
         dto = DenunciaManager.getDto(getContext());
         this.agraviadosAdapter.updateItems(dto.getAgraviados());
         this.denunciadosAdapter.updateItems(dto.getDenunciados());
+    }
+
+    //Eliminar con los botones de cancelar y confirmar
+    public void sweetAlertWithButtons(String documento, char tipo) {
+        new SweetAlertDialog(getContext(), SweetAlertDialog.WARNING_TYPE).setTitleText("Estás seguro de eliminar?")
+                .setContentText("Una vez eliminado, ya no estará disponible!")
+                .setCancelText("No, Cancelar!").setConfirmText("Sí, Eliminar")
+                .showCancelButton(true).setCancelClickListener(sDialog -> {
+            sDialog.dismissWithAnimation();
+            new SweetAlertDialog(getContext(), SweetAlertDialog.ERROR_TYPE).setTitleText("Petición Cancelada")
+                    .setContentText("No se eliminó ningún registro")
+                    .show();
+        }).setConfirmClickListener(sweetAlertDialog -> {
+            sweetAlertDialog.dismissWithAnimation();
+            new SweetAlertDialog(getContext(), SweetAlertDialog.SUCCESS_TYPE).setTitleText("Operación Finalizada Correctamente")
+                    .setContentText(tipo == 'A' ? DenunciaManager.removeAgraviado(documento, getContext()) : DenunciaManager.removeDenunciado(documento, getContext())).show();
+            onResume();
+        }).show();
     }
 }

@@ -1,5 +1,6 @@
 package com.example.comisariaapp.fragments;
 
+import android.graphics.Color;
 import android.os.Bundle;
 
 import androidx.activity.result.contract.ActivityResultContracts;
@@ -201,6 +202,13 @@ public class DenunciadosFragment extends Fragment {
     private void bloquearCampos(boolean b) {
         sp_TipoIdentificacionD.setEnabled(b);
         edt_DocD.setEnabled(b);
+        if(b == false){
+            sp_TipoIdentificacionD.setSelection(2);
+            edt_DocD.setText("- - -");
+        }else{
+            sp_TipoIdentificacionD.setSelection(0);
+            edt_DocD.setText("");
+        }
     }
 
     private boolean validar() {
@@ -209,15 +217,18 @@ public class DenunciadosFragment extends Fragment {
         nombreD = edt_NombresD.getText().toString();
         apellidoPaternoD = edt_ApellidoPaternoD.getText().toString();
         apellidoMaternoD = edt_ApellidoMaternoD.getText().toString();
-        if (nombreD.isEmpty() || apellidoPaternoD.isEmpty() || apellidoMaternoD.isEmpty() ||
-                sp_TipoIdentificacionD.getSelectedItemPosition() == -1 || sp_InfoAdicionalD.getSelectedItemPosition() == -1 ||
-                sp_GeneroD.getSelectedItemPosition() == -1) {
+        if (nombreD.isEmpty() || apellidoPaternoD.isEmpty()
+                || apellidoMaternoD.isEmpty()
+                || sp_TipoIdentificacionD.getSelectedItemPosition() == 0
+                || sp_InfoAdicionalD.getSelectedItemPosition() == 0
+                || sp_GeneroD.getSelectedItemPosition() == -0) {
             text_input_nombresD.setError("Ingresa tus nombres completos.");
             txtInputApellidoPaternoDenunciado.setError("Ingresa tu apellido paterno.");
             txtInputApellidoMaternoDenunciado.setError("Ingresa tu apellido materno.");
-            ((TextView) sp_TipoIdentificacionD.getSelectedView()).setError("Seleccione");
-            ((TextView) sp_GeneroD.getSelectedView()).setError("Seleccione");
-            ((TextView) sp_InfoAdicionalD.getSelectedView()).setError("Seleccione");
+            TextView errorText = (TextView) sp_TipoIdentificacionD.getSelectedView();
+            errorText.setError("");
+            errorText.setTextColor(Color.RED);
+            errorText.setText("Seleccione un TI");
             retorno = false;
         } else {
             txtInputApellidoPaternoDenunciado.setErrorEnabled(false);
@@ -241,14 +252,7 @@ public class DenunciadosFragment extends Fragment {
         text_input_nombresD.setErrorEnabled(false);
         txtInputApellidoPaternoDenunciado.setErrorEnabled(false);
         txtInputApellidoMaternoDenunciado.setErrorEnabled(false);
-        sp_GeneroD.setError(null);
-        sp_TipoIdentificacionD.setError(null);
-        sp_InfoAdicionalD.setError(null);
     }
-
-    /*edt_NombresD.getText().toString().equals("")
-                && edt_ApellidoPaternoD.getText().toString().equals("")
-                && edt_ApellidoMaternoD.getText().toString().equals("")*/
 
     private void guardarDenunciado() {
         Denunciado d;
@@ -267,13 +271,14 @@ public class DenunciadosFragment extends Fragment {
                 //mostrarToastOk(DenunciaManager.addDenunciado(d, getContext()), getView());
                 //Toast.makeText(getContext(), DenunciaManager.addDenunciado(d, getContext()), Toast.LENGTH_SHORT).show();
             } catch (Exception e) {
-                mostrarToast("Error al intentar crear el objeto Denunciado:" + e.getMessage(), getView());
+                errorMessage("Error al intentar crear el objeto Denunciado");
+                //mostrarToast("Error al intentar crear el objeto Denunciado:" + e.getMessage(), getView());
                 //Toast.makeText(getContext(), "Error al intentar crear el objeto Denunciado:" + e.getMessage() + " 😥", Toast.LENGTH_LONG).show();
                 e.printStackTrace();
             }
             this.clearCamposDenunciado();
         } else {
-            mostrarToast(messageToast, getView());
+            errorMessage("Por favor, complete todos los campos");
             //Toast.makeText(getContext(), "Por favor complete todos los campos 😑", Toast.LENGTH_LONG).show();
         }
     }
@@ -311,4 +316,31 @@ public class DenunciadosFragment extends Fragment {
                 SweetAlertDialog.SUCCESS_TYPE).setTitleText("Buen Trabajo!")
                 .setContentText(message).show();
     }
+
+    public void errorMessage(String message) {
+        new SweetAlertDialog(getContext(),
+                SweetAlertDialog.ERROR_TYPE).setTitleText("Oops...").setContentText(message).show();
+    }
+
+    public void warningMessage(String message) {
+        new SweetAlertDialog(getContext(),
+                SweetAlertDialog.WARNING_TYPE).setTitleText("Estás seguro de eliminar?")
+                .setContentText(message).setConfirmText("Sí, Eliminar!").show();
+    }
+
+    //Eliminar con los botones de cancelar y confirmar
+    public void withCancelButtonListener(String message) {
+        new SweetAlertDialog(getContext(), SweetAlertDialog.WARNING_TYPE)
+                .setTitleText("Estás seguro de eliminar?")
+                .setContentText("Una vez eliminado, ya no estará disponible!")
+                .setCancelText("No, Cancelar!")
+                .setConfirmText("Sí, Eliminar")
+                .showCancelButton(true)
+                .setCancelClickListener(sDialog -> {
+                    mostrarToastOk(message, getView());
+                    sDialog.cancel();
+                }).show();
+    }
+
+
 }

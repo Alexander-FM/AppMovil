@@ -55,13 +55,13 @@ public class DenunciadosFragment extends Fragment {
     private EditText edt_DocD, edt_NombresD, edt_ApellidoPaternoD, edt_ApellidoMaternoD;
     private Button btnSaveD, btnCancelarD;
     private CheckBox unknowPerson;
-    private TextInputLayout text_input_nombresD, txtInputApellidoPaternoDenunciado, txtInputApellidoMaternoDenunciado;
+    private TextInputLayout text_input_nombresD, txtInputApellidoPaternoDenunciado,
+            txtInputApellidoMaternoDenunciado, text_input_numero_docD;
 
     private List<InformacionAdicional> infosAdicional = new ArrayList<>();
     private List<TipoIdentificacion> tiposIdentificacion = new ArrayList<>();
     private ArrayAdapter<String> adapterInfAdic, adapterTipoIden;
     private List<String> displayInfAdic = new ArrayList<>(), displayTipoIdent = new ArrayList<>();
-    private String messageToast = " Por favor complete todos los campos 😑";
 
     public DenunciadosFragment() {
     }
@@ -145,6 +145,7 @@ public class DenunciadosFragment extends Fragment {
         txtInputApellidoMaternoDenunciado = view.findViewById(R.id.txtInputApellidoMaternoDenunciado);
         txtInputApellidoPaternoDenunciado = view.findViewById(R.id.txtInputApellidoPaternoDenunciado);
         text_input_nombresD = view.findViewById(R.id.text_input_nombresD);
+        text_input_numero_docD = view.findViewById(R.id.text_input_numero_docD);
         unknowPerson = view.findViewById(R.id.unknowPerson);
         unknowPerson.setOnCheckedChangeListener((button, isChecked) -> {
             bloquearCampos(!isChecked);
@@ -162,7 +163,6 @@ public class DenunciadosFragment extends Fragment {
 
             @Override
             public void afterTextChanged(Editable editable) {
-                text_input_nombresD.setErrorEnabled(false);
             }
         });
         edt_ApellidoPaternoD.addTextChangedListener(new TextWatcher() {
@@ -178,7 +178,6 @@ public class DenunciadosFragment extends Fragment {
 
             @Override
             public void afterTextChanged(Editable editable) {
-                txtInputApellidoPaternoDenunciado.setErrorEnabled(false);
             }
         });
         edt_ApellidoMaternoD.addTextChangedListener(new TextWatcher() {
@@ -194,7 +193,6 @@ public class DenunciadosFragment extends Fragment {
 
             @Override
             public void afterTextChanged(Editable editable) {
-                txtInputApellidoMaternoDenunciado.setErrorEnabled(false);
             }
         });
     }
@@ -202,10 +200,10 @@ public class DenunciadosFragment extends Fragment {
     private void bloquearCampos(boolean b) {
         sp_TipoIdentificacionD.setEnabled(b);
         edt_DocD.setEnabled(b);
-        if(b == false){
+        if (b == false) {
             sp_TipoIdentificacionD.setSelection(2);
             edt_DocD.setText("- - -");
-        }else{
+        } else {
             sp_TipoIdentificacionD.setSelection(0);
             edt_DocD.setText("");
         }
@@ -217,26 +215,39 @@ public class DenunciadosFragment extends Fragment {
         nombreD = edt_NombresD.getText().toString();
         apellidoPaternoD = edt_ApellidoPaternoD.getText().toString();
         apellidoMaternoD = edt_ApellidoMaternoD.getText().toString();
-        if (nombreD.isEmpty() || apellidoPaternoD.isEmpty()
-                || apellidoMaternoD.isEmpty()
-                || sp_TipoIdentificacionD.getSelectedItemPosition() == 0
-                || sp_InfoAdicionalD.getSelectedItemPosition() == 0
-                || sp_GeneroD.getSelectedItemPosition() == -0) {
+        if (nombreD.isEmpty()) {
             text_input_nombresD.setError("Ingresa tus nombres completos.");
+            retorno = false;
+        } else {
+            text_input_nombresD.setErrorEnabled(false);
+        }
+        if (apellidoPaternoD.isEmpty()) {
             txtInputApellidoPaternoDenunciado.setError("Ingresa tu apellido paterno.");
-            txtInputApellidoMaternoDenunciado.setError("Ingresa tu apellido materno.");
-            TextView errorText = (TextView) sp_TipoIdentificacionD.getSelectedView();
-            errorText.setError("");
-            errorText.setTextColor(Color.RED);
-            errorText.setText("Seleccione un TI");
             retorno = false;
         } else {
             txtInputApellidoPaternoDenunciado.setErrorEnabled(false);
+        }
+        if (apellidoMaternoD.isEmpty()) {
+            txtInputApellidoMaternoDenunciado.setError("Ingresa tu apellido materno.");
+            retorno = false;
+        } else {
             txtInputApellidoMaternoDenunciado.setErrorEnabled(false);
-            text_input_nombresD.setErrorEnabled(false);
-            ((TextView) sp_TipoIdentificacionD.getSelectedView()).setError(null);
-            ((TextView) sp_GeneroD.getSelectedView()).setError(null);
-            ((TextView) sp_InfoAdicionalD.getSelectedView()).setError(null);
+        }
+        if (sp_GeneroD.getSelectedItemPosition() == 0) {
+            TextView errorText2 = (TextView) sp_GeneroD.getSelectedView();
+            errorText2.setError("");
+            errorText2.setTextColor(Color.RED);
+            errorText2.setText("Seleccione");
+        } else {
+            sp_GeneroD.setError(null);
+        }
+        if (sp_InfoAdicionalD.getSelectedItemPosition() == 0) {
+            TextView errorText = (TextView) sp_InfoAdicionalD.getSelectedView();
+            errorText.setError("");
+            errorText.setTextColor(Color.RED);
+            errorText.setText("Seleccione");
+        } else {
+            sp_InfoAdicionalD.setError(null);
         }
         return retorno;
     }
@@ -252,6 +263,10 @@ public class DenunciadosFragment extends Fragment {
         text_input_nombresD.setErrorEnabled(false);
         txtInputApellidoPaternoDenunciado.setErrorEnabled(false);
         txtInputApellidoMaternoDenunciado.setErrorEnabled(false);
+        unknowPerson.setChecked(false);
+        sp_InfoAdicionalD.setError(null);
+        sp_TipoIdentificacionD.setError(null);
+        sp_GeneroD.setError(null);
     }
 
     private void guardarDenunciado() {
@@ -279,36 +294,7 @@ public class DenunciadosFragment extends Fragment {
             this.clearCamposDenunciado();
         } else {
             errorMessage("Por favor, complete todos los campos");
-            //Toast.makeText(getContext(), "Por favor complete todos los campos 😑", Toast.LENGTH_LONG).show();
         }
-    }
-
-    public void mostrarToast(String texto, View v) {
-        LayoutInflater layoutInflater = getLayoutInflater();
-        View layouView = layoutInflater.inflate(R.layout.custom_toast, (ViewGroup) v.findViewById(R.id.layout_base_1));
-        TextView textView = layouView.findViewById(R.id.textoinfo);
-        textView.setText(texto);
-
-        Toast toast = new Toast(getContext());
-        toast.setGravity(Gravity.CENTER_VERTICAL | Gravity.BOTTOM, 0, 200);
-        toast.setDuration(Toast.LENGTH_LONG);
-        toast.setView(layouView);
-        toast.show();
-
-    }
-
-    public void mostrarToastOk(String texto, View v) {
-        LayoutInflater layoutInflater = getLayoutInflater();
-        View layouView = layoutInflater.inflate(R.layout.custom_toast_check, (ViewGroup) v.findViewById(R.id.layout_base_2));
-        TextView textView = layouView.findViewById(R.id.textoinfo2);
-        textView.setText(texto);
-
-        Toast toast = new Toast(getContext());
-        toast.setGravity(Gravity.CENTER_VERTICAL | Gravity.BOTTOM, 0, 200);
-        toast.setDuration(Toast.LENGTH_LONG);
-        toast.setView(layouView);
-        toast.show();
-
     }
 
     public void successMessage(String message) {
@@ -324,23 +310,8 @@ public class DenunciadosFragment extends Fragment {
 
     public void warningMessage(String message) {
         new SweetAlertDialog(getContext(),
-                SweetAlertDialog.WARNING_TYPE).setTitleText("Estás seguro de eliminar?")
-                .setContentText(message).setConfirmText("Sí, Eliminar!").show();
+                SweetAlertDialog.WARNING_TYPE).setTitleText("Notificación del Sistema")
+                .setContentText(message).setConfirmText("Ok").show();
     }
-
-    //Eliminar con los botones de cancelar y confirmar
-    public void withCancelButtonListener(String message) {
-        new SweetAlertDialog(getContext(), SweetAlertDialog.WARNING_TYPE)
-                .setTitleText("Estás seguro de eliminar?")
-                .setContentText("Una vez eliminado, ya no estará disponible!")
-                .setCancelText("No, Cancelar!")
-                .setConfirmText("Sí, Eliminar")
-                .showCancelButton(true)
-                .setCancelClickListener(sDialog -> {
-                    mostrarToastOk(message, getView());
-                    sDialog.cancel();
-                }).show();
-    }
-
 
 }

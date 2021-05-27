@@ -134,7 +134,7 @@ public class DenunciaFragment extends Fragment {
         btnLimpiarDenunciaF.setOnClickListener(view -> limpiarCamposDenuncia());
         this.btnGoMaps = v.findViewById(R.id.btnGoMaps);
         btnGoMaps.setOnClickListener(v1 -> {
-           this.startActivityForResult(new Intent(getActivity(), SeleccioneUbicacionActivity.class), 1);
+            this.startActivityForResult(new Intent(getActivity(), SeleccioneUbicacionActivity.class), 1);
         });
 
         this.edtFechaHechos = v.findViewById(R.id.dtpFechaHechos);
@@ -428,9 +428,13 @@ public class DenunciaFragment extends Fragment {
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable @org.jetbrains.annotations.Nullable Intent data) {
-        if (resultCode == Activity.RESULT_OK)
+        if (resultCode == Activity.RESULT_OK) {
             edtLatitud.setText(Double.toString(data.getDoubleExtra("latitud", 0)));
-        edtLongitud.setText(Double.toString(data.getDoubleExtra("longitud", 0)));
+            edtLongitud.setText(Double.toString(data.getDoubleExtra("longitud", 0)));
+        } else {
+            new SweetAlertDialog(getContext(),
+                    SweetAlertDialog.ERROR_TYPE).setTitleText("Has cancelado la operación").show();
+        }
 
     }
 }

@@ -32,7 +32,7 @@ import java.util.List;
 import java.util.Locale;
 
 public class SeleccioneUbicacionActivity extends AppCompatActivity implements OnMapReadyCallback {
-
+    private final String[] permisos = new String[]{android.Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION};
     private Boolean acceso = false;
     private final static int PLACE_PICKER_REQUEST = 999;
     private final static int LOCATION_REQUEST_CODE = 23;
@@ -43,17 +43,16 @@ public class SeleccioneUbicacionActivity extends AppCompatActivity implements On
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_seleccione_ubicacion);
         if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_COARSE_LOCATION)
+                != PackageManager.PERMISSION_GRANTED && ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
                 != PackageManager.PERMISSION_GRANTED) {
 
-            ActivityCompat.requestPermissions(this, new String[]{android.Manifest.permission.ACCESS_COARSE_LOCATION},
+            ActivityCompat.requestPermissions(this, this.permisos,
                     LOCATION_REQUEST_CODE);
         } else {
             this.acceso = true;
         }
         if (acceso) {
-            mapFragment = (MapFragment) getFragmentManager()
-                    .findFragmentById(R.id.map);
-            mapFragment.getMapAsync(this);
+            this.loadMap();
         }
     }
 
@@ -66,6 +65,7 @@ public class SeleccioneUbicacionActivity extends AppCompatActivity implements On
                 if (grantResults.length > 0
                         && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     this.acceso = true;
+                    this.loadMap();
                     break;
                 } else {
                     this.finish();
@@ -73,6 +73,12 @@ public class SeleccioneUbicacionActivity extends AppCompatActivity implements On
                 }
             }
         }
+    }
+
+    private void loadMap() {
+        mapFragment = (MapFragment) getFragmentManager()
+                .findFragmentById(R.id.map);
+        mapFragment.getMapAsync(this);
     }
 
     @Override
@@ -142,5 +148,11 @@ public class SeleccioneUbicacionActivity extends AppCompatActivity implements On
             return "No Address Found";
 
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        this.setResult(AppCompatActivity.RESULT_CANCELED);
+        this.finish();
     }
 }

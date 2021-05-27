@@ -156,6 +156,8 @@
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/edtDireccionHechos"
                             android:layout_width="match_parent"
+                            android:enabled="false"
+                            android:focusable="false"
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/poppins_medium"
                             android:hint="@string/direccionD"
@@ -185,6 +187,8 @@
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/poppins_medium"
                             android:hint="Longitud"
+                            android:focusable="false"
+                            android:enabled="false"
                             android:textSize="15sp" />
                     </com.google.android.material.textfield.TextInputLayout>
 
@@ -202,6 +206,8 @@
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/poppins_medium"
                             android:hint="Latitud"
+                            android:focusable="false"
+                            android:enabled="false"
                             android:textSize="15sp" />
                     </com.google.android.material.textfield.TextInputLayout>
 
@@ -246,7 +252,7 @@
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/poppins_medium"
                             android:hint="@string/referenciaD"
-                            android:textSize="15sp" />
+                            android:textSize="15sp"/>
                     </com.google.android.material.textfield.TextInputLayout>
                 </LinearLayout>
 

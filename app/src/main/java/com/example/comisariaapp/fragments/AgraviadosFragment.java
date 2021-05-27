@@ -272,22 +272,6 @@ public class AgraviadosFragment extends Fragment {
 
             }
         });
-        edtFechaEmisionProteccion.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                text_input_fechaEmisionP.setErrorEnabled(false);
-            }
-
-            @Override
-            public void afterTextChanged(Editable editable) {
-
-            }
-        });
         edtReferenciaDomicilioReal.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -297,22 +281,6 @@ public class AgraviadosFragment extends Fragment {
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
                 text_input_direccionA.setErrorEnabled(false);
-            }
-
-            @Override
-            public void afterTextChanged(Editable editable) {
-
-            }
-        });
-        edtDetalleProtección.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                text_input_detalle_proteccion_juez.setErrorEnabled(false);
             }
 
             @Override
@@ -423,8 +391,6 @@ public class AgraviadosFragment extends Fragment {
         fechaNacA = edtFechaNacimientoA.getText().toString();
         celularA = edtCeluarA.getText().toString();
         direccionA = edtReferenciaDomicilioReal.getText().toString();
-        fechaEmisionProteccionA = edtFechaEmisionProteccion.getText().toString();
-        detalleProteccionA = edtDetalleProtección.getText().toString();
         relateDenuncia = edtHechoDenunciar.getText().toString();
         if (numDocA.isEmpty()) {
             text_input_numero_doc.setError("Introducir núm. doc.");
@@ -468,19 +434,6 @@ public class AgraviadosFragment extends Fragment {
         } else {
             text_input_direccionA.setErrorEnabled(false);
         }
-        if (fechaEmisionProteccionA.isEmpty()) {
-            text_input_fechaEmisionP.setError("Espeficar Fecha Emisión");
-            retorno = false;
-        } else {
-            text_input_fechaEmisionP.setErrorEnabled(false);
-        }
-
-        if (detalleProteccionA.isEmpty()) {
-            text_input_detalle_proteccion_juez.setError("Introduce la descripción de tu protección");
-            retorno = false;
-        } else {
-            text_input_detalle_proteccion_juez.setErrorEnabled(false);
-        }
         if (relateDenuncia.isEmpty()) {
             text_input_relate_hechos_denuncia.setError("Relate los hechos a denunciar");
             retorno = false;
@@ -521,27 +474,6 @@ public class AgraviadosFragment extends Fragment {
             errorText.setText("Seleccione");
         } else {
             drop_infoAdicionalA.setError(null);
-        }
-        if (drop_Juzgado.getSelectedItemPosition() == 0) {
-            TextView errorText = (TextView) drop_Juzgado.getSelectedView();
-            errorText.setError("");
-            errorText.setTextColor(Color.RED);
-            errorText.setText("Seleccione");
-        } else {
-            drop_Juzgado.setError(null);
-        }
-        if (drop_medidaProteccion.getSelectedItemPosition() == 0) {
-            TextView errorText = (TextView) drop_medidaProteccion.getSelectedView();
-            errorText.setError("");
-            errorText.setTextColor(Color.RED);
-            errorText.setText("Seleccione");
-        } else {
-            drop_medidaProteccion.setError(null);
-        }
-        if (drop_medidaProteccion.getSelectedItemPosition() == 2) {
-            drop_Juzgado.setError(null);
-            text_input_fechaEmisionP.setErrorEnabled(false);
-            text_input_detalle_proteccion_juez.setErrorEnabled(false);
         }
         return retorno;
     }

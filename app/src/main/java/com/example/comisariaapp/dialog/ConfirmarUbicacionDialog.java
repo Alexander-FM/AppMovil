@@ -67,6 +67,7 @@ public class ConfirmarUbicacionDialog extends DialogFragment implements
             dismiss();
             i.putExtra("latitud",this.Lat);
             i.putExtra("longitud",this.Long);
+            i.putExtra("address", this.Address);
             this.getActivity().setResult(Activity.RESULT_OK,i);
             this.getActivity().finish();
         });

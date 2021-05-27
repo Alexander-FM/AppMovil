@@ -431,6 +431,7 @@ public class DenunciaFragment extends Fragment {
         if (resultCode == Activity.RESULT_OK) {
             edtLatitud.setText(Double.toString(data.getDoubleExtra("latitud", 0)));
             edtLongitud.setText(Double.toString(data.getDoubleExtra("longitud", 0)));
+            edtLugarHechos.setText(data.getStringExtra("address"));
         } else {
             new SweetAlertDialog(getContext(),
                     SweetAlertDialog.ERROR_TYPE).setTitleText("Has cancelado la operación").show();

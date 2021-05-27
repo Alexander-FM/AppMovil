@@ -26,18 +26,14 @@ import com.google.android.gms.maps.model.MarkerOptions;
 
 public class ConfirmarUbicacionDialog extends DialogFragment implements
         android.view.View.OnClickListener, OnMapReadyCallback {
-    public Activity c;
     public Dialog d;
-    public Button yes, no;
 
     private GoogleMap mMap;
-    MapView mapView;
-    Double Lat;
-    Double Long;
-    String Address;
-    TextView myAddress;
-    Button SelectBtn;
-    Button ChangeBtn;
+    private Double Lat,Long;
+    private String Address;
+    private TextView myAddress;
+    private Button btnSeleccionarUbicacion,btnCambiarUbicacion;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,37 +42,35 @@ public class ConfirmarUbicacionDialog extends DialogFragment implements
         Address = getArguments().getString("address");
 
     }
-    MapFragment mapFragment;
+
+    private MapFragment mapFragment;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.dialog_confirmar_ubicacion, container, false);
-        myAddress=(TextView)v.findViewById(R.id.myAddress);
-        SelectBtn=(Button) v.findViewById(R.id.Select);
-        ChangeBtn=(Button) v.findViewById(R.id.Change);
-
+        myAddress = (TextView) v.findViewById(R.id.myAddress);
+        btnSeleccionarUbicacion = (Button) v.findViewById(R.id.btnSeleccionarUbicacion);
+        btnCambiarUbicacion = (Button) v.findViewById(R.id.btnCambiarUbicacion);
 
 
         mapFragment = (MapFragment) getFragmentManager().findFragmentById(R.id.mapp);
         mapFragment.getMapAsync(this);
         // Toast.makeText(getActivity(),mNum,Toast.LENGTH_LONG).show();
 
-        SelectBtn.setOnClickListener(v1 -> {
-            Toast.makeText(getActivity(),myAddress.getText().toString(),Toast.LENGTH_LONG).show();
-            Intent i=new Intent();
+        btnSeleccionarUbicacion.setOnClickListener(v1 -> {
+            Toast.makeText(getActivity(), myAddress.getText().toString(), Toast.LENGTH_LONG).show();
+            Intent i = new Intent();
             getFragmentManager().beginTransaction().remove(mapFragment).commit();
             dismiss();
-            i.putExtra("latitud",this.Lat);
-            i.putExtra("longitud",this.Long);
+            i.putExtra("latitud", this.Lat);
+            i.putExtra("longitud", this.Long);
             i.putExtra("address", this.Address);
-            this.getActivity().setResult(Activity.RESULT_OK,i);
+            this.getActivity().setResult(Activity.RESULT_OK, i);
             this.getActivity().finish();
         });
-        ChangeBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                getFragmentManager().beginTransaction().remove(mapFragment).commit();
-                dismiss();
-            }
+        btnCambiarUbicacion.setOnClickListener(v12 -> {
+            getFragmentManager().beginTransaction().remove(mapFragment).commit();
+            dismiss();
         });
         getDialog().setCanceledOnTouchOutside(true);
         return v;
@@ -107,14 +101,14 @@ public class ConfirmarUbicacionDialog extends DialogFragment implements
         myAddress.setText(Address);
         mMap.getUiSettings().setMyLocationButtonEnabled(false);
         MarkerOptions markerOptions = new MarkerOptions();
-        markerOptions.position(new LatLng(Lat,Long));
+        markerOptions.position(new LatLng(Lat, Long));
 
         markerOptions.title(Address);
         mMap.clear();
         CameraUpdate location = CameraUpdateFactory.newLatLngZoom(
-                new LatLng(Lat,Long), 16f);
+                new LatLng(Lat, Long), 16f);
         mMap.animateCamera(location);
         mMap.addMarker(markerOptions);
-        Log.d("status","success");
+        Log.d("status", "success");
     }
 }

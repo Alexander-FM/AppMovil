@@ -10,6 +10,7 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
@@ -428,14 +429,25 @@ public class DenunciaFragment extends Fragment {
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable @org.jetbrains.annotations.Nullable Intent data) {
-        if (resultCode == Activity.RESULT_OK) {
-            edtLatitud.setText(Double.toString(data.getDoubleExtra("latitud", 0)));
-            edtLongitud.setText(Double.toString(data.getDoubleExtra("longitud", 0)));
-            edtLugarHechos.setText(data.getStringExtra("address"));
-        } else {
-            new SweetAlertDialog(getContext(),
-                    SweetAlertDialog.ERROR_TYPE).setTitleText("Has cancelado la operación").show();
-        }
+        switch (resultCode) {
+            case AppCompatActivity.RESULT_OK:
+                edtLatitud.setText(Double.toString(data.getDoubleExtra("latitud", 0)));
+                edtLongitud.setText(Double.toString(data.getDoubleExtra("longitud", 0)));
+                edtLugarHechos.setText(data.getStringExtra("address"));
+                break;
+            case AppCompatActivity.RESULT_CANCELED:
+                new SweetAlertDialog(getContext(),
+                        SweetAlertDialog.ERROR_TYPE).setTitleText("Has cancelado la operación").show();
+                break;
+            case 2:
+                new SweetAlertDialog(getContext(),
+                        SweetAlertDialog.ERROR_TYPE).setTitleText("No se puede realizar la operación").setContentText("se requiere que aceptes el permiso de ubicación para que el mapa georeferencial funcione").show();
+                break;
+            case 3:
+                Toast.makeText(this.getContext(), "Aplicando Cambios . . . ", Toast.LENGTH_SHORT).show();
+                this.startActivityForResult(new Intent(getActivity(), SeleccioneUbicacionActivity.class), 1);
+                break;
 
+        }
     }
 }

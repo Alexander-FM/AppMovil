@@ -24,7 +24,7 @@
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
 
-        <activity android:name=".activity.SeleccioneUbicacionActivity"></activity>
+        <activity android:name=".activity.SeleccioneUbicacionActivity" />
         <activity android:name=".activity.ConsultarTramitesDenunciasActivity" />
         <activity android:name=".activity.IngresarDenunciaActivity" />
         <activity android:name=".activity.InformateAqui1Activity" />

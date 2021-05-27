@@ -22,6 +22,7 @@ import com.example.comisariaapp.dialog.ConfirmarUbicacionDialog;
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.GoogleMapOptions;
 import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.LatLng;
@@ -36,12 +37,16 @@ public class SeleccioneUbicacionActivity extends AppCompatActivity implements On
     private Boolean acceso = false;
     private final static int PLACE_PICKER_REQUEST = 999;
     private final static int LOCATION_REQUEST_CODE = 23;
-    private MapFragment mapFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_seleccione_ubicacion);
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
         if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_COARSE_LOCATION)
                 != PackageManager.PERMISSION_GRANTED && ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
                 != PackageManager.PERMISSION_GRANTED) {
@@ -49,13 +54,9 @@ public class SeleccioneUbicacionActivity extends AppCompatActivity implements On
             ActivityCompat.requestPermissions(this, this.permisos,
                     LOCATION_REQUEST_CODE);
         } else {
-            this.acceso = true;
-        }
-        if (acceso) {
             this.loadMap();
         }
     }
-
 
     @Override
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
@@ -64,38 +65,32 @@ public class SeleccioneUbicacionActivity extends AppCompatActivity implements On
             case LOCATION_REQUEST_CODE: {
                 if (grantResults.length > 0
                         && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    this.acceso = true;
-                    this.loadMap();
+                    this.setResult(3);
+                    this.finish();
                     break;
                 } else {
+                    this.setResult(2);
                     this.finish();
-                    System.exit(0);
                 }
             }
         }
     }
 
     private void loadMap() {
-        mapFragment = (MapFragment) getFragmentManager()
+         MapFragment mapFragment = (MapFragment) this.getFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
     }
 
     @Override
-    public void onMapReady(final GoogleMap googleMap) {
+    public void onMapReady(GoogleMap googleMap) {
         if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_COARSE_LOCATION)
+                == PackageManager.PERMISSION_GRANTED && ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
                 == PackageManager.PERMISSION_GRANTED) {
             googleMap.getUiSettings().setZoomControlsEnabled(true);
             googleMap.setMyLocationEnabled(true);
             //googleMap.getUiSettings().setMyLocationButtonEnabled(true);
             googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(-6.767803, -79.861883), 14.4f));
-            /*googleMap.setOnMyLocationChangeListener(location -> {
-                LatLng ltlng = new LatLng(location.getLatitude(), location.getLongitude());
-                CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(
-                        ltlng, 16f);
-                googleMap.animateCamera(cameraUpdate);
-            });*/
-            Location location = googleMap.getMyLocation();
             googleMap.setOnMapClickListener(latLng -> {
                 MarkerOptions markerOptions = new MarkerOptions();
                 markerOptions.position(latLng);

@@ -2,6 +2,7 @@ package com.example.comisariaapp.fragments;
 
 import android.app.DatePickerDialog;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -10,6 +11,8 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.preference.PreferenceManager;
 
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,6 +21,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.comisariaapp.R;
@@ -37,7 +41,9 @@ import com.example.comisariaapp.viewmodel.DistritoViewModel;
 import com.example.comisariaapp.viewmodel.EstadoCivilViewModel;
 import com.example.comisariaapp.viewmodel.InformacionAdicionalViewModel;
 import com.example.comisariaapp.viewmodel.TipoDenunciaViewModel;
+import com.example.comisariaapp.viewmodel.TipoIdentificacionViewModel;
 import com.example.comisariaapp.viewmodel.VinculoParteDenunciadaViewModel;
+import com.google.android.material.textfield.TextInputLayout;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
@@ -53,10 +59,11 @@ import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.List;
 
+import cn.pedant.SweetAlert.SweetAlertDialog;
 import fr.ganfra.materialspinner.MaterialSpinner;
 
 public class AgraviadosFragment extends Fragment {
-
+    private TipoIdentificacionViewModel tipoViewModel;
     private DistritoViewModel distritoViewModel;
     private InformacionAdicionalViewModel infoAdicViewModel;
 
@@ -66,12 +73,18 @@ public class AgraviadosFragment extends Fragment {
             edtFechaEmisionProteccion, edtDetalleProtección;
 
     private Button btnSaveA, btnCancelarA;
+    private TextInputLayout text_input_numero_doc, text_input_nombresA, txtInputApellidoMaternoAgraviado,
+            txtInputApellidoPaternoAgraviado, text_input_fechaNacimientoA, text_input_celularA, text_input_direccionA,
+            text_input_fechaEmisionP, text_input_detalle_proteccion_juez, text_input_relate_hechos_denuncia;
 
     private List<Distrito> allDistritos = new ArrayList<>();
+    private List<TipoIdentificacion> tiposIdentificacion = new ArrayList<>();
     private List<InformacionAdicional> infosAdicional = new ArrayList<>();
     private List<EstadoCivil> estadosCiviles = new ArrayList<>();
-    private ArrayAdapter<String> adapterAllDistritos, adapterInfAdic;
-    private List<String> displayAllDistritos = new ArrayList<>(), displayInfAdic = new ArrayList<>(), displayEstadosCiviles = new ArrayList<>();
+    private ArrayAdapter<String> adapterAllDistritos, adapterInfAdic, adapterTipoIden;
+    private List<String> displayAllDistritos = new ArrayList<>(),
+            displayInfAdic = new ArrayList<>(),
+            displayEstadosCiviles = new ArrayList<>(), displayTipoIdent = new ArrayList<>();
 
     public AgraviadosFragment() {
         // Required empty public constructor
@@ -152,19 +165,190 @@ public class AgraviadosFragment extends Fragment {
 
             }
         });
+        //Accediendo a los id de los text layout para poder setear el error en caso de que el usuario lo deje vacío.
+        text_input_numero_doc = view.findViewById(R.id.text_input_numero_doc);
+        text_input_nombresA = view.findViewById(R.id.text_input_nombresA);
+        txtInputApellidoMaternoAgraviado = view.findViewById(R.id.txtInputApellidoMaternoAgraviado);
+        txtInputApellidoPaternoAgraviado = view.findViewById(R.id.txtInputApellidoPaternoAgraviado);
+        text_input_fechaNacimientoA = view.findViewById(R.id.text_input_fechaNacimientoA);
+        text_input_celularA = view.findViewById(R.id.text_input_celularA);
+        text_input_direccionA = view.findViewById(R.id.text_input_direccionA);
+        text_input_fechaEmisionP = view.findViewById(R.id.text_input_fechaEmisionP);
+        text_input_detalle_proteccion_juez = view.findViewById(R.id.text_input_detalle_proteccion_juez);
+        text_input_relate_hechos_denuncia = view.findViewById(R.id.text_input_relate_hechos_denuncia);
+        edtDocA.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                text_input_numero_doc.setErrorEnabled(false);
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
+        edtNombresA.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                text_input_nombresA.setErrorEnabled(false);
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
+        edtApellidoPaternoA.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                txtInputApellidoPaternoAgraviado.setErrorEnabled(false);
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
+        edtApellidoMaternoA.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                txtInputApellidoMaternoAgraviado.setErrorEnabled(false);
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
+        edtCeluarA.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                text_input_celularA.setErrorEnabled(false);
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
+        edtFechaNacimientoA.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                text_input_fechaNacimientoA.setErrorEnabled(false);
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
+        edtFechaEmisionProteccion.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                text_input_fechaEmisionP.setErrorEnabled(false);
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
+        edtReferenciaDomicilioReal.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                text_input_direccionA.setErrorEnabled(false);
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
+        edtDetalleProtección.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                text_input_detalle_proteccion_juez.setErrorEnabled(false);
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
+        edtHechoDenunciar.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                text_input_relate_hechos_denuncia.setErrorEnabled(false);
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
     }
 
     public void initViewModels() {
         ViewModelProvider vmp = new ViewModelProvider(this);
         this.distritoViewModel = vmp.get(DistritoViewModel.class);
         this.infoAdicViewModel = vmp.get(InformacionAdicionalViewModel.class);
+        this.tipoViewModel = vmp.get((TipoIdentificacionViewModel.class));
     }
 
     public void initAdapters() {
-        drop_tipoIdentificacionA.setAdapter(new ArrayAdapter<>(getContext(), android.R.layout.simple_spinner_dropdown_item, new String[]{
-                "Natural",
-                "Jurídica"
-        }));
+        adapterTipoIden = new ArrayAdapter<>(getContext(), android.R.layout.simple_spinner_dropdown_item, displayTipoIdent);
+        adapterTipoIden.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        drop_tipoIdentificacionA.setAdapter(adapterTipoIden);
 
         adapterAllDistritos = new ArrayAdapter<>(getContext(), android.R.layout.simple_spinner_dropdown_item, displayAllDistritos);
         adapterAllDistritos.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -202,6 +386,18 @@ public class AgraviadosFragment extends Fragment {
             }
         });
 
+        this.tipoViewModel.list().observe(getViewLifecycleOwner(), response -> {
+            if (response.getRpta() == 1) {
+                this.tiposIdentificacion.clear();
+                this.tiposIdentificacion.addAll(response.getBody());
+                this.displayTipoIdent.clear();
+                for (TipoIdentificacion i : this.tiposIdentificacion) {
+                    this.displayTipoIdent.add(i.getTipoIdentificacion());
+                }
+                this.adapterTipoIden.notifyDataSetChanged();
+            }
+        });
+
         this.infoAdicViewModel.list().observe(getViewLifecycleOwner(), response -> {
             if (response.getRpta() == 1) {
                 this.infosAdicional.clear();
@@ -215,12 +411,144 @@ public class AgraviadosFragment extends Fragment {
         });
     }
 
+    private boolean validarCamposAgraviado() {
+        boolean retorno = true;
+        //Declaro variables de tipo String para los editText
+        String numDocA, nombreA, apellidoPaternoA, apellidoMaternoA, fechaNacA, celularA,
+                direccionA, fechaEmisionProteccionA, detalleProteccionA, relateDenuncia;
+        numDocA = edtDocA.getText().toString();
+        nombreA = edtNombresA.getText().toString();
+        apellidoPaternoA = edtApellidoPaternoA.getText().toString();
+        apellidoMaternoA = edtApellidoMaternoA.getText().toString();
+        fechaNacA = edtFechaNacimientoA.getText().toString();
+        celularA = edtCeluarA.getText().toString();
+        direccionA = edtReferenciaDomicilioReal.getText().toString();
+        fechaEmisionProteccionA = edtFechaEmisionProteccion.getText().toString();
+        detalleProteccionA = edtDetalleProtección.getText().toString();
+        relateDenuncia = edtHechoDenunciar.getText().toString();
+        if (numDocA.isEmpty()) {
+            text_input_numero_doc.setError("Introducir núm. doc.");
+            retorno = false;
+        } else {
+            text_input_numero_doc.setErrorEnabled(false);
+        }
+        if (nombreA.isEmpty()) {
+            text_input_nombresA.setError("Introducir Nombre");
+            retorno = false;
+        } else {
+            text_input_nombresA.setErrorEnabled(false);
+        }
+        if (apellidoPaternoA.isEmpty()) {
+            txtInputApellidoPaternoAgraviado.setError("Introducir Apellido Paterno");
+            retorno = false;
+        } else {
+            txtInputApellidoPaternoAgraviado.setErrorEnabled(false);
+        }
+        if (apellidoMaternoA.isEmpty()) {
+            txtInputApellidoMaternoAgraviado.setError("Introducir Apellido Materno");
+            retorno = false;
+        } else {
+            txtInputApellidoMaternoAgraviado.setErrorEnabled(false);
+        }
+        if (fechaNacA.isEmpty()) {
+            text_input_fechaNacimientoA.setError("Introducir Fecha Nacimiento");
+            retorno = false;
+        } else {
+            text_input_fechaNacimientoA.setErrorEnabled(false);
+        }
+        if (celularA.isEmpty()) {
+            text_input_celularA.setError("Introducir Número Telefónico");
+            retorno = false;
+        } else {
+            text_input_celularA.setErrorEnabled(false);
+        }
+        if (direccionA.isEmpty()) {
+            text_input_direccionA.setError("Introducir Dirección De Casa");
+            retorno = false;
+        } else {
+            text_input_direccionA.setErrorEnabled(false);
+        }
+        if (fechaEmisionProteccionA.isEmpty()) {
+            text_input_fechaEmisionP.setError("Espeficar Fecha Emisión");
+            retorno = false;
+        } else {
+            text_input_fechaEmisionP.setErrorEnabled(false);
+        }
+
+        if (detalleProteccionA.isEmpty()) {
+            text_input_detalle_proteccion_juez.setError("Introduce la descripción de tu protección");
+            retorno = false;
+        } else {
+            text_input_detalle_proteccion_juez.setErrorEnabled(false);
+        }
+        if (relateDenuncia.isEmpty()) {
+            text_input_relate_hechos_denuncia.setError("Relate los hechos a denunciar");
+            retorno = false;
+        } else {
+            text_input_relate_hechos_denuncia.setErrorEnabled(false);
+        }
+
+        ///Validación de spinner
+
+        if (drop_tipoIdentificacionA.getSelectedItemPosition() == 0) {
+            TextView errorText = (TextView) drop_tipoIdentificacionA.getSelectedView();
+            errorText.setError("");
+            errorText.setTextColor(Color.RED);
+            errorText.setText("Seleccione");
+        } else {
+            drop_tipoIdentificacionA.setError(null);
+        }
+        if (drop_distritoA.getSelectedItemPosition() == 0) {
+            TextView errorText = (TextView) drop_distritoA.getSelectedView();
+            errorText.setError("");
+            errorText.setTextColor(Color.RED);
+            errorText.setText("Seleccione");
+        } else {
+            drop_distritoA.setError(null);
+        }
+        if (drop_generoA.getSelectedItemPosition() == 0) {
+            TextView errorText = (TextView) drop_generoA.getSelectedView();
+            errorText.setError("");
+            errorText.setTextColor(Color.RED);
+            errorText.setText("Seleccione");
+        } else {
+            drop_generoA.setError(null);
+        }
+        if (drop_infoAdicionalA.getSelectedItemPosition() == 0) {
+            TextView errorText = (TextView) drop_infoAdicionalA.getSelectedView();
+            errorText.setError("");
+            errorText.setTextColor(Color.RED);
+            errorText.setText("Seleccione");
+        } else {
+            drop_infoAdicionalA.setError(null);
+        }
+        if (drop_Juzgado.getSelectedItemPosition() == 0) {
+            TextView errorText = (TextView) drop_Juzgado.getSelectedView();
+            errorText.setError("");
+            errorText.setTextColor(Color.RED);
+            errorText.setText("Seleccione");
+        } else {
+            drop_Juzgado.setError(null);
+        }
+        if (drop_medidaProteccion.getSelectedItemPosition() == 0) {
+            TextView errorText = (TextView) drop_medidaProteccion.getSelectedView();
+            errorText.setError("");
+            errorText.setTextColor(Color.RED);
+            errorText.setText("Seleccione");
+        } else {
+            drop_medidaProteccion.setError(null);
+        }
+        if (drop_medidaProteccion.getSelectedItemPosition() == 2) {
+            drop_Juzgado.setError(null);
+            text_input_fechaEmisionP.setErrorEnabled(false);
+            text_input_detalle_proteccion_juez.setErrorEnabled(false);
+        }
+        return retorno;
+    }
+
     private void guardarAgraviado() {
         Agraviado a;
-        if (!edtDocA.getText().toString().equals("") && !edtNombresA.getText().toString().equals("") && !edtApellidoPaternoA.getText().toString().equals("") && !edtApellidoMaternoA.getText().toString().equals("")
-                && drop_tipoIdentificacionA.getSelectedItemPosition() != 0
-                && !edtFechaNacimientoA.getText().toString().equals("") && !edtCeluarA.getText().toString().equals("")
-                && !edtReferenciaDomicilioReal.getText().toString().equals("") && !edtHechoDenunciar.getText().toString().equals("") && drop_medidaProteccion.getSelectedItemPosition() != -1) {
+        if (validarCamposAgraviado()) {
             a = new Agraviado();
             try {
                 a.setNumeroIdentificacion(edtDocA.getText().toString());
@@ -231,32 +559,50 @@ public class AgraviadosFragment extends Fragment {
                 a.setTelefono(edtCeluarA.getText().toString());
                 a.setDireccion(edtReferenciaDomicilioReal.getText().toString());
                 a.setRhd(edtHechoDenunciar.getText().toString());
-                int indexDistritoSelected = drop_distritoA.getSelectedItemPosition();
-                a.setDistrito(allDistritos.get(indexDistritoSelected - 1));
+                a.setDistrito(this.allDistritos.get(this.drop_distritoA.getSelectedItemPosition() - 1));
                 a.setSexo(drop_generoA.getSelectedItem().toString());
-                a.setTipoIdentificacion(new TipoIdentificacion());
-                final int indexti = drop_tipoIdentificacionA.getSelectedItemPosition();
-                a.getTipoIdentificacion().setId(indexti);
+                a.setTipoIdentificacion(this.tiposIdentificacion.get(this.drop_tipoIdentificacionA.getSelectedItemPosition() - 1));
                 a.setEstadoCivil(new EstadoCivil());
                 a.getEstadoCivil().setId(1);
-                int indexIA = drop_infoAdicionalA.getSelectedItemPosition();
-                a.setInformacionAdicional(infosAdicional.get(indexIA - 1));
+                /*int indexIA = drop_infoAdicionalA.getSelectedItemPosition();
+                a.setInformacionAdicional(infosAdicional.get(indexIA - 1));*/
+                a.setInformacionAdicional(this.infosAdicional.get(this.drop_infoAdicionalA.getSelectedItemPosition() - 1));
                 if (drop_medidaProteccion.getSelectedItemPosition() == 1) {
                     a.setMedidaProteccion(true);
                     a.setJuzgado(drop_Juzgado.getSelectedItem().toString());
                     a.setFechaEmision(new Date(new SimpleDateFormat("dd-MM-yyyy").parse(edtFechaEmisionProteccion.getText().toString()).getTime()));
                     a.setDetalleProteccion(edtDetalleProtección.getText().toString());
                 }
-                Toast.makeText(getContext(), DenunciaManager.addAgraviado(a, getContext()), Toast.LENGTH_SHORT).show();
+                successMessage(DenunciaManager.addAgraviado(a, getContext()));
+                //Toast.makeText(getContext(), DenunciaManager.addAgraviado(a, getContext()), Toast.LENGTH_SHORT).show();
                 //El this es para actividades y el getContext es para fragments, etc. - > Papá Cumpa.
             } catch (Exception e) {
-                Toast.makeText(getContext(), "Error al intentar crear el objeto Agraviado:" + e.getMessage() + " 😥", Toast.LENGTH_LONG).show();
+                warningMessage("Error al intentar crear el objeto Agraviado: " + e.getMessage());
+                //Toast.makeText(getContext(), "Error al intentar crear el objeto Agraviado:" + e.getMessage() + " 😥", Toast.LENGTH_LONG).show();
                 e.printStackTrace();
             }
             this.clearCamposAgraviado();
         } else {
-            Toast.makeText(getContext(), "Por favor complete todos los campos 😑", Toast.LENGTH_SHORT).show();
+            errorMessage("Por favor complete todos los campos !");
+            //Toast.makeText(getContext(), "Por favor complete todos los campos 😑", Toast.LENGTH_SHORT).show();
         }
+    }
+
+    public void successMessage(String message) {
+        new SweetAlertDialog(getContext(),
+                SweetAlertDialog.SUCCESS_TYPE).setTitleText("Buen Trabajo!")
+                .setContentText(message).show();
+    }
+
+    public void errorMessage(String message) {
+        new SweetAlertDialog(getContext(),
+                SweetAlertDialog.ERROR_TYPE).setTitleText("Oops...").setContentText(message).show();
+    }
+
+    public void warningMessage(String message) {
+        new SweetAlertDialog(getContext(),
+                SweetAlertDialog.WARNING_TYPE).setTitleText("Notificación del Sistema")
+                .setContentText(message).setConfirmText("Ok").show();
     }
 
     private void clearCamposAgraviado() {
@@ -279,6 +625,12 @@ public class AgraviadosFragment extends Fragment {
         drop_medidaProteccion.setSelection(0);
         edtFechaEmisionProteccion.setText("");
         mismaPersona.setChecked(false);
+        drop_infoAdicionalA.setError(null);
+        drop_distritoA.setError(null);
+        drop_tipoIdentificacionA.setError(null);
+        drop_medidaProteccion.setError(null);
+        drop_Juzgado.setError(null);
+        drop_generoA.setError(null);
     }
 
     private void asignarCamposProteccion(Boolean b) {

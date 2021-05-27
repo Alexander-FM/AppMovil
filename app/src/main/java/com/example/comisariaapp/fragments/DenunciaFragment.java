@@ -122,7 +122,7 @@ public class DenunciaFragment extends Fragment {
         btnLimpiarDenunciaF.setOnClickListener(view -> limpiarCamposDenuncia());
         this.btnGoMaps = v.findViewById(R.id.btnGoMaps);
         btnGoMaps.setOnClickListener(v1 -> {
-            startActivityForResult(new Intent(getActivity(), SeleccioneUbicacionActivity.class), 1);
+           this.startActivityForResult(new Intent(getActivity(), SeleccioneUbicacionActivity.class), 1);
         });
 
         this.edtFechaHechos = v.findViewById(R.id.dtpFechaHechos);

@@ -84,5 +84,6 @@ dependencies {
     //Google Maps
     implementation 'com.google.android.gms:play-services-maps:17.0.1'
     implementation 'com.google.android.gms:play-services-places:17.0.0'
+    //Sweet Alert
     implementation 'com.github.f0ris.sweetalert:library:1.6.2'
 }

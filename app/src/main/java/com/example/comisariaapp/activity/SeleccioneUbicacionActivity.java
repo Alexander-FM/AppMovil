@@ -1,6 +1,5 @@
 package com.example.comisariaapp.activity;
 
-import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
@@ -16,17 +15,15 @@ import android.location.Criteria;
 import android.location.Geocoder;
 import android.location.Location;
 import android.location.LocationManager;
-import android.os.Build;
 import android.os.Bundle;
-import android.widget.Button;
 
 import com.example.comisariaapp.R;
 import com.example.comisariaapp.dialog.ConfirmarUbicacionDialog;
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.OnMapReadyCallback;
-import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
@@ -36,11 +33,10 @@ import java.util.Locale;
 
 public class SeleccioneUbicacionActivity extends AppCompatActivity implements OnMapReadyCallback {
 
-    private boolean acceso = false;
-    Button btn;
+    private Boolean acceso = false;
     private final static int PLACE_PICKER_REQUEST = 999;
     private final static int LOCATION_REQUEST_CODE = 23;
-    private SupportMapFragment mapFragment;
+    private MapFragment mapFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,14 +48,13 @@ public class SeleccioneUbicacionActivity extends AppCompatActivity implements On
             ActivityCompat.requestPermissions(this, new String[]{android.Manifest.permission.ACCESS_COARSE_LOCATION},
                     LOCATION_REQUEST_CODE);
         } else {
-            acceso = true;
+            this.acceso = true;
         }
         if (acceso) {
-            mapFragment = (SupportMapFragment) getSupportFragmentManager()
+            mapFragment = (MapFragment) getFragmentManager()
                     .findFragmentById(R.id.map);
             mapFragment.getMapAsync(this);
         }
-
     }
 
 
@@ -70,8 +65,8 @@ public class SeleccioneUbicacionActivity extends AppCompatActivity implements On
             case LOCATION_REQUEST_CODE: {
                 if (grantResults.length > 0
                         && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    acceso = true;
-
+                    this.acceso = true;
+                    break;
                 } else {
                     this.finish();
                     System.exit(0);
@@ -81,11 +76,12 @@ public class SeleccioneUbicacionActivity extends AppCompatActivity implements On
     }
 
     @Override
-    public void onMapReady(GoogleMap googleMap) {
+    public void onMapReady(final GoogleMap googleMap) {
         if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_COARSE_LOCATION)
                 == PackageManager.PERMISSION_GRANTED) {
             googleMap.getUiSettings().setZoomControlsEnabled(true);
             googleMap.setMyLocationEnabled(true);
+            //googleMap.getUiSettings().setMyLocationButtonEnabled(true);
             googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(-6.767803, -79.861883), 14.4f));
             /*googleMap.setOnMyLocationChangeListener(location -> {
                 LatLng ltlng = new LatLng(location.getLatitude(), location.getLongitude());

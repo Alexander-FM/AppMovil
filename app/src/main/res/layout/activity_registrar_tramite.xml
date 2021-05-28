@@ -119,32 +119,99 @@
                         </RelativeLayout>
                     </LinearLayout>
 
-                    <CheckBox
-                        android:id="@+id/chkmismocorreotramite"
+                    <LinearLayout
+                        android:id="@+id/lineaEspecificarS"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:fontFamily="@font/poppins_regular"
-                        android:text="Utilizar mismo correo con el que me registré" />
+                        android:layout_marginTop="5dp"
+                        android:visibility="gone"
+                        android:orientation="horizontal">
 
-                    <com.google.android.material.textfield.TextInputLayout
-                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        app:startIconDrawable="@drawable/emailtramite">
-
-                        <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/edtCorreoElectronicoT"
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:id="@+id/text_input_especificarS"
+                            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:enabled="true"
-                            android:fontFamily="@font/poppins_medium"
-                            android:hint="Correo Electronico"
-                            android:textSize="15sp" />
-                    </com.google.android.material.textfield.TextInputLayout>
+                            app:startIconDrawable="@drawable/person">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/edtEspecificarS"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:enabled="true"
+                                android:fontFamily="@font/poppins_medium"
+                                android:hint="Especificar"
+                                android:textSize="15sp" />
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                    </LinearLayout>
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:orientation="horizontal">
+
+                        <CheckBox
+                            android:id="@+id/chkmismocorreotramite"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/poppins_regular"
+                            android:text="Utilizar el mismo correo electrónico y teléfono con el cual me registré" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:id="@+id/text_input_correoT"
+                            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            app:startIconDrawable="@drawable/emailtramite">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/edtCorreoElectronicoT"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:enabled="true"
+                                android:fontFamily="@font/poppins_medium"
+                                android:hint="Correo Electronico"
+                                android:inputType="textEmailAddress"
+                                android:textSize="15sp" />
+                        </com.google.android.material.textfield.TextInputLayout>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:id="@+id/text_input_telefonoTramite"
+                            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            app:startIconDrawable="@drawable/ic_phone">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/edtTelefonoTramite"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:enabled="true"
+                                android:inputType="phone"
+                                android:fontFamily="@font/poppins_medium"
+                                android:hint="Teléfono" />
+                        </com.google.android.material.textfield.TextInputLayout>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
                         android:orientation="horizontal">
 
                         <fr.ganfra.materialspinner.MaterialSpinner
@@ -183,36 +250,6 @@
                             app:ms_thickness="1dp" />
                     </LinearLayout>
 
-                    <CheckBox
-                        android:id="@+id/chkmismotelefono"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="@font/poppins_regular"
-                        android:text="Utilizar mismo teléfono con el que me registré" />
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal">
-
-                        <com.google.android.material.textfield.TextInputLayout
-                            android:id="@+id/text_input_telefonoTramite"
-                            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            app:startIconDrawable="@drawable/ic_phone">
-
-                            <com.google.android.material.textfield.TextInputEditText
-                                android:id="@+id/edtTelefonoTramite"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:enabled="true"
-                                android:fontFamily="@font/poppins_medium"
-                                android:hint="Teléfono" />
-                        </com.google.android.material.textfield.TextInputLayout>
-                    </LinearLayout>
-
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -237,8 +274,10 @@
                     </LinearLayout>
 
                     <LinearLayout
+                        android:id="@+id/linearDependenciaPolicial"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:visibility="gone"
                         android:orientation="horizontal">
 
                         <com.google.android.material.textfield.TextInputLayout

@@ -13,6 +13,11 @@ public final class Tramite {
     private String correo;
     private Usuario usuario;
     private Policia policia; /*Muchos Trámites puede atender un solo policía*/
+    private String telefono;
+    private String motivo_denuncia_policial;
+    private String observaciones;
+    private String solicitante;
+    private Comisarias comisarias;
 
     public int getId() {
         return id;
@@ -46,11 +51,11 @@ public final class Tramite {
         this.horaTramite = horaTramite;
     }
 
-    public TipoTramite getTipoTramite() {
+    public com.example.comisariaapp.entity.service.TipoTramite getTipoTramite() {
         return tipoTramite;
     }
 
-    public void setTipoTramite(TipoTramite tipoTramite) {
+    public void setTipoTramite(com.example.comisariaapp.entity.service.TipoTramite tipoTramite) {
         this.tipoTramite = tipoTramite;
     }
 
@@ -62,27 +67,67 @@ public final class Tramite {
         this.estadoTramite = estadoTramite;
     }
 
-    public Usuario getUsuario() {
-        return usuario;
-    }
-
-    public void setUsuario(Usuario usuario) {
-        this.usuario = usuario;
-    }
-
-    public Policia getPolicia() {
-        return policia;
-    }
-
-    public void setPolicia(Policia policia) {
-        this.policia = policia;
-    }
-
     public String getCorreo() {
         return correo;
     }
 
     public void setCorreo(String correo) {
         this.correo = correo;
+    }
+
+    public com.example.comisariaapp.entity.service.Usuario getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(com.example.comisariaapp.entity.service.Usuario usuario) {
+        this.usuario = usuario;
+    }
+
+    public com.example.comisariaapp.entity.service.Policia getPolicia() {
+        return policia;
+    }
+
+    public void setPolicia(com.example.comisariaapp.entity.service.Policia policia) {
+        this.policia = policia;
+    }
+
+    public String getTelefono() {
+        return telefono;
+    }
+
+    public void setTelefono(String telefono) {
+        this.telefono = telefono;
+    }
+
+    public String getMotivo_denuncia_policial() {
+        return motivo_denuncia_policial;
+    }
+
+    public void setMotivo_denuncia_policial(String motivo_denuncia_policial) {
+        this.motivo_denuncia_policial = motivo_denuncia_policial;
+    }
+
+    public String getObservaciones() {
+        return observaciones;
+    }
+
+    public void setObservaciones(String observaciones) {
+        this.observaciones = observaciones;
+    }
+
+    public String getSolicitante() {
+        return solicitante;
+    }
+
+    public void setSolicitante(String solicitante) {
+        this.solicitante = solicitante;
+    }
+
+    public com.example.comisariaapp.entity.service.Comisarias getComisarias() {
+        return comisarias;
+    }
+
+    public void setComisarias(com.example.comisariaapp.entity.service.Comisarias comisarias) {
+        this.comisarias = comisarias;
     }
 }

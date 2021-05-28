@@ -5,6 +5,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.Editable;
@@ -13,6 +14,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.comisariaapp.utils.DatePickerFragment;
@@ -29,14 +31,18 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
+import cn.pedant.SweetAlert.SweetAlertDialog;
 import fr.ganfra.materialspinner.MaterialSpinner;
 
 public class RegistrarUsuarioActivity extends AppCompatActivity {
     private DistritoViewModel distritoViewModel;
     private BuscarPersonaViewModel bpViewModel;
     private EstadoCivilViewModel ecViewModel;
+    private TipoTramiteViewModel tipoViewModel;
     private UsuarioViewModel viewModel;
-    public TextInputLayout textInputLayout;
+    public TextInputLayout textInputLayout, text_input_nd_usuario, txtInputApellidoPaternoAgraviado, textInputLayout_apellidoMaternoU,
+            txtInputNombresUsuario, fechaNacimientoUsuario, text_input_telefonoUsuario, text_input_direccionUsuario,
+            txtInputCorreoElectronicoU, txtInputClaveEmail;
     private EditText edtDoc, edtApellidoPaterno, edtApellidoMaterno, edtNombres, edtFechaNacimiento, edtEmail, edtContraseña, edtTelefono, edtDireccion;
     private Button btnSave;
     private RadioButton rbMasculino, rbFemenino;
@@ -67,6 +73,16 @@ public class RegistrarUsuarioActivity extends AppCompatActivity {
     }
 
     private void init() {
+        //TEXTLAYOUT DEL MÓDULO DE USUARIO
+        text_input_nd_usuario = findViewById(R.id.text_input_nd_usuario);
+        txtInputApellidoPaternoAgraviado = findViewById(R.id.txtInputApellidoPaternoAgraviado);
+        textInputLayout_apellidoMaternoU = findViewById(R.id.textInputLayout_apellidoMaternoU);
+        txtInputNombresUsuario = findViewById(R.id.txtInputNombresUsuario);
+        fechaNacimientoUsuario = findViewById(R.id.fechaNacimientoUsuario);
+        text_input_telefonoUsuario = findViewById(R.id.text_input_telefonoUsuario);
+        text_input_direccionUsuario = findViewById(R.id.text_input_direccionUsuario);
+        txtInputCorreoElectronicoU = findViewById(R.id.txtInputCorreoElectronicoU);
+        txtInputClaveEmail = findViewById(R.id.txtInputClaveEmail);
         //INPUTS DEL MÓDULOS DE USUARIOS
         edtDoc = findViewById(R.id.edtNroDocIdentidad);
         edtApellidoPaterno = findViewById(R.id.edtApellidoPaterno);
@@ -77,6 +93,77 @@ public class RegistrarUsuarioActivity extends AppCompatActivity {
         edtContraseña = findViewById(R.id.edtPassword);
         edtTelefono = findViewById(R.id.edtTelefonoUsuario);
         edtDireccion = findViewById(R.id.edtDireccionUsuario);
+        //ASIGNANDO LOS CHANGES LISTENER.
+        edtFechaNacimiento.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                fechaNacimientoUsuario.setErrorEnabled(false);
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+            }
+        });
+        edtDireccion.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                text_input_direccionUsuario.setErrorEnabled(false);
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+            }
+        });
+        edtEmail.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                txtInputCorreoElectronicoU.setErrorEnabled(false);
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+            }
+        });
+        edtContraseña.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                txtInputClaveEmail.setErrorEnabled(false);
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+            }
+        });
+        edtTelefono.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                text_input_telefonoUsuario.setErrorEnabled(false);
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+            }
+        });
         //MATERIAL SPINNER DEL MÓDULO DE USUARIOS
         dropdown_tipoIdentificacionU = findViewById(R.id.dropdown_tipoIdentificacionU);
         dropdown_distritoUsuario = findViewById(R.id.dropdown_distritoUsuario);
@@ -96,6 +183,7 @@ public class RegistrarUsuarioActivity extends AppCompatActivity {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
+                text_input_nd_usuario.setErrorEnabled(false);
                 buscarReniec();
             }
 
@@ -188,39 +276,139 @@ public class RegistrarUsuarioActivity extends AppCompatActivity {
         }
     }
 
-    private void registrarUsuario() {
-        try {
-            final Usuario u = new Usuario();
-            u.setNumeroIdentificacion(edtDoc.getText().toString());
-            u.setNombres(edtNombres.getText().toString());
-            u.setApellidoPaterno(edtApellidoPaterno.getText().toString());
-            u.setApellidoMaterno(edtApellidoMaterno.getText().toString());
-            String fn = edtFechaNacimiento.getText().toString();
-            u.setFechaNacimiento(new Date(new SimpleDateFormat("dd-MM-yyyy").parse(fn).getTime()));
-            u.setVigencia(true);
-            u.setCorreo(edtEmail.getText().toString());
-            u.setContraseña(edtContraseña.getText().toString());
-            u.setTipoIdentificacion(new TipoIdentificacion());
-            u.getTipoIdentificacion().setId(dropdown_tipoIdentificacionU.getSelectedItemPosition());
-            u.setDistrito(distritos.get(dropdown_distritoUsuario.getSelectedItemPosition() - 1));
-            u.setEstadoCivil(estadosCiviles.get(dropdown_estadocivilU.getSelectedItemPosition() - 1));
-            u.setDireccion(edtDireccion.getText().toString());
-            u.setTelefono(edtTelefono.getText().toString());
-            //u.getTipoIdentificacion().setId(dropdown_text.getListSelection() + 1);
-            u.getTipoIdentificacion().setEstado(true);
-            u.getTipoIdentificacion().setTipoIdentificacion("");
-            u.setSexo(rbMasculino.isChecked() ? "H" : "M");
-            u.setId(0);
-            this.viewModel.save(u).observe(this, response -> {
-                Toast.makeText(this, response.getMessage(), Toast.LENGTH_LONG).show();
-                if (response.getRpta() == 1) {
-                    Toast.makeText(this, "registro realizado con éxito 😀,ahora inicia sesión para continuar", Toast.LENGTH_SHORT).show();
-                    this.finish();
-                }
-            });
-        } catch (Exception e) {
-            Toast.makeText(this, "se ha producido un error:" + e.getMessage(), Toast.LENGTH_LONG).show();
+    private boolean validar() {
+        boolean retorno = true;
+        String direccionCasa, correoUsuario, claveUsuario, telefonoU, fechaNacU, dni;
+        direccionCasa = edtDireccion.getText().toString();
+        correoUsuario = edtEmail.getText().toString();
+        claveUsuario = edtContraseña.getText().toString();
+        telefonoU = edtTelefono.getText().toString();
+        fechaNacU = edtFechaNacimiento.getText().toString();
+        dni = edtDoc.getText().toString();
+
+        if(dni.isEmpty()){
+            text_input_nd_usuario.setError("Ingresa numero de documento");
+            retorno = false;
+        }else{
+            text_input_nd_usuario.setErrorEnabled(false);
         }
+
+        if (direccionCasa.isEmpty()) {
+            text_input_direccionUsuario.setError("Ingresa la dirección de tu casa");
+            retorno = false;
+        } else {
+            text_input_direccionUsuario.setErrorEnabled(false);
+        }
+        if (correoUsuario.isEmpty()) {
+            txtInputCorreoElectronicoU.setError("Ingresa tu correo electrónico.");
+            retorno = false;
+        } else {
+            txtInputCorreoElectronicoU.setErrorEnabled(false);
+        }
+        if (claveUsuario.isEmpty()) {
+            txtInputClaveEmail.setError("Ingresa una contraseña segura");
+            retorno = false;
+        } else {
+            txtInputClaveEmail.setErrorEnabled(false);
+        }
+        if (telefonoU.isEmpty()) {
+            text_input_telefonoUsuario.setError("Ingresa tu teléfono");
+            retorno = false;
+        } else {
+            text_input_telefonoUsuario.setErrorEnabled(false);
+        }
+        if (fechaNacU.isEmpty()) {
+            fechaNacimientoUsuario.setError("Ingresa tu fecha de nacimiento");
+            retorno = false;
+        } else {
+            fechaNacimientoUsuario.setErrorEnabled(false);
+        }
+        if(dropdown_distritoUsuario.getSelectedItemPosition() == 0){
+            TextView errorText2 = (TextView) dropdown_distritoUsuario.getSelectedView();
+            errorText2.setError("");
+            errorText2.setTextColor(Color.RED);
+            errorText2.setText("Seleccione");
+        }else{
+            dropdown_distritoUsuario.setError(null);
+        }
+        if(dropdown_estadocivilU.getSelectedItemPosition() == 0){
+            TextView errorText2 = (TextView) dropdown_estadocivilU.getSelectedView();
+            errorText2.setError("");
+            errorText2.setTextColor(Color.RED);
+            errorText2.setText("Seleccione");
+        }else{
+            dropdown_estadocivilU.setError(null);
+        }
+        if(dropdown_tipoIdentificacionU.getSelectedItemPosition() == 0){
+            TextView errorText2 = (TextView) dropdown_tipoIdentificacionU.getSelectedView();
+            errorText2.setError("");
+            errorText2.setTextColor(Color.RED);
+            errorText2.setText("Seleccione");
+        }else{
+            dropdown_tipoIdentificacionU.setError(null);
+        }
+
+        return retorno;
+    }
+
+    private void registrarUsuario() {
+        Usuario u;
+        if (validar()) {
+            u = new Usuario();
+            try {
+                u.setNumeroIdentificacion(edtDoc.getText().toString());
+                u.setNombres(edtNombres.getText().toString());
+                u.setApellidoPaterno(edtApellidoPaterno.getText().toString());
+                u.setApellidoMaterno(edtApellidoMaterno.getText().toString());
+                String fn = edtFechaNacimiento.getText().toString();
+                u.setFechaNacimiento(new Date(new SimpleDateFormat("dd-MM-yyyy").parse(fn).getTime()));
+                u.setVigencia(true);
+                u.setCorreo(edtEmail.getText().toString());
+                u.setContraseña(edtContraseña.getText().toString());
+                u.setTipoIdentificacion(new TipoIdentificacion());
+                u.getTipoIdentificacion().setId(dropdown_tipoIdentificacionU.getSelectedItemPosition());
+                u.setDistrito(distritos.get(dropdown_distritoUsuario.getSelectedItemPosition() - 1));
+                u.setEstadoCivil(estadosCiviles.get(dropdown_estadocivilU.getSelectedItemPosition() - 1));
+                u.setDireccion(edtDireccion.getText().toString());
+                u.setTelefono(edtTelefono.getText().toString());
+                //u.getTipoIdentificacion().setId(dropdown_text.getListSelection() + 1);
+                u.getTipoIdentificacion().setEstado(true);
+                u.getTipoIdentificacion().setTipoIdentificacion("");
+                u.setSexo(rbMasculino.isChecked() ? "H" : "M");
+                u.setId(0);
+                this.viewModel.save(u).observe(this, response -> {
+                    Toast.makeText(this, response.getMessage(), Toast.LENGTH_LONG).show();
+                    if (response.getRpta() == 1) {
+                        successMessage("Registro realizado con éxito 😀,ahora inicia sesión para continuar");
+                        Toast.makeText(this, "registro realizado con éxito 😀, ahora inicia sesión para continuar", Toast.LENGTH_SHORT).show();
+                        //this.finish();
+                    }
+                });
+                limpiarCampos();
+            } catch (Exception e) {
+                warningMessage("Se ha producido un error: " + e.getMessage());
+            }
+        } else {
+            errorMessage("Por favor, complete todos los campos del formulario.");
+        }
+
+    }
+
+    private void limpiarCampos() {
+        dropdown_tipoIdentificacionU.setSelection(0);
+        dropdown_estadocivilU.setSelection(0);
+        dropdown_distritoUsuario.setSelection(0);
+        edtDoc.setText("");
+        edtNombres.setText("");
+        edtApellidoMaterno.setText("");
+        edtApellidoPaterno.setText("");
+        edtFechaNacimiento.setText("");
+        edtTelefono.setText("");
+        edtDireccion.setText("");
+        edtEmail.setText("");
+        edtContraseña.setText("");
+        rbMasculino.setChecked(false);
+        rbFemenino.setChecked(false);
 
     }
 
@@ -231,5 +419,22 @@ public class RegistrarUsuarioActivity extends AppCompatActivity {
         });
 
         newFragment.show(this.getSupportFragmentManager(), "Seleccione su fecha de Nacimiento");
+    }
+
+    public void successMessage(String message) {
+        new SweetAlertDialog(this,
+                SweetAlertDialog.SUCCESS_TYPE).setTitleText("Buen Trabajo!")
+                .setContentText(message).show();
+    }
+
+    public void errorMessage(String message) {
+        new SweetAlertDialog(this,
+                SweetAlertDialog.ERROR_TYPE).setTitleText("Oops...").setContentText(message).show();
+    }
+
+    public void warningMessage(String message) {
+        new SweetAlertDialog(this,
+                SweetAlertDialog.WARNING_TYPE).setTitleText("Notificación del Sistema")
+                .setContentText(message).setConfirmText("Ok").show();
     }
 }

@@ -1,7 +1,9 @@
 package com.example.comisariaapp.fragments;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Build;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -53,6 +55,10 @@ public class ConsultarDenunciaFragment extends Fragment {
             txtNombreVPD, txtNombreFechaDenuncia;
     private ImageView imgEstado;
 
+    private Dialog dialog;
+    private Button btnAceptar;
+
+
     public ConsultarDenunciaFragment() {
     }
 
@@ -67,6 +73,19 @@ public class ConsultarDenunciaFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         denunciaViewModel = new ViewModelProvider(this).get(DenunciaViewModel.class);
         init(view);
+        /*if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP){
+
+        }*/
+
+        /*dialog = new Dialog(getContext());
+        dialog.setContentView(R.layout.custom_dialog);
+        dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        dialog.setCancelable(false);
+        btnAceptar = dialog.findViewById(R.id.btnAceptar);
+        btnAceptar.setOnClickListener(view1 -> {
+            dialog.dismiss();
+        });*/
+
     }
 
     private void init(View v) {
@@ -136,7 +155,9 @@ public class ConsultarDenunciaFragment extends Fragment {
             final Intent i = new Intent(getContext(), DetalleMisDenunciasActivity.class);
             i.putExtra("agraviados", g.toJson(agraviados));
             i.putExtra("denunciados", g.toJson(denunciados));
+            //dialog.show();
             this.startActivity(i);
         });
     }
+
 }

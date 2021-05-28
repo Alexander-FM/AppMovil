@@ -86,6 +86,7 @@
                         app:ms_thickness="1dp" />
 
                     <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/text_input_nd_usuario"
                         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
@@ -181,6 +182,7 @@
                     android:orientation="horizontal">
 
                     <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/fechaNacimientoUsuario"
                         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
@@ -202,6 +204,7 @@
                     </com.google.android.material.textfield.TextInputLayout>
 
                     <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/text_input_telefonoUsuario"
                         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
@@ -316,6 +319,7 @@
                     android:orientation="horizontal">
 
                     <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/text_input_direccionUsuario"
                         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
@@ -326,7 +330,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/poppins_medium"
-                            android:hint="Dirección"
+                            android:hint="Ingresa la dirección de tu casa"
                             android:textSize="15sp" />
                     </com.google.android.material.textfield.TextInputLayout>
 
@@ -350,7 +354,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:fontFamily="@font/poppins_medium"
-                            android:hint="E-mail"
+                            android:hint="Correo electrónico para este aplicativo"
                             android:inputType="textEmailAddress"
                             android:textSize="15sp" />
                     </com.google.android.material.textfield.TextInputLayout>
@@ -374,7 +378,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/poppins_medium"
-                            android:hint="Clave"
+                            android:hint="Ingresa una clave para este aplicativo"
                             android:inputType="textPassword"
                             android:textSize="15sp" />
                     </com.google.android.material.textfield.TextInputLayout>
@@ -401,6 +405,7 @@
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
+                        android:drawableEnd="@drawable/ic_baseline_save_24"
                         android:text="Registrar Usuario" />
                 </LinearLayout>
             </LinearLayout>

@@ -20,6 +20,8 @@ public final class Denuncia {
     private Policia policia;
     private Usuario usuario;
     private Comisarias comisarias;
+    private String latitud;
+    private String longitud;
 
     public int getId() {
         return id;
@@ -139,5 +141,21 @@ public final class Denuncia {
 
     public void setComisarias(Comisarias comisarias) {
         this.comisarias = comisarias;
+    }
+
+    public String getLatitud() {
+        return latitud;
+    }
+
+    public void setLatitud(String latitud) {
+        this.latitud = latitud;
+    }
+
+    public String getLongitud() {
+        return longitud;
+    }
+
+    public void setLongitud(String longitud) {
+        this.longitud = longitud;
     }
 }

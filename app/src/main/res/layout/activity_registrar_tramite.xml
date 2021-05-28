@@ -49,8 +49,8 @@
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/poppins_regular"
                         android:justificationMode="inter_word"
-                        android:textStyle="bold"
-                        android:text="@string/textoTrámite" />
+                        android:text="@string/textoTrámite"
+                        android:textStyle="bold" />
 
                     <TextView
                         android:layout_width="match_parent"
@@ -63,13 +63,68 @@
                         android:textColor="@color/black"
                         android:textSize="20sp" />
 
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:orientation="horizontal">
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+                            <TextView
+                                android:id="@+id/etiqueta_tipo_solicitante"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/poppins_medium"
+                                android:text="Datos del Solicitante. Seleccione"
+                                android:textSize="16sp" />
+
+                            <RadioGroup
+                                android:id="@+id/opciones_solicitante"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_below="@id/etiqueta_tipo_solicitante"
+                                android:orientation="horizontal">
+
+                                <RadioButton
+                                    android:id="@+id/radio_denunciante"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:checked="false"
+                                    android:fontFamily="@font/poppins_regular"
+                                    android:text="Denunciante" />
+
+                                <RadioButton
+                                    android:id="@+id/radio_denunciado"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginStart="10dp"
+                                    android:checked="false"
+                                    android:fontFamily="@font/poppins_regular"
+                                    android:rotationX="0"
+                                    android:text="Denunciado" />
+
+                                <RadioButton
+                                    android:id="@+id/radio_otro"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginStart="10dp"
+                                    android:checked="false"
+                                    android:fontFamily="@font/poppins_regular"
+                                    android:rotationX="0"
+                                    android:text="Otro" />
+                            </RadioGroup>
+                        </RelativeLayout>
+                    </LinearLayout>
+
                     <CheckBox
                         android:id="@+id/chkmismocorreotramite"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="-7dp"
-                        android:fontFamily="@font/poppins_medium"
-                        android:text="Utilizar mismo correo con el que me registre" />
+                        android:fontFamily="@font/poppins_regular"
+                        android:text="Utilizar mismo correo con el que me registré" />
 
                     <com.google.android.material.textfield.TextInputLayout
                         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
@@ -83,25 +138,149 @@
                             android:layout_height="wrap_content"
                             android:enabled="true"
                             android:fontFamily="@font/poppins_medium"
-                            android:hint="Correo Electronico" />
+                            android:hint="Correo Electronico"
+                            android:textSize="15sp" />
                     </com.google.android.material.textfield.TextInputLayout>
 
-                    <fr.ganfra.materialspinner.MaterialSpinner
-                        android:id="@+id/sp_tipoTramite"
+                    <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="70dp"
-                        android:layout_marginTop="10dp"
-                        app:ms_alignLabels="false"
-                        app:ms_arrowColor="@color/colorPrimary"
-                        app:ms_arrowSize="16dp"
-                        app:ms_baseColor="@color/colorPrimary"
-                        app:ms_enableFloatingLabel="true"
-                        app:ms_floatingLabelColor="@color/black"
-                        app:ms_floatingLabelText="@string/titulospinnertramite"
-                        app:ms_hint="@string/titulospinnertramite"
-                        app:ms_hintColor="@color/black"
-                        app:ms_multiline="true"
-                        app:ms_thickness="1dp" />
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <fr.ganfra.materialspinner.MaterialSpinner
+                            android:id="@+id/sp_tipoTramite"
+                            android:layout_width="0dp"
+                            android:layout_height="70dp"
+                            android:layout_marginEnd="10dp"
+                            android:layout_weight="1"
+                            app:ms_alignLabels="false"
+                            app:ms_arrowColor="@color/colorPrimary"
+                            app:ms_arrowSize="16dp"
+                            app:ms_baseColor="@color/colorPrimary"
+                            app:ms_enableFloatingLabel="true"
+                            app:ms_floatingLabelColor="@color/black"
+                            app:ms_floatingLabelText="@string/titulospinnertramite"
+                            app:ms_hint="@string/titulospinnertramite"
+                            app:ms_hintColor="@color/black"
+                            app:ms_multiline="true"
+                            app:ms_thickness="1dp" />
+
+                        <fr.ganfra.materialspinner.MaterialSpinner
+                            android:id="@+id/sp_comisariaT"
+                            android:layout_width="0dp"
+                            android:layout_height="70dp"
+                            android:layout_weight="1"
+                            app:ms_alignLabels="false"
+                            app:ms_arrowColor="@color/colorPrimary"
+                            app:ms_arrowSize="16dp"
+                            app:ms_baseColor="@color/colorPrimary"
+                            app:ms_enableFloatingLabel="true"
+                            app:ms_floatingLabelColor="@color/black"
+                            app:ms_floatingLabelText="Seleccione Comisaría"
+                            app:ms_hint="Seleccione Comisaría"
+                            app:ms_hintColor="@color/black"
+                            app:ms_multiline="true"
+                            app:ms_thickness="1dp" />
+                    </LinearLayout>
+
+                    <CheckBox
+                        android:id="@+id/chkmismotelefono"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/poppins_regular"
+                        android:text="Utilizar mismo teléfono con el que me registré" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:id="@+id/text_input_telefonoTramite"
+                            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            app:startIconDrawable="@drawable/ic_phone">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/edtTelefonoTramite"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:enabled="true"
+                                android:fontFamily="@font/poppins_medium"
+                                android:hint="Teléfono" />
+                        </com.google.android.material.textfield.TextInputLayout>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:id="@+id/text_input_motivo_denuncia"
+                            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            app:startIconDrawable="@drawable/ic_assigmente">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/edtMotivoDenunciaPolicias"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:enabled="true"
+                                android:fontFamily="@font/poppins_medium"
+                                android:hint="Motivo denuncia policial"
+                                android:textSize="15sp" />
+                        </com.google.android.material.textfield.TextInputLayout>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:id="@+id/text_input_dependenciaPolcial"
+                            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            app:startIconDrawable="@drawable/ic_assigmente">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/edtDependenciaPolicial"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:enabled="true"
+                                android:fontFamily="@font/poppins_medium"
+                                android:hint="Dependencia Policial de la cual requiere certificación."
+                                android:textSize="15sp" />
+                        </com.google.android.material.textfield.TextInputLayout>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:id="@+id/text_input_observaciones"
+                            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            app:startIconDrawable="@drawable/ic_assigmente">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/edtObservaciones"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:enabled="true"
+                                android:fontFamily="@font/poppins_medium"
+                                android:hint="Observaciones"
+                                android:textSize="15sp" />
+                        </com.google.android.material.textfield.TextInputLayout>
+                    </LinearLayout>
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
 

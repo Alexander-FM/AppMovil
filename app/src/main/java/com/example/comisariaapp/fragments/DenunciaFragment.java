@@ -71,7 +71,7 @@ public class DenunciaFragment extends Fragment {
 
     private Button btnLimpiarDenunciaF, btnGuardarDenunciaF, btnGoMaps;
     private TextInputLayout text_input_fecha, text_input_hora, text_input_direccion_hechos,
-            text_input_referencia_hechos;
+            text_input_referencia_hechos, text_input_latitud, text_input_longitud;
 
     private List<Distrito> distritos = new ArrayList<>();
     private List<VinculoParteDenunciada> vinculos = new ArrayList<>();
@@ -128,7 +128,8 @@ public class DenunciaFragment extends Fragment {
         text_input_hora = v.findViewById(R.id.text_input_hora);
         text_input_direccion_hechos = v.findViewById(R.id.text_input_direccion_hechos);
         text_input_referencia_hechos = v.findViewById(R.id.text_input_referencia_hechos);
-
+        text_input_longitud = v.findViewById(R.id.text_input_longitud);
+        text_input_latitud = v.findViewById(R.id.text_input_latitud);
         edtLatitud = v.findViewById(R.id.edtlatitud);
         edtLongitud = v.findViewById(R.id.edtlongitud);
         btnGuardarDenunciaF.setOnClickListener(view -> save()); //Guardamos la denuncia
@@ -212,12 +213,43 @@ public class DenunciaFragment extends Fragment {
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
+                text_input_referencia_hechos.setErrorEnabled(false);
             }
 
             @Override
             public void afterTextChanged(Editable editable) {
-                text_input_referencia_hechos.setErrorEnabled(false);
+            }
+        });
+        edtLatitud.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                text_input_latitud.setErrorEnabled(false);
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
+        edtLongitud.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                text_input_longitud.setErrorEnabled(false);
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
             }
         });
 
@@ -290,12 +322,14 @@ public class DenunciaFragment extends Fragment {
 
     private boolean validarCamposDenuncia() {
         boolean retorno = true;
-        String fechaHechos, horaDenuncia, lugar, referencialugar,
+        String fechaHechos, horaDenuncia, lugar, referencialugar, latitud, longitud,
                 sp_distrito, sp_comisarias, sp_vinculoPD, sp_tipoDenun;
         fechaHechos = edtFechaHechos.getText().toString();
         horaDenuncia = edtHoraHechos.getText().toString();
         lugar = edtLugarHechos.getText().toString();
         referencialugar = edtReferenciaHechos.getText().toString();
+        latitud = edtLatitud.getText().toString();
+        longitud = edtLongitud.getText().toString();
         if (fechaHechos.isEmpty()) {
             text_input_fecha.setError("Ingrese la fecha");
             retorno = false;
@@ -320,6 +354,19 @@ public class DenunciaFragment extends Fragment {
         } else {
             text_input_referencia_hechos.setErrorEnabled(false);
         }
+        if (latitud.isEmpty()) {
+            text_input_latitud.setError("Latitud desconocida");
+            retorno = false;
+        } else {
+            text_input_latitud.setErrorEnabled(false);
+        }
+        if (longitud.isEmpty()) {
+            text_input_longitud.setError("Longitud desconocida");
+            retorno = false;
+        } else {
+            text_input_longitud.setErrorEnabled(false);
+        }
+
         //VALIDACIONES DE LOS SPINNERS
         if (drop_distritoD.getSelectedItemPosition() == 0) {
             TextView errorText = (TextView) drop_distritoD.getSelectedView();
@@ -378,6 +425,8 @@ public class DenunciaFragment extends Fragment {
                 d.setDistrito(this.distritos.get(this.drop_distritoD.getSelectedItemPosition() - 1));
                 d.setComisarias(this.comisarias.get(this.drop_Comisarias.getSelectedItemPosition() - 1));
                 d.setDireccion(this.edtLugarHechos.getText().toString());
+                d.setLongitud(this.edtLongitud.getText().toString());
+                d.setLatitud(this.edtLatitud.getText().toString());
                 d.setReferenciaDireccion(this.edtReferenciaHechos.getText().toString());
                 d.setVinculoParteDenunciada(this.vinculos.get(this.drop_vpd.getSelectedItemPosition() - 1));
                 d.setTipoDenuncia(this.tiposDenuncia.get(this.drop_td.getSelectedItemPosition() - 1));

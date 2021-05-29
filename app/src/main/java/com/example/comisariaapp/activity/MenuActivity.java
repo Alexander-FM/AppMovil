@@ -23,6 +23,7 @@ import com.example.comisariaapp.communication.MainCommunication;
 import com.example.comisariaapp.entity.GridSeccion;
 import com.example.comisariaapp.entity.service.Usuario;
 import com.example.comisariaapp.utils.DateSerializer;
+import com.example.comisariaapp.utils.DenunciaManager;
 import com.example.comisariaapp.utils.TimeSerializer;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.gson.Gson;
@@ -31,6 +32,8 @@ import com.google.gson.GsonBuilder;
 import java.sql.Date;
 import java.sql.Time;
 import java.util.ArrayList;
+
+import cn.pedant.SweetAlert.SweetAlertDialog;
 
 public class MenuActivity extends AppCompatActivity implements MainCommunication {
     public Button btnVioFamiliar;
@@ -56,7 +59,7 @@ public class MenuActivity extends AppCompatActivity implements MainCommunication
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);//getPreferences(Context.MODE_PRIVATE);
         Gson g = new GsonBuilder()
                 .registerTypeAdapter(Date.class, new DateSerializer())
-                .registerTypeAdapter(Time.class,new TimeSerializer())
+                .registerTypeAdapter(Time.class, new TimeSerializer())
                 .create();
         String user = preferences.getString("UsuarioJson", null);
         if (user != null) {
@@ -96,11 +99,7 @@ public class MenuActivity extends AppCompatActivity implements MainCommunication
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
             case R.id.logout:
-                SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);//getPreferences(Context.MODE_PRIVATE);
-                SharedPreferences.Editor editor = preferences.edit();
-                editor.remove("UsuarioJson");
-                editor.apply();
-                this.loadActivity(new Intent(this, LoginActivity.class));
+                this.logout();
                 break;
             case R.id.misDenuncias:
                 this.loadActivity(new Intent(this, MisDenunciasActivity.class));
@@ -127,6 +126,31 @@ public class MenuActivity extends AppCompatActivity implements MainCommunication
     @Override
     public void loadActivity(Intent i) {
         this.startActivity(i);
+        this.overridePendingTransition(R.anim.left_in, R.anim.left_out);
+    }
+
+    @Override
+    public void onBackPressed() {
+        new SweetAlertDialog(this, SweetAlertDialog.WARNING_TYPE).setTitleText("has oprimido el botón atrás")
+                .setContentText("¿Quieres cerrar sesión?")
+                .setCancelText("No, Cancelar!").setConfirmText("Sí,cerrar sesión")
+                .showCancelButton(true).setCancelClickListener(sDialog -> {
+            sDialog.dismissWithAnimation();
+            new SweetAlertDialog(this, SweetAlertDialog.ERROR_TYPE).setTitleText("Operación cancelada")
+                    .setContentText("no has cerrado sesión")
+                    .show();
+        }).setConfirmClickListener(sweetAlertDialog -> {
+            sweetAlertDialog.dismissWithAnimation();
+            this.logout();
+        }).show();
+    }
+
+    private void logout() {
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);//getPreferences(Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.remove("UsuarioJson");
+        editor.apply();
+        this.finish();
         this.overridePendingTransition(R.anim.left_in, R.anim.left_out);
     }
 }

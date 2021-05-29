@@ -27,7 +27,6 @@ import com.google.android.gms.maps.model.MarkerOptions;
 public class ConfirmarUbicacionDialog extends DialogFragment implements
         android.view.View.OnClickListener, OnMapReadyCallback {
     public Dialog d;
-
     private GoogleMap mMap;
     private Double Lat,Long;
     private String Address;

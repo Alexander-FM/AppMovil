@@ -20,10 +20,12 @@ import com.example.comisariaapp.entity.service.Denunciado;
 import com.example.comisariaapp.entity.service.Usuario;
 import com.example.comisariaapp.entity.service.dto.DenunciaConDetallesDTO;
 import com.example.comisariaapp.utils.DateSerializer;
+import com.example.comisariaapp.utils.TimeSerializer;
 import com.example.comisariaapp.viewmodel.DenunciaViewModel;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.internal.bind.TimeTypeAdapter;
+
 import java.sql.Date;
 import java.sql.Time;
 import java.util.ArrayList;
@@ -66,7 +68,7 @@ public class MisDenunciasActivity extends AppCompatActivity implements MisDenunc
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);//getPreferences(Context.MODE_PRIVATE);
         Gson g = new GsonBuilder()
                 .registerTypeAdapter(Date.class, new DateSerializer())
-                .registerTypeAdapter(Time.class,new TimeTypeAdapter())
+                .registerTypeAdapter(Time.class, new TimeTypeAdapter())
                 .create();
         String user = preferences.getString("UsuarioJson", null);
         if (user != null) {
@@ -77,8 +79,8 @@ public class MisDenunciasActivity extends AppCompatActivity implements MisDenunc
                     dtos.addAll(response.getBody());
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
                         response.getBody().forEach(dto -> denuncias.add(dto.getDenuncia()));
-                    }else{
-                        for (DenunciaConDetallesDTO dto:response.getBody()){
+                    } else {
+                        for (DenunciaConDetallesDTO dto : response.getBody()) {
                             denuncias.add(dto.getDenuncia());
                         }
                     }
@@ -94,6 +96,7 @@ public class MisDenunciasActivity extends AppCompatActivity implements MisDenunc
     public void showDetalles(int index) {
         final Gson g = new GsonBuilder()
                 .registerTypeAdapter(Date.class, new DateSerializer())
+                .registerTypeAdapter(Time.class, new TimeSerializer())
                 .create();
         final List<Agraviado> agraviados = dtos.get(index).getAgraviados();
         final List<Denunciado> denunciados = dtos.get(index).getDenunciados();

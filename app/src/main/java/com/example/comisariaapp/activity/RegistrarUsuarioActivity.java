@@ -4,7 +4,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.lifecycle.ViewModelProvider;
 
-import android.content.Intent;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
@@ -38,7 +37,7 @@ public class RegistrarUsuarioActivity extends AppCompatActivity {
     private DistritoViewModel distritoViewModel;
     private BuscarPersonaViewModel bpViewModel;
     private EstadoCivilViewModel ecViewModel;
-    private TipoTramiteViewModel tipoViewModel;
+    private TipoIdentificacionViewModel tiViewModel;
     private UsuarioViewModel viewModel;
     public TextInputLayout textInputLayout, text_input_nd_usuario, txtInputApellidoPaternoAgraviado, textInputLayout_apellidoMaternoU,
             txtInputNombresUsuario, fechaNacimientoUsuario, text_input_telefonoUsuario, text_input_direccionUsuario,
@@ -49,8 +48,9 @@ public class RegistrarUsuarioActivity extends AppCompatActivity {
     public MaterialSpinner dropdown_tipoIdentificacionU, dropdown_distritoUsuario, dropdown_estadocivilU;
     private final List<Distrito> distritos = new ArrayList<>();
     private final List<EstadoCivil> estadosCiviles = new ArrayList<>();
-    private ArrayAdapter<String> adapterDistritos, adapterEstadosCiviles;
-    private final List<String> displayDistritos = new ArrayList<>(), displayEstadosCiviles = new ArrayList<>();
+    private final List<TipoIdentificacion> tiposIdentificacion = new ArrayList<>();
+    private ArrayAdapter<String> adapterDistritos, adapterEstadosCiviles, adapterTiposIdentificacion;
+    private final List<String> displayDistritos = new ArrayList<>(), displayEstadosCiviles = new ArrayList<>(), displayTiposIdentifiacion = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,17 +59,22 @@ public class RegistrarUsuarioActivity extends AppCompatActivity {
         final Toolbar toolbar = findViewById(R.id.toolbar);
         toolbar.setNavigationIcon(R.drawable.atras);
         toolbar.setNavigationOnClickListener(v -> {//Reemplazo con lamba
-            startActivity(new Intent(getApplicationContext(), LoginActivity.class));
-            overridePendingTransition(R.anim.rigth_in, R.anim.rigth_out);
+            this.finish();
+            this.overridePendingTransition(R.anim.rigth_in, R.anim.rigth_out);
         });
+        this.init();
+        this.initViewModels();
+        this.initAdapter();
+        this.loadData();
+    }
+
+    private void initViewModels() {
         final ViewModelProvider vmp = new ViewModelProvider(this);
         this.distritoViewModel = vmp.get(DistritoViewModel.class);
         this.bpViewModel = vmp.get(BuscarPersonaViewModel.class);
         this.ecViewModel = vmp.get(EstadoCivilViewModel.class);
         this.viewModel = vmp.get(UsuarioViewModel.class);
-        this.init();
-        this.initAdapter();
-        this.loadData();
+        this.tiViewModel = vmp.get(TipoIdentificacionViewModel.class);
     }
 
     private void init() {
@@ -192,15 +197,16 @@ public class RegistrarUsuarioActivity extends AppCompatActivity {
             }
         });
         btnSave.setOnClickListener(v -> {
-            bpViewModel.buscar(edtDoc.getText().toString()).observe(this, reniecResponse -> {
-                        if (reniecResponse.isSuccess()) {
-                            registrarUsuario();
-                        } else {
-                            Toast.makeText(this, "algunos campos ingresados no son validos,verifíquelos e intentelo de nuevo", Toast.LENGTH_LONG).show();
+            if (validar()) {
+                bpViewModel.buscar(edtDoc.getText().toString()).observe(this, reniecResponse -> {
+                            if (reniecResponse.isSuccess()) {
+                                registrarUsuario();
+                            } else {
+                                Toast.makeText(this, "algunos campos ingresados no son validos,verifíquelos e intentelo de nuevo", Toast.LENGTH_LONG).show();
+                            }
                         }
-                    }
-            );
-
+                );
+            }
         });
     }
 
@@ -231,16 +237,29 @@ public class RegistrarUsuarioActivity extends AppCompatActivity {
                 this.adapterEstadosCiviles.notifyDataSetChanged();
             }
         });
+        this.tiViewModel.list().observe(this, response -> {
+            if (response.getRpta() == 1) {
+                this.tiposIdentificacion.clear();
+                this.tiposIdentificacion.addAll(response.getBody());
+                this.displayTiposIdentifiacion.clear();
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                    this.tiposIdentificacion.forEach(e -> this.displayTiposIdentifiacion.add(e.getTipoIdentificacion()));
+                } else {
+                    for (TipoIdentificacion td : this.tiposIdentificacion) {
+                        this.displayTiposIdentifiacion.add(td.getTipoIdentificacion());
+                    }
+                }
+                this.adapterTiposIdentificacion.notifyDataSetChanged();
+            }
+        });
     }
 
     private void initAdapter() {
-        this.dropdown_tipoIdentificacionU.setAdapter(new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, new String[]{
-                "Natural",
-                "Jurídica"
-        }));
+        this.adapterTiposIdentificacion = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, displayTiposIdentifiacion);
+        this.dropdown_tipoIdentificacionU.setAdapter(this.adapterTiposIdentificacion);
         this.adapterDistritos = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, displayDistritos);
         this.adapterDistritos.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        this.dropdown_distritoUsuario.setAdapter(adapterDistritos);
+        this.dropdown_distritoUsuario.setAdapter(this.adapterDistritos);
 
         this.adapterEstadosCiviles = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, displayEstadosCiviles);
         this.adapterEstadosCiviles.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -286,10 +305,10 @@ public class RegistrarUsuarioActivity extends AppCompatActivity {
         fechaNacU = edtFechaNacimiento.getText().toString();
         dni = edtDoc.getText().toString();
 
-        if(dni.isEmpty()){
+        if (dni.isEmpty()) {
             text_input_nd_usuario.setError("Ingresa numero de documento");
             retorno = false;
-        }else{
+        } else {
             text_input_nd_usuario.setErrorEnabled(false);
         }
 
@@ -323,28 +342,28 @@ public class RegistrarUsuarioActivity extends AppCompatActivity {
         } else {
             fechaNacimientoUsuario.setErrorEnabled(false);
         }
-        if(dropdown_distritoUsuario.getSelectedItemPosition() == 0){
+        if (dropdown_distritoUsuario.getSelectedItemPosition() == 0) {
             TextView errorText2 = (TextView) dropdown_distritoUsuario.getSelectedView();
             errorText2.setError("");
             errorText2.setTextColor(Color.RED);
             errorText2.setText("Seleccione");
-        }else{
+        } else {
             dropdown_distritoUsuario.setError(null);
         }
-        if(dropdown_estadocivilU.getSelectedItemPosition() == 0){
+        if (dropdown_estadocivilU.getSelectedItemPosition() == 0) {
             TextView errorText2 = (TextView) dropdown_estadocivilU.getSelectedView();
             errorText2.setError("");
             errorText2.setTextColor(Color.RED);
             errorText2.setText("Seleccione");
-        }else{
+        } else {
             dropdown_estadocivilU.setError(null);
         }
-        if(dropdown_tipoIdentificacionU.getSelectedItemPosition() == 0){
+        if (dropdown_tipoIdentificacionU.getSelectedItemPosition() == 0) {
             TextView errorText2 = (TextView) dropdown_tipoIdentificacionU.getSelectedView();
             errorText2.setError("");
             errorText2.setTextColor(Color.RED);
             errorText2.setText("Seleccione");
-        }else{
+        } else {
             dropdown_tipoIdentificacionU.setError(null);
         }
 

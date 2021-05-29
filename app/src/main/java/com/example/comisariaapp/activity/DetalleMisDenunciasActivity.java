@@ -30,7 +30,7 @@ public class DetalleMisDenunciasActivity extends AppCompatActivity {
     private RecyclerView rcvAgraviados, rcvDenunciados;
     private final Gson g = new GsonBuilder()
             .registerTypeAdapter(Date.class, new DateSerializer())
-            .registerTypeAdapter(Time.class,new TimeSerializer())
+            .registerTypeAdapter(Time.class, new TimeSerializer())
             .create();
 
     @Override
@@ -46,7 +46,7 @@ public class DetalleMisDenunciasActivity extends AppCompatActivity {
         Toolbar toolbar = this.findViewById(R.id.toolbar);
         toolbar.setNavigationIcon(R.drawable.atras);
         toolbar.setNavigationOnClickListener(v -> {//Reemplazo con lamba
-            this.startActivity(new Intent(getApplicationContext(), MisDenunciasActivity.class));
+            this.finish();
             this.overridePendingTransition(R.anim.down_in, R.anim.down_out);
         });
         this.rcvAgraviados = this.findViewById(R.id.rcvAgraviados);
@@ -60,8 +60,6 @@ public class DetalleMisDenunciasActivity extends AppCompatActivity {
         this.rcvAgraviados.setAdapter(aDmdAdapter);
         this.dDmdAdapter = new DetalleMiDenunciaAdapter(new ArrayList<>());
         this.rcvDenunciados.setAdapter(dDmdAdapter);
-        /* this.dAdapter = new DenunciadoAdapter(null,new ArrayList<Denunciado>());
-         */
     }
 
     private void loadData() {
@@ -90,6 +88,5 @@ public class DetalleMisDenunciasActivity extends AppCompatActivity {
         }
         this.aDmdAdapter.updateItems(pAgraviados);
         this.dDmdAdapter.updateItems(pDenunciados);
-        //Toast.makeText(this, "Hello", Toast.LENGTH_SHORT).show();
     }
 }

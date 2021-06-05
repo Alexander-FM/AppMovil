@@ -19,7 +19,6 @@ import androidx.preference.PreferenceManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -28,18 +27,14 @@ import android.widget.Toast;
 
 import com.example.comisariaapp.R;
 import com.example.comisariaapp.activity.DetalleMisDenunciasActivity;
-import com.example.comisariaapp.activity.MenuActivity;
-import com.example.comisariaapp.dialog.DetalleDenunciaDialog;
 import com.example.comisariaapp.entity.service.Agraviado;
 import com.example.comisariaapp.entity.service.Denuncia;
 import com.example.comisariaapp.entity.service.Denunciado;
-import com.example.comisariaapp.entity.service.Persona;
 import com.example.comisariaapp.entity.service.Usuario;
 import com.example.comisariaapp.entity.service.dto.DenunciaConDetallesDTO;
 import com.example.comisariaapp.utils.DateSerializer;
 import com.example.comisariaapp.utils.TimeSerializer;
 import com.example.comisariaapp.viewmodel.DenunciaViewModel;
-import com.example.comisariaapp.viewmodel.TramiteViewModel;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
@@ -75,18 +70,6 @@ public class ConsultarDenunciaFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         denunciaViewModel = new ViewModelProvider(this).get(DenunciaViewModel.class);
         init(view);
-        /*if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP){
-
-        }*/
-
-        /*dialog = new Dialog(getContext());
-        dialog.setContentView(R.layout.custom_dialog);
-        dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-        dialog.setCancelable(false);
-        btnAceptar = dialog.findViewById(R.id.btnAceptar);
-        btnAceptar.setOnClickListener(view1 -> {
-            dialog.dismiss();
-        });*/
 
     }
 
@@ -158,14 +141,6 @@ public class ConsultarDenunciaFragment extends Fragment {
             i.putExtra("agraviados", g.toJson(agraviados));
             i.putExtra("denunciados", g.toJson(denunciados));
             this.startActivity(i);
-            /*
-            Bundle data = new Bundle();
-            data.putString("agraviados", g.toJson(agraviados));
-            data.putString("denunciados", g.toJson(denunciados));
-            DetalleDenunciaDialog df = new DetalleDenunciaDialog();
-            df.setArguments(data);
-            df.show(getParentFragmentManager(), "");*/
-         ;
         });
     }
 

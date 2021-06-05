@@ -32,6 +32,10 @@ public class DenunciaManager {
         save(dto);
     }
 
+    public static String getDenuncia(Context c) {
+        return getObject(c);
+    }
+
     public static String addAgraviado(final Agraviado a, Context c) {
         DenunciaConDetallesDTO dto;
         String data = getObject(c);

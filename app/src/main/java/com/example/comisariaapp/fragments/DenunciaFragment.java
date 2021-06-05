@@ -12,10 +12,11 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
+import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.preference.PreferenceManager;
 
+import android.renderscript.ScriptGroup;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
@@ -36,6 +37,7 @@ import com.example.comisariaapp.entity.service.Policia;
 import com.example.comisariaapp.entity.service.TipoDenuncia;
 import com.example.comisariaapp.entity.service.Usuario;
 import com.example.comisariaapp.entity.service.VinculoParteDenunciada;
+import com.example.comisariaapp.entity.service.dto.DenunciaConDetallesDTO;
 import com.example.comisariaapp.utils.DatePickerFragment;
 import com.example.comisariaapp.utils.DateSerializer;
 import com.example.comisariaapp.utils.DenunciaManager;
@@ -43,7 +45,6 @@ import com.example.comisariaapp.utils.TimePickerFragment;
 import com.example.comisariaapp.utils.TimeSerializer;
 import com.example.comisariaapp.viewmodel.ComisariasViewModel;
 import com.example.comisariaapp.viewmodel.DistritoViewModel;
-import com.example.comisariaapp.viewmodel.InformacionAdicionalViewModel;
 import com.example.comisariaapp.viewmodel.TipoDenunciaViewModel;
 import com.example.comisariaapp.viewmodel.VinculoParteDenunciadaViewModel;
 import com.google.android.material.textfield.TextInputLayout;
@@ -52,10 +53,14 @@ import com.google.gson.GsonBuilder;
 
 import java.sql.Date;
 import java.sql.Time;
-import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
+import java.util.concurrent.Future;
+import java.util.concurrent.FutureTask;
+
+import javax.security.auth.callback.Callback;
 
 import cn.pedant.SweetAlert.SweetAlertDialog;
 import fr.ganfra.materialspinner.MaterialSpinner;
@@ -80,25 +85,141 @@ public class DenunciaFragment extends Fragment {
     private ArrayAdapter<String> adapterDistritos, adapterVinculos, adapterTd, adapterComisarias;
     private List<String> displayDistritos = new ArrayList<>(), displayVinculos = new ArrayList<>(),
             displayTd = new ArrayList<>(), displayComisarias = new ArrayList<>();
+    private final Gson g = new GsonBuilder()
+            .registerTypeAdapter(Date.class, new DateSerializer())
+            .registerTypeAdapter(Time.class, new TimeSerializer())
+            .create();
 
     public DenunciaFragment() {
-        // Required empty public constructor
+
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_denuncia, container, false);
+        View v = inflater.inflate(R.layout.fragment_denuncia, container, false);
+        this.init(v);
+        this.initViewModels();
+        this.initAdapters();
+        this.loadData();
+        return v;
     }
 
-    @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-        init(view);
-        initViewModels();
-        initAdapters();
-        loadData();
+    private void getTempData() {
+        String d = DenunciaManager.getDenuncia(this.getContext());
+        if (d != null) {
+            Denuncia de = g.fromJson(d, DenunciaConDetallesDTO.class).getDenuncia();
+            Toast.makeText(this.getContext(), "se han encontrado datos de denuncia guardados en memoria", Toast.LENGTH_SHORT).show();
+            this.showData(de);
+
+        }
+    }
+
+    private int selectDistrito(int idD) {
+        int index = 0;
+        for (Distrito d : this.distritos) {
+            if (d.getId() == idD) {
+                return index + 1;
+            }
+            index++;
+        }
+        return 0;
+    }
+
+    private int selectComisarias(int idC) {
+        int index = 0;
+        for (Comisarias c : this.comisarias) {
+            if (c.getId() == idC) {
+                return index + 1;
+            }
+            index++;
+        }
+        return 0;
+    }
+
+    private int selectVPD(int id) {
+        int index = 0;
+        for (VinculoParteDenunciada vpd : this.vinculos) {
+            if (vpd.getId() == id) {
+                return index + 1;
+            }
+            index++;
+        }
+        return 0;
+    }
+
+    private int selectTD(int id) {
+        int index = 0;
+        for (TipoDenuncia td : this.tiposDenuncia) {
+            if (td.getId() == id) {
+                return index + 1;
+            }
+            index++;
+        }
+        return 0;
+    }
+
+    private void showData(Denuncia d) {
+        edtFechaHechos.setText(this.dateToString('D', d.getFechaHechos()));
+        edtHoraHechos.setText(this.dateToString('T', d.getHoraHechos()));
+        drop_distritoD.setSelection(this.selectDistrito(d.getDistrito().getId()));
+        drop_Comisarias.setSelection(this.selectComisarias(d.getComisarias().getId()));
+        edtLugarHechos.setText(d.getDireccion());
+        edtLongitud.setText(d.getLongitud());
+        edtLatitud.setText(d.getLatitud());
+        edtReferenciaHechos.setText(d.getReferenciaDireccion());
+        drop_vpd.setSelection(this.selectVPD(d.getVinculoParteDenunciada().getId()));
+        drop_td.setSelection(this.selectTD(d.getTipoDenuncia().getId()));
+    }
+
+    private String dateToString(char type, java.util.Date d) {
+        Calendar c = Calendar.getInstance();
+        c.setTime(d);
+        if (type == 'D') {
+            int day = c.get(Calendar.DAY_OF_MONTH), month = c.get(Calendar.MONTH) + 1, year = c.get(Calendar.YEAR);
+            return day + "-" + month + "-" + year;
+        } else {
+            int hour = c.get(Calendar.HOUR), minute = c.get(Calendar.MINUTE);
+            return hour + ":" + minute;
+        }
+
+    }
+
+    private void save() {
+        Denuncia d;
+        if (validarCamposDenuncia()) {
+            d = new Denuncia();
+            try {
+                SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getContext());//getPreferences(Context.MODE_PRIVATE);
+                d.setUsuario(g.fromJson(preferences.getString("UsuarioJson", null), Usuario.class));
+                d.setCod_denuncia("? ? ?");
+                d.setPolicia(new Policia());
+                d.getPolicia().setId(1);
+                java.util.Date date = new java.util.Date();
+                d.setFechaDenuncia(new Date(date.getTime()));
+                d.setHoraDenuncia(new Time(date.getTime()));
+                d.setFechaHechos(new Date(new SimpleDateFormat("dd-MM-yyyy").parse(this.edtFechaHechos.getText().toString()).getTime()));
+                d.setHoraHechos(new Time(new SimpleDateFormat("hh:mm").parse(edtHoraHechos.getText().toString()).getTime()));
+                d.setDistrito(this.distritos.get(this.drop_distritoD.getSelectedItemPosition() - 1));
+                d.setComisarias(this.comisarias.get(this.drop_Comisarias.getSelectedItemPosition() - 1));
+                d.setDireccion(this.edtLugarHechos.getText().toString());
+                d.setLongitud(this.edtLongitud.getText().toString());
+                d.setLatitud(this.edtLatitud.getText().toString());
+                d.setReferenciaDireccion(this.edtReferenciaHechos.getText().toString());
+                d.setVinculoParteDenunciada(this.vinculos.get(this.drop_vpd.getSelectedItemPosition() - 1));
+                d.setTipoDenuncia(this.tiposDenuncia.get(this.drop_td.getSelectedItemPosition() - 1));
+                DenunciaManager.setDenuncia(d, getContext());
+                successMessage("Los datos de la denuncia fueron guardados correctamente");
+                limpiarCamposDenuncia();
+            } catch (Exception e) {
+                warningMessage("Se ha producido un error al intentar armar la denuncia:" + e.getMessage());
+                //Toast.makeText(getContext(), "se ha producido un error al intentar armar la denuncia:" + e.getMessage(), Toast.LENGTH_LONG).show();
+                e.printStackTrace();
+            }
+        } else {
+            errorMessage("Por favor, complete todos los campos");
+        }
+
     }
 
     public void initViewModels() {
@@ -299,7 +420,12 @@ public class DenunciaFragment extends Fragment {
                 }
                 adapterTd.notifyDataSetChanged();
             }
+            new FutureTask<Object>(() -> {
+                this.getTempData();
+                return null;
+            }).run();
         });
+
     }
 
     private void initAdapters() {
@@ -401,47 +527,6 @@ public class DenunciaFragment extends Fragment {
             drop_td.setError(null);
         }
         return retorno;
-    }
-
-    private void save() {
-        Denuncia d;
-        if (validarCamposDenuncia()) {
-            d = new Denuncia();
-            try {
-                SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getContext());//getPreferences(Context.MODE_PRIVATE);
-                Gson g = new GsonBuilder()
-                        .registerTypeAdapter(Date.class, new DateSerializer())
-                        .registerTypeAdapter(Time.class, new TimeSerializer())
-                        .create();
-                d.setUsuario(g.fromJson(preferences.getString("UsuarioJson", null), Usuario.class));
-                d.setCod_denuncia("? ? ?");
-                d.setPolicia(new Policia());
-                d.getPolicia().setId(1);
-                java.util.Date date = new java.util.Date();
-                d.setFechaDenuncia(new Date(date.getTime()));
-                d.setHoraDenuncia(new Time(date.getTime()));
-                d.setFechaHechos(new Date(new SimpleDateFormat("dd-MM-yyyy").parse(this.edtFechaHechos.getText().toString()).getTime()));
-                d.setHoraHechos(new Time(new SimpleDateFormat("hh:mm").parse(edtHoraHechos.getText().toString()).getTime()));
-                d.setDistrito(this.distritos.get(this.drop_distritoD.getSelectedItemPosition() - 1));
-                d.setComisarias(this.comisarias.get(this.drop_Comisarias.getSelectedItemPosition() - 1));
-                d.setDireccion(this.edtLugarHechos.getText().toString());
-                d.setLongitud(this.edtLongitud.getText().toString());
-                d.setLatitud(this.edtLatitud.getText().toString());
-                d.setReferenciaDireccion(this.edtReferenciaHechos.getText().toString());
-                d.setVinculoParteDenunciada(this.vinculos.get(this.drop_vpd.getSelectedItemPosition() - 1));
-                d.setTipoDenuncia(this.tiposDenuncia.get(this.drop_td.getSelectedItemPosition() - 1));
-                DenunciaManager.setDenuncia(d, getContext());
-                successMessage("Los datos de la denuncia fueron guardados correctamente");
-                limpiarCamposDenuncia();
-            } catch (Exception e) {
-                warningMessage("Se ha producido un error al intentar armar la denuncia:" + e.getMessage());
-                //Toast.makeText(getContext(), "se ha producido un error al intentar armar la denuncia:" + e.getMessage(), Toast.LENGTH_LONG).show();
-                e.printStackTrace();
-            }
-        } else {
-            errorMessage("Por favor, complete todos los campos");
-        }
-
     }
 
     public void successMessage(String message) {

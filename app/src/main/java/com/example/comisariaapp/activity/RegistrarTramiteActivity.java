@@ -8,7 +8,6 @@ import androidx.preference.PreferenceManager;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
-import android.opengl.Visibility;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -16,12 +15,10 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
-import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.comisariaapp.R;
 import com.example.comisariaapp.entity.service.Comisarias;
@@ -311,13 +308,12 @@ public class RegistrarTramiteActivity extends AppCompatActivity {
                 }
                 t.setPolicia(new Policia());
                 t.getPolicia().setId(1);
-                t.setCodTramite("---");
+                t.setCodTramite("- - -");
                 if (radio_denunciante.isChecked()) {
                     t.setSolicitante(radio_denunciante.getText().toString());
-                }
-                else if (radio_denunciado.isChecked()) {
+                } else if (radio_denunciado.isChecked()) {
                     t.setSolicitante(radio_denunciado.getText().toString());
-                }else{
+                } else {
                     t.setSolicitante(edtEspecificarS.getText().toString());
                 }
                 t.setCorreo(correoUsuarioTramite.getText().toString());

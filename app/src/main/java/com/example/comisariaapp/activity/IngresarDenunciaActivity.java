@@ -18,8 +18,6 @@ import com.example.comisariaapp.fragments.AgraviadosFragment;
 import com.example.comisariaapp.fragments.DenunciaFragment;
 import com.example.comisariaapp.fragments.DenunciadosFragment;
 import com.example.comisariaapp.fragments.DetalleDenunciaFragment;
-import com.example.comisariaapp.utils.DenunciaManager;
-import com.google.android.material.badge.BadgeDrawable;
 import com.google.android.material.tabs.TabLayout;
 
 import java.util.ArrayList;

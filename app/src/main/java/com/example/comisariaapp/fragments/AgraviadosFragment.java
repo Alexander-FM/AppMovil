@@ -29,20 +29,15 @@ import com.example.comisariaapp.entity.service.Agraviado;
 import com.example.comisariaapp.entity.service.Distrito;
 import com.example.comisariaapp.entity.service.EstadoCivil;
 import com.example.comisariaapp.entity.service.InformacionAdicional;
-import com.example.comisariaapp.entity.service.TipoDenuncia;
 import com.example.comisariaapp.entity.service.TipoIdentificacion;
 import com.example.comisariaapp.entity.service.Usuario;
-import com.example.comisariaapp.entity.service.VinculoParteDenunciada;
 import com.example.comisariaapp.utils.DatePickerFragment;
 import com.example.comisariaapp.utils.DateSerializer;
 import com.example.comisariaapp.utils.DenunciaManager;
 import com.example.comisariaapp.utils.TimeSerializer;
 import com.example.comisariaapp.viewmodel.DistritoViewModel;
-import com.example.comisariaapp.viewmodel.EstadoCivilViewModel;
 import com.example.comisariaapp.viewmodel.InformacionAdicionalViewModel;
-import com.example.comisariaapp.viewmodel.TipoDenunciaViewModel;
 import com.example.comisariaapp.viewmodel.TipoIdentificacionViewModel;
-import com.example.comisariaapp.viewmodel.VinculoParteDenunciadaViewModel;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -87,7 +82,7 @@ public class AgraviadosFragment extends Fragment {
             displayEstadosCiviles = new ArrayList<>(), displayTipoIdent = new ArrayList<>();
 
     public AgraviadosFragment() {
-        // Required empty public constructor
+
     }
 
     @Override

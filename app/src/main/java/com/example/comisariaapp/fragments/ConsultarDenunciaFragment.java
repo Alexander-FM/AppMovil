@@ -1,17 +1,12 @@
 package com.example.comisariaapp.fragments;
 
-import android.app.AlertDialog;
-import android.app.Dialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.os.Build;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.widget.Toolbar;
 import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.preference.PreferenceManager;
@@ -85,31 +80,35 @@ public class ConsultarDenunciaFragment extends Fragment {
         imgEstado = v.findViewById(R.id.imgEstado);
         btnConsultarDenuncia.setOnClickListener(vi -> {
             if (!edtCodDenuncia.getText().toString().equals("")) {
-                final SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getContext());//getPreferences(Context.MODE_PRIVATE);
-                final Gson g = new GsonBuilder()
-                        .setDateFormat("yyyy-MM-dd")
-                        .registerTypeAdapter(Date.class, new DateSerializer())
-                        .create();
-                final String user = preferences.getString("UsuarioJson", null);
-                if (user != null) {
-                    final Usuario usuario = g.fromJson(user, Usuario.class);
-                    this.denunciaViewModel.consultarDenuncias(edtCodDenuncia.getText().toString(), usuario.getId()).observe(getViewLifecycleOwner(), response -> {
-                        if (response.getRpta() == 1) {
-                            if (response.getBody().getDenuncia().getId() != 0) {
-                                Toast.makeText(getContext(), "Excelente, se encontro una denuncia", Toast.LENGTH_LONG).show();
-                                this.constraintLayoutDenuncia.setVisibility(View.VISIBLE);
-                                final DenunciaConDetallesDTO dto = response.getBody();
-                                this.showDenuncia(dto.getDenuncia());
-                                this.asignarListenerConstraintLayout(dto);
-                            } else {
-                                Toast.makeText(getContext(), "Denuncia no encontrada", Toast.LENGTH_SHORT).show();
-                                this.constraintLayoutDenuncia.setVisibility(View.INVISIBLE);
-                            }
+                if (!edtCodDenuncia.getText().toString().equals("? ? ?")) {
+                    final SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getContext());//getPreferences(Context.MODE_PRIVATE);
+                    final Gson g = new GsonBuilder()
+                            .registerTypeAdapter(Date.class, new DateSerializer())
+                            .registerTypeAdapter(Time.class, new TimeSerializer())
+                            .create();
+                    final String user = preferences.getString("UsuarioJson", null);
+                    if (user != null) {
+                        final Usuario usuario = g.fromJson(user, Usuario.class);
+                        this.denunciaViewModel.consultarDenuncias(edtCodDenuncia.getText().toString(), usuario.getId()).observe(getViewLifecycleOwner(), response -> {
+                            if (response.getRpta() == 1) {
+                                if (response.getBody().getDenuncia().getId() != 0) {
+                                    Toast.makeText(getContext(), "Excelente, se encontro una denuncia", Toast.LENGTH_LONG).show();
+                                    this.constraintLayoutDenuncia.setVisibility(View.VISIBLE);
+                                    final DenunciaConDetallesDTO dto = response.getBody();
+                                    this.showDenuncia(dto.getDenuncia());
+                                    this.asignarListenerConstraintLayout(dto);
+                                } else {
+                                    Toast.makeText(getContext(), "Denuncia no encontrada", Toast.LENGTH_SHORT).show();
+                                    this.constraintLayoutDenuncia.setVisibility(View.INVISIBLE);
+                                }
 
-                        } else {
-                            Toast.makeText(getContext(), "Se ha producido un error en el servidor", Toast.LENGTH_SHORT).show();
-                        }
-                    });
+                            } else {
+                                Toast.makeText(getContext(), "Se ha producido un error en el servidor", Toast.LENGTH_SHORT).show();
+                            }
+                        });
+                    }
+                } else {
+                    Toast.makeText(getContext(), "Las denuncias sin código podrá verlas en el apartado de *Mis Denuncias*", Toast.LENGTH_SHORT).show();
                 }
             } else {
                 Toast.makeText(getContext(), "Complete los campos, por favor!", Toast.LENGTH_LONG).show();

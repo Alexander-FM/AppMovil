@@ -1,12 +1,10 @@
 package com.example.comisariaapp.fragments;
 
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.widget.Toolbar;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
@@ -22,7 +20,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.comisariaapp.R;
-import com.example.comisariaapp.activity.MenuActivity;
 import com.example.comisariaapp.entity.service.Tramite;
 import com.example.comisariaapp.entity.service.Usuario;
 import com.example.comisariaapp.utils.DateSerializer;
@@ -74,30 +71,35 @@ public class ConsultarTramiteFragment extends Fragment {
         imgEstadoTramite = v.findViewById(R.id.imgEstadoTramite);
         btnConsultar.setOnClickListener(vi -> {
             if (!edtCodTramite.getText().toString().equals("")) {
-                SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getContext());//getPreferences(Context.MODE_PRIVATE);
-                Gson g = new GsonBuilder()
-                        .registerTypeAdapter(Date.class, new DateSerializer())
-                        .registerTypeAdapter(Time.class, new TimeSerializer())
-                        .create();
-                String user = preferences.getString("UsuarioJson", null);
-                if (user != null) {
-                    Usuario usuario = g.fromJson(user, Usuario.class);
-                    tramiteViewModel.consultarTramites(edtCodTramite.getText().toString(), usuario.getId()).observe(getViewLifecycleOwner(), response -> {
-                        if (response.getRpta() == 1) {
-                            if (response.getBody().getId() != 0) {
-                                Toast.makeText(getContext(), "Excelente, se encontro un trámite", Toast.LENGTH_LONG).show();
-                                constraintLayoutTramite.setVisibility(View.VISIBLE);
-                                showTramite(response.getBody());
-                            } else {
-                                Toast.makeText(getContext(), "Trámite no encontrado", Toast.LENGTH_SHORT).show();
-                                constraintLayoutTramite.setVisibility(View.INVISIBLE);
-                            }
+                if (!edtCodTramite.getText().toString().equals("? ? ?")) {
+                    final SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getContext());//getPreferences(Context.MODE_PRIVATE);
+                    final Gson g = new GsonBuilder()
+                            .registerTypeAdapter(Date.class, new DateSerializer())
+                            .registerTypeAdapter(Time.class, new TimeSerializer())
+                            .create();
+                    final String user = preferences.getString("UsuarioJson", null);
+                    if (user != null) {
+                        Usuario usuario = g.fromJson(user, Usuario.class);
+                        tramiteViewModel.consultarTramites(edtCodTramite.getText().toString(), usuario.getId()).observe(getViewLifecycleOwner(), response -> {
+                            if (response.getRpta() == 1) {
+                                if (response.getBody().getId() != 0) {
+                                    Toast.makeText(getContext(), "Excelente, se encontro un trámite", Toast.LENGTH_LONG).show();
+                                    constraintLayoutTramite.setVisibility(View.VISIBLE);
+                                    showTramite(response.getBody());
+                                } else {
+                                    Toast.makeText(getContext(), "Trámite no encontrado", Toast.LENGTH_SHORT).show();
+                                    constraintLayoutTramite.setVisibility(View.INVISIBLE);
+                                }
 
-                        } else {
-                            Toast.makeText(getContext(), "Se ha producido un error en el servidor", Toast.LENGTH_SHORT).show();
-                        }
-                    });
+                            } else {
+                                Toast.makeText(getContext(), "Se ha producido un error en el servidor", Toast.LENGTH_SHORT).show();
+                            }
+                        });
+                    }
+                } else {
+                    Toast.makeText(getContext(), "Los trámites sin código podrá verlos en el apartado de *Mis Trámites*", Toast.LENGTH_SHORT).show();
                 }
+
             } else {
                 Toast.makeText(getContext(), "Complete los campos, por favor!", Toast.LENGTH_LONG).show();
             }

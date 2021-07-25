@@ -1,6 +1,5 @@
 package com.example.comisariaapp.adapter;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;

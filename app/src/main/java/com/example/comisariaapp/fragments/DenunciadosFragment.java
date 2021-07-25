@@ -3,7 +3,6 @@ package com.example.comisariaapp.fragments;
 import android.graphics.Color;
 import android.os.Bundle;
 
-import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
@@ -11,7 +10,6 @@ import androidx.lifecycle.ViewModelProvider;
 
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,28 +18,16 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.comisariaapp.R;
-import com.example.comisariaapp.entity.service.Agraviado;
 import com.example.comisariaapp.entity.service.Denunciado;
-import com.example.comisariaapp.entity.service.Distrito;
-import com.example.comisariaapp.entity.service.EstadoCivil;
 import com.example.comisariaapp.entity.service.InformacionAdicional;
-import com.example.comisariaapp.entity.service.TipoDenuncia;
 import com.example.comisariaapp.entity.service.TipoIdentificacion;
-import com.example.comisariaapp.entity.service.VinculoParteDenunciada;
 import com.example.comisariaapp.utils.DenunciaManager;
-import com.example.comisariaapp.viewmodel.DistritoViewModel;
-import com.example.comisariaapp.viewmodel.EstadoCivilViewModel;
 import com.example.comisariaapp.viewmodel.InformacionAdicionalViewModel;
-import com.example.comisariaapp.viewmodel.TipoDenunciaViewModel;
 import com.example.comisariaapp.viewmodel.TipoIdentificacionViewModel;
-import com.example.comisariaapp.viewmodel.VinculoParteDenunciadaViewModel;
 import com.google.android.material.textfield.TextInputLayout;
 
-import java.sql.Date;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 

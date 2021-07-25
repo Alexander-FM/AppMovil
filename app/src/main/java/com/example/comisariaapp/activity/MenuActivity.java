@@ -23,7 +23,6 @@ import com.example.comisariaapp.communication.MainCommunication;
 import com.example.comisariaapp.entity.GridSeccion;
 import com.example.comisariaapp.entity.service.Usuario;
 import com.example.comisariaapp.utils.DateSerializer;
-import com.example.comisariaapp.utils.DenunciaManager;
 import com.example.comisariaapp.utils.TimeSerializer;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.gson.Gson;

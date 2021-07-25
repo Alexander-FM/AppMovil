@@ -38,8 +38,6 @@ import com.google.gson.reflect.TypeToken;
 import java.sql.Date;
 import java.sql.Time;
 
-import dagger.Lazy;
-
 public class LoginActivity extends AppCompatActivity {
 
     private Button btnRegistrarse, btnIniciarSesion;

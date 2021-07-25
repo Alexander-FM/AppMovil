@@ -1,7 +1,5 @@
 package com.example.comisariaapp.fragments;
 
-import android.content.DialogInterface;
-import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -11,17 +9,14 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.comisariaapp.R;
-import com.example.comisariaapp.activity.MenuActivity;
 import com.example.comisariaapp.adapter.AgraviadoAdapter;
 import com.example.comisariaapp.adapter.DenunciadoAdapter;
 import com.example.comisariaapp.communication.AgraviadoCommunication;
@@ -43,7 +38,7 @@ public class DetalleDenunciaFragment extends Fragment implements AgraviadoCommun
     DenunciaConDetallesDTO dto;
 
     public DetalleDenunciaFragment() {
-        // Required empty public constructor
+
     }
 
     @Override
@@ -69,7 +64,6 @@ public class DetalleDenunciaFragment extends Fragment implements AgraviadoCommun
                 Toast.makeText(getContext(), response.getBody(), Toast.LENGTH_LONG).show();
                 if (response.getRpta() == 1) {
                     DenunciaManager.clear(getContext());
-                    //this.getActivity().startActivity(new Intent(getContext(), MenuActivity.class));
                     this.getActivity().finish();
                     this.getActivity().overridePendingTransition(R.anim.down_in, R.anim.down_out);
 

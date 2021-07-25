@@ -6,9 +6,7 @@ import javax.mail.Message;
 import javax.mail.Session;
 import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
-import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMessage;
-import javax.mail.internet.MimeMultipart;
 
 public class EmailUtil {
     private static String remitente = "comisariajlope@gmail.com";  //Para la dirección nomcuenta@gmail.com
